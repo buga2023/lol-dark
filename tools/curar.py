@@ -34,8 +34,15 @@ def curar(itens=None, pautas=None, agora=None):
     temas = {p["tema"] for p in recentes}
     campeoes = {c for p in recentes for c in p.get("campeoes", [])}
     ultimo_formato = recentes[-1]["formato"] if recentes else None
+    def num_patch(it):
+        m = re.search(r"patch-(\d+)-(\d+)", it["url"])
+        return (int(m.group(1)), int(m.group(2))) if m else None
+    patches = [num_patch(i) for i in itens if i["fonte"] == "patch" and num_patch(i)]
+    ultimo_patch = max(patches) if patches else None
     cands = []
     for it in itens:
+        if it["fonte"] == "patch" and num_patch(it) != ultimo_patch:
+            continue  # nota de patch antiga não é notícia
         if it["id"] in usados or tema(it) in temas:
             continue
         ft = formato_de(it["fonte"])

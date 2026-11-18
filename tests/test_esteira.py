@@ -70,9 +70,16 @@ def test_coletor_nao_duplica_e_sobrevive_a_fonte_fora(tmp_path):
     assert all(i["hash"] not in {json.loads(x)["hash"] for x in linhas[:len(n1)]} for i in n2)
 
 
+def test_curador_so_usa_o_patch_mais_recente():
+    itens = [{"id": f"p{k}", "url": f"https://x/patch-26-{k}-notes/", "fonte": "patch", "coletado_em": "2026-11-17"} for k in (18, 23, 20)]
+    p = curar(itens, [], datetime(2026, 11, 18, 12, tzinfo=timezone.utc))
+    assert p["tema"] == "patch-26-23"
+    assert curar(itens, [p], datetime(2026, 11, 18, 16, tzinfo=timezone.utc)) is None
+
+
 def test_curador_nao_repete_tema_em_5_dias():
-    itens = [{"id": f"i{k}", "url": f"https://x/patch-26-{k}-notes/", "fonte": "patch", "coletado_em": f"2026-11-1{k}"} for k in range(5)]
-    itens += [{"id": "dup", "url": "https://x/outro/patch-26-3-notes/", "fonte": "patch", "coletado_em": "2026-11-19"}]
+    itens = [{"id": f"i{k}", "url": f"https://ddragon/champion/C{k}.json", "fonte": "lore", "coletado_em": f"2026-11-1{k}"} for k in range(5)]
+    itens += [{"id": "dup", "url": "https://outro/champion/C3.json", "fonte": "lore", "coletado_em": "2026-11-19"}]
     pautas, temas = [], []
     for dia in range(5):
         p = curar(itens, pautas, datetime(2026, 11, 20 + dia, 12, tzinfo=timezone.utc))
