@@ -7,7 +7,7 @@ for t in 1 2 3 4; do
     && ! grep -q 'REPROVADO_REVISOR' "entregas/exemplo-$L/resumo.json" && break
   [ -d "entregas/exemplo-$L" ] && mv "entregas/exemplo-$L" "entregas/tentativa-$L-$(date +%H%M%S)"
   echo "[$L] tentativa $t"
-  LOL_LLM=claude LOL_LLM_ESCRITOR=agy LOL_AGY_MODELO=gemini-3.8-flash-high LOL_WORKERS=3 \
+  LOL_VOICESTUDIO_URL=http://127.0.0.1:3900 LOL_LLM=claude LOL_LLM_ESCRITOR=agy LOL_AGY_MODELO=gemini-3.8-flash-high LOL_WORKERS=3 \
     .venv/bin/python -u tools/exemplos.py "$L"
 done
 # entrega final: copia para Downloads o melhor resultado desta letra

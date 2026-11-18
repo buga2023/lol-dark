@@ -158,10 +158,12 @@ def produzir(letra, usados, destino_nome=None):
         from legendas import legendar
         from narrar import narrar
         from qualidade import avaliar_narracao
-        total = narrar(rot, pasta / "audio", "kokoro")
+        from narrar import provedores
+        prov = provedores()[0]
+        total = narrar(rot, pasta / "audio", prov)
         leg, info = legendar(rot, pasta / "audio")
         voz = avaliar_narracao(rot, pasta / "audio", info.get("inteligibilidade"))
-        res["voz"] = {"provedor": "kokoro pf_dora (reserva, assets/voz/voz.json)", "duracao": round(total, 2), **voz}
+        res["voz"] = {"provedor": prov, "duracao": round(total, 2), **voz}
         log(destino, f"  voz: {total:.1f}s, inteligibilidade {info.get('inteligibilidade')}, {voz['falhas'] or 'ok'}")
 
         # ---- vídeo: render + masterização + qa.py, até 3 voltas ----
