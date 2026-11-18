@@ -193,8 +193,9 @@ def imprimir(laudo_):
 
 
 def main():
-    if len(sys.argv) < 2:
-        sys.exit(__doc__)
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+        print(__doc__)
+        sys.exit(0 if len(sys.argv) > 1 else 2)
     esperada = float(sys.argv[sys.argv.index("--esperada") + 1]) if "--esperada" in sys.argv else None
     l = avaliar(sys.argv[1], esperada)
     if "--json" in sys.argv:

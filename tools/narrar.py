@@ -16,6 +16,26 @@ FOLGA = 0.3
 PRONUNCIA = json.loads((RAIZ / "assets" / "pronuncia.json").read_text())
 
 
+# Tratamento para tirar a "secura" de TTS: corta grave inútil, calor leve no grave-médio, sala bem pequena
+# (reflexões curtas e baixas) e compressão suave. A masterização faz de-esser, presença e loudness depois.
+TRATAMENTO = ("highpass=f=75,equalizer=f=220:t=q:w=1.0:g=1.8,equalizer=f=4200:t=q:w=2:g=-1.2,"
+              "aecho=0.92:0.55:17|29|41:0.10|0.07|0.04,acompressor=threshold=-22dB:ratio=2:attack=12:release=160:makeup=1.5")
+
+
+def pausa(narracao):
+    """Respiro no fim da cena conforme a pontuação, em vez de um silêncio fixo."""
+    fim = narracao.strip()[-1:]
+    return {"?": 0.42, "!": 0.36, ".": 0.30, ",": 0.18, ":": 0.22}.get(fim, 0.26)
+
+
+def tratar_voz(wav):
+    tmp = Path(wav).with_suffix(".bruto.wav")
+    Path(wav).replace(tmp)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-af", TRATAMENTO, "-ar", "24000", "-ac", "1", str(wav)],
+                   check=True)
+    tmp.unlink()
+
+
 def falar(texto):
     for k, v in PRONUNCIA.items():
         texto = texto.replace(k, v)
@@ -120,28 +140,23 @@ def narrar(roteiro, pasta, provedor=None):
     pasta.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, HYPERFRAMES_PYTHON=os.environ.get("HYPERFRAMES_PYTHON", str(RAIZ / ".venv/bin/python")))
     provedor = provedor or provedores()[0]
+    ultima = roteiro["cenas"][-1]["n"]
     roteiro["voz"] = provedor
     for c in roteiro["cenas"]:
         wav = pasta / f"cena{c['n']}.wav"
         texto = c["narracao"].replace("%", " por cento")
-        if provedor == "voicemaker":
-            voicemaker(texto, wav)
-            c["duracao"] = round(duracao(wav) + FOLGA, 3)
-            continue
-        if provedor == "voicestudio":
-            voicestudio(texto, wav)
-            c["duracao"] = round(duracao(wav) + FOLGA, 3)
-            continue
-        if provedor == "gemini":
-            gemini_tts(texto, wav)
-            c["duracao"] = round(duracao(wav) + FOLGA, 3)
+        if provedor in ("voicemaker", "voicestudio", "gemini"):
+            {"voicemaker": voicemaker, "voicestudio": voicestudio, "gemini": gemini_tts}[provedor](texto, wav)
+            tratar_voz(wav)
+            c["duracao"] = round(duracao(wav) + (0.08 if c["n"] == ultima else pausa(c["narracao"])), 3)
             continue
         r = subprocess.run(["npx", "--no-install", "hyperframes", "tts", falar(c["narracao"]), "-v", VOZ,
                             "-l", "pt-br", "-s", VELOCIDADE, "-o", str(wav), "--json"],
                            cwd=RAIZ, env=env, capture_output=True, text=True, timeout=600)
         if r.returncode != 0 or not wav.exists():
             raise RuntimeError(f"TTS falhou na cena {c['n']}: {r.stdout[-300:]} {r.stderr[-300:]}")
-        c["duracao"] = round(duracao(wav) + FOLGA, 3)
+        tratar_voz(wav)
+        c["duracao"] = round(duracao(wav) + (0.08 if c["n"] == ultima else pausa(c["narracao"])), 3)  # loop: sem respiro no fim
     total = sum(c["duracao"] for c in roteiro["cenas"])
     return total
 

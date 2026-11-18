@@ -64,6 +64,8 @@ def validar_roteiro(roteiro):
         for fr in re.split(r"[.!?:]+", c["narracao"]):
             if len(fr.split()) > MAX_PALAVRAS_FRASE:
                 erros.append(f"cena {c['n']}: frase com {len(fr.split())} palavras (máx {MAX_PALAVRAS_FRASE})")
+        if c.get("antes") and c.get("depois") and len(c["texto_tela"]) > 22:
+            erros.append(f"cena {c['n']}: texto_tela com {len(c['texto_tela'])} caracteres em cena de número (máx 22)")
         if len(c["texto_tela"].replace("·", " ").split()) > MAX_PALAVRAS_TELA:
             erros.append(f"cena {c['n']}: texto_tela com mais de {MAX_PALAVRAS_TELA} palavras")
     ids = {f["id"] for f in roteiro["fontes"]}

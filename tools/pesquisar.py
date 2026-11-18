@@ -1,6 +1,6 @@
 """Pautas perenes: o Claude pesquisa a pergunta na web; o código confere a fonte antes de virar roteiro.
 
-Regra (assets/pautas_evergreen.json): nunca responder de memória. Só segue se:
+Regra (data/pautas_evergreen.json): nunca responder de memória. Só segue se:
 - cada URL é de domínio oficial ou primário (DOMINIOS);
 - a página baixada por nós contém de verdade os trechos citados pelo Claude.
 Sem isso: None (pauta 'sem_fonte').
@@ -78,7 +78,7 @@ def pesquisar(pauta_ev, chamar=None, get=requests.get):
 
 
 if __name__ == "__main__":
-    ev = json.loads((Path(__file__).parent.parent / "assets" / "pautas_evergreen.json").read_text())
+    ev = json.loads((Path(__file__).parent.parent / "data" / "pautas_evergreen.json").read_text())
     p = next(x for x in ev["pautas"] if x["id"] == sys.argv[1])
     it = pesquisar(p)
     print(json.dumps({k: v for k, v in (it or {"sem_fonte": True}).items() if k != "texto_bruto"}, ensure_ascii=False, indent=1))

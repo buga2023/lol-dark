@@ -48,3 +48,52 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:var(--fund
 .leg { position:absolute; left:0; width:890px; top:0; font-family:"Archivo"; font-weight:800; font-size:84px; line-height:1.02; text-transform:uppercase; letter-spacing:-.01em; }
 .leg span { display:inline-block; margin-right:18px; color:var(--creme); }
 .leg span.chave { color:var(--ouro); }
+/* arte em tela cheia atrás de tudo (movimento em quadro inteiro + ocupação), escurecida no azul da marca */
+.bgart { position:absolute; inset:0; overflow:hidden; }
+.bgart img { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; opacity:.30; }
+.bgart::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, var(--fundo) 0%, transparent 30%, transparent 55%, var(--fundo) 100%); }
+.foto.solo { height:560px; }
+.quadro { position:absolute; inset:0; }
+.flood { position:absolute; inset:0; background:var(--ouro); opacity:0; pointer-events:none; }
+.manchete .tw { display:inline-block; }
+.foto .mov { position:absolute; inset:0; }
+.foto video { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.hab { position:absolute; right:12px; top:12px; font-family:"JetBrains Mono"; font-weight:700; font-size:30px;
+  color:var(--fundo2); background:var(--ouro); padding:2px 12px; }
+/* camada de gameplay: dentro da moldura dourada da cena (borda de 4px) */
+.vidbox { position:absolute; left:64px; top:372px; width:882px; height:452px; overflow:hidden; }
+.vidbox.solo { height:552px; }
+.vidbox .mov { position:absolute; inset:0; }
+.vidbox video { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.foto .hab { z-index:2; }
+/* gameplay em largura total (estrela da cena): moldura só em cima e embaixo */
+.vidbox { left:0; top:360px; width:1080px; height:640px; border-top:4px solid var(--ouro); border-bottom:4px solid var(--ouro); }
+.vidbox.solo { height:700px; }
+.vidbox .hab { right:64px; top:16px; }
+.cena .foto:empty { display:none; }
+
+.cena.comvideo .manchete { top:1034px; font-size:104px; }
+.cena.comvideo .manchete.grande { top:1078px; font-size:104px; }
+.cena.comvideo .numeros { top:1128px; }
+.cena.comvideo .depois { font-size:128px; }
+.cena.comvideo .antes { font-size:80px; }
+.cena.comvideo .rotulo { top:1276px; }
+.cena.comvideo .legendas { top:1330px; }
+.cena.comvideo .leg { font-size:72px; }
+/* ---- edicao-wardado ---- */
+.marca { opacity:.12; }
+.cena.comvideo .foto { left:0; top:360px; width:1080px; height:640px; border:0; border-top:4px solid var(--ouro); border-bottom:4px solid var(--ouro); }
+.cena.comvideo .foto.solo { height:700px; }
+.cena.comvideo .foto img { object-position:50% 30%; }
+.bgart::after { background:linear-gradient(180deg, var(--fundo2) 0%, transparent 30%, transparent 55%, var(--fundo2) 100%); }
+.rotulo { background:var(--fundo2); color:var(--creme); border-left:4px solid var(--ouro); }
+.legendas { text-align:center; }
+.leg { left:0; right:0; width:auto; display:flex; justify-content:center; }
+.leg > .caixa, .leg { }
+.cena .leg { font-family:"Archivo"; font-weight:800; font-size:72px; }
+.legbox span { display:inline-block; color:var(--creme); margin:0 8px; }
+.legbox { display:inline-block; background:rgba(5,28,51,.85); border-radius:12px; padding:10px 22px; }
+#marcadagua { position:absolute; left:80px; top:380px; display:flex; align-items:center; gap:10px; color:var(--creme); opacity:.78;
+  font-family:"JetBrains Mono"; font-weight:700; font-size:22px; letter-spacing:.1em; text-transform:uppercase; text-shadow:0 2px 6px rgba(0,0,0,.6); }
+#marcadagua svg { width:30px; height:30px; color:var(--ouro); }
+.vidbox .hab { right:64px; top:16px; }

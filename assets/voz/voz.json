@@ -1,0 +1,11 @@
+{
+  "definitiva": null,
+  "reserva": {
+    "provedor": "kokoro",
+    "voz": "pf_dora",
+    "idioma": "pt-br",
+    "velocidade": 1.08,
+    "tratamento": "tools/narrar.py TRATAMENTO (passa-alta 75 Hz, calor em 220 Hz, sala curta, compressão leve)",
+    "motivo": "Sem assets/voz/referencia.wav autorizada. VoiceStudio (Thalia, CC BY 4.0) testado na nuvem, mas sem prova de consentimento de quem gravou e sem espaço em disco local."
+  }
+}

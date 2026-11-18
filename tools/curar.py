@@ -17,11 +17,11 @@ FORMATOS = {"patch": ("patch60", "noticia"), "noticias": ("noticia", "noticia"),
 
 def formato_de(fonte):
     f = FORMATOS.get(fonte)
-    return f if f and (RAIZ / "compositions" / f"{f[0]}.css").exists() else None
+    return f if f and (RAIZ / "compositions" / f[0] / "formato.css").exists() else None
 
 
 def evergreen():
-    arq = RAIZ / "assets" / "pautas_evergreen.json"
+    arq = RAIZ / "data" / "pautas_evergreen.json"
     return json.loads(arq.read_text()) if arq.exists() else {"pautas": []}
 
 
@@ -62,7 +62,7 @@ def curar(itens=None, pautas=None, agora=None, perenes=True):
     for ev in (evergreen()["pautas"] if perenes else []):
         if ev["id"] in usados or ev.get("status") != "aberta" or ev["serie"] in ("numero-do-patch", "ganhou-perdeu"):
             continue
-        if not (RAIZ / "compositions" / f"{ev['formato']}.css").exists():
+        if not (RAIZ / "compositions" / ev["formato"] / "formato.css").exists():
             continue
         prioridade = (False, ev["serie"] not in series_recentes, f"0{999 - int(ev['id'][3:]):03d}")  # ev-001 primeiro
         cands.append((prioridade, {"id": ev["id"], "url": ev["id"], "fonte": "evergreen", "serie": ev["serie"]},

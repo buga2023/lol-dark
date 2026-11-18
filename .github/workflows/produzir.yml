@@ -70,8 +70,12 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
           overwrite: true
+          include-hidden-files: true
       - uses: ./.github/actions/salvar-estado
         if: always()
+      - name: permissões do cache do VoiceStudio
+        if: always() && vars.LOL_VOICESTUDIO == '1'
+        run: sudo chown -R "$(id -u):$(id -g)" ~/vsdata || true
       - name: keepalive (o GitHub pausa cron de repo público sem commit no branch padrão por 60 dias)
         if: github.event_name == 'schedule'
         run: |
