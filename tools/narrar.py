@@ -128,7 +128,7 @@ def gemini_tts(texto, wav):
 
 
 VS_URL = os.environ.get("LOL_VOICESTUDIO_URL", "")  # ex.: http://127.0.0.1:3900 (container no runner)
-VS_VOZ = os.environ.get("LOL_VS_VOZ", "female, young adult, moderate pitch")  # tags de design do OmniVoice
+VS_VOZ = os.environ.get("LOL_VS_VOZ") or json.loads((RAIZ / "assets" / "voz" / "voz.json").read_text()).get("voz", "female, young adult, moderate pitch")  # tags de design do OmniVoice
 
 
 def voicestudio(texto, wav):
@@ -176,7 +176,7 @@ def narrar(roteiro, pasta, provedor=None):
         wav = pasta / f"cena{c['n']}.wav"
         texto = c["narracao"].replace("%", " por cento")
         if provedor in ("voicemaker", "voicestudio", "gemini"):
-            {"voicemaker": voicemaker, "voicestudio": voicestudio, "gemini": gemini_tts}[provedor](texto, wav)
+            {"voicemaker": voicemaker, "voicestudio": voicestudio, "gemini": gemini_tts}[provedor](falar(c["narracao"]), wav)
             tratar_voz(wav)
             c["duracao"] = round(duracao(wav) + (0.08 if c["n"] == ultima else pausa(c["narracao"])), 3)
             continue

@@ -1,79 +1,581 @@
 {
-  "regra": "Cada pauta é uma pergunta. O vídeo só existe se o coletor achar fonte oficial ou primária que responda; sem fonte, marque 'sem_fonte' e passe para a próxima. Nunca responda de memória.",
-  "series": {
-    "voce-sabia": {"formato": "voce-sabia", "descricao": "Lore e bastidores. Perene."},
-    "fala-escondida": {"formato": "voce-sabia", "descricao": "Falas e interações que só tocam em situações específicas. Perene."},
-    "de-onde-vem": {"formato": "voce-sabia", "descricao": "Origem de gírias que todo jogador usa. Perene."},
-    "o-jogo-nao-te-conta": {"formato": "top5", "descricao": "Mecânicas que o cliente não explica. Perene, revisar a cada temporada."},
-    "itens-e-coisas-removidas": {"formato": "voce-sabia", "descricao": "Coisas que saíram do jogo e deixaram saudade. Perene."},
-    "numero-do-patch": {"formato": "patch60", "descricao": "Um número do patch e o que ele muda na prática. A cada patch."},
-    "ganhou-perdeu": {"formato": "patch60", "descricao": "Veredito do patch com opinião. A cada patch."},
-    "dados-da-semana": {"formato": "top5", "descricao": "Ranking com dados públicos. Semanal."},
-    "noticia": {"formato": "noticia", "descricao": "Novidade do dia. Sob demanda."},
-    "recordes": {"formato": "voce-sabia", "descricao": "Recordes do competitivo contados com dados, sem clipes. Perene."}
+ "regra": "Cada pauta é uma pergunta. O vídeo só existe se o coletor achar fonte oficial ou primária que responda; sem fonte, marque 'sem_fonte' e passe para a próxima. Nunca responda de memória.",
+ "series": {
+  "voce-sabia": {
+   "formato": "voce-sabia",
+   "descricao": "Lore e bastidores. Perene."
   },
-  "pautas": [
-    {"id": "ev-001", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Quais campeões têm o nome tirado do apelido de fundadores ou funcionários da Riot?", "status": "aberta"},
-    {"id": "ev-002", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "De onde veio o Urf, o peixe-boi, e por que ele virou modo de jogo?", "status": "aberta"},
-    {"id": "ev-003", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Que campeões foram anunciados ou vazados e nunca lançados?", "status": "aberta"},
-    {"id": "ev-004", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "O que era o Instituto da Guerra e por que a Riot apagou essa parte do lore?", "status": "aberta"},
-    {"id": "ev-005", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Qual skin foi criada junto com um fã por meio de uma ação beneficente?", "status": "aberta"},
-    {"id": "ev-006", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Que mapas já existiram e foram removidos do jogo?", "status": "aberta"},
-    {"id": "ev-007", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Qual foi o primeiro campeão lançado depois do lançamento oficial do jogo?", "status": "aberta"},
-    {"id": "ev-008", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Quais campeões têm parentesco ou relação direta no lore que pouca gente conhece?", "status": "aberta"},
-    {"id": "ev-009", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "O que mudou entre a história de um campeão em Arcane e a versão do jogo?", "status": "aberta"},
-    {"id": "ev-010", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Qual campeão ficou mais tempo sem receber skin?", "status": "aberta"},
-    {"id": "ev-011", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Como nasceu o meme do 'Mordekaiser es número uno'?", "status": "aberta"},
-    {"id": "ev-012", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Quem dubla em português campeões famosos, e que outros personagens essa pessoa faz?", "status": "aberta"},
-    {"id": "ev-013", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Qual é a origem da rivalidade entre Demacia e Noxus no lore atual?", "status": "aberta"},
-    {"id": "ev-014", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Que campeão teve a história totalmente reescrita em um rework?", "status": "aberta"},
-    {"id": "ev-015", "serie": "voce-sabia", "formato": "voce-sabia", "pergunta": "Qual é o significado dos nomes das regiões de Runeterra?", "status": "aberta"},
-    {"id": "ev-016", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Que falas especiais um campeão tem ao encontrar um rival do lore?", "status": "aberta"},
-    {"id": "ev-017", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Quais campeões têm fala escondida ao comprar um item específico?", "status": "aberta"},
-    {"id": "ev-018", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Que provocações mudam quando o alvo é um campeão específico?", "status": "aberta"},
-    {"id": "ev-019", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Quais skins trocam todas as falas do campeão?", "status": "aberta"},
-    {"id": "ev-020", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Que campeão tem piada interna com outro jogo da Riot?", "status": "aberta"},
-    {"id": "ev-021", "serie": "fala-escondida", "formato": "voce-sabia", "pergunta": "Quais falas de morte ou de reviver quase ninguém ouviu?", "status": "aberta"},
-    {"id": "ev-022", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "De onde vem a palavra 'gank'?", "status": "aberta"},
-    {"id": "ev-023", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "Por que chamamos de 'kitar' o ato de bater e andar?", "status": "aberta"},
-    {"id": "ev-024", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "De onde vem 'smurf' para conta secundária?", "status": "aberta"},
-    {"id": "ev-025", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "Por que o atirador é chamado de 'ADC' e o que mudou no nome oficial?", "status": "aberta"},
-    {"id": "ev-026", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "De onde vem 'feedar' e 'inting'?", "status": "aberta"},
-    {"id": "ev-027", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "O que significa 'peel' e por que usamos esse termo?", "status": "aberta"},
-    {"id": "ev-028", "serie": "de-onde-vem", "formato": "voce-sabia", "pergunta": "Por que a selva tem 'buff azul' e 'buff vermelho' no vocabulário mesmo com nomes oficiais diferentes?", "status": "aberta"},
-    {"id": "ev-029", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Como funciona a agressividade das tropas quando você ataca um campeão?", "status": "aberta"},
-    {"id": "ev-030", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Quanto tempo dura cada tipo de sentinela e quantas você pode ter no mapa?", "status": "aberta"},
-    {"id": "ev-031", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Como a recompensa por abate cresce e quando ela zera?", "status": "aberta"},
-    {"id": "ev-032", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "O que define qual jogador recebe o ouro da placa da torre?", "status": "aberta"},
-    {"id": "ev-033", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Como funciona a experiência compartilhada na rota?", "status": "aberta"},
-    {"id": "ev-034", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Que atributos escondidos mudam entre campeões corpo a corpo e à distância?", "status": "aberta"},
-    {"id": "ev-035", "serie": "o-jogo-nao-te-conta", "formato": "top5", "pergunta": "Quais itens têm passiva que não acumula com outro item?", "status": "aberta"},
-    {"id": "ev-036", "serie": "itens-e-coisas-removidas", "formato": "voce-sabia", "pergunta": "Que itens lendários foram removidos e por quê?", "status": "aberta"},
-    {"id": "ev-037", "serie": "itens-e-coisas-removidas", "formato": "voce-sabia", "pergunta": "Que feitiços de invocador já existiram e sumiram?", "status": "aberta"},
-    {"id": "ev-038", "serie": "itens-e-coisas-removidas", "formato": "voce-sabia", "pergunta": "Como eram as runas e talentos antes do sistema atual?", "status": "aberta"},
-    {"id": "ev-039", "serie": "itens-e-coisas-removidas", "formato": "voce-sabia", "pergunta": "Que habilidade antiga de um campeão foi removida por ser forte demais?", "status": "aberta"},
-    {"id": "ev-040", "serie": "itens-e-coisas-removidas", "formato": "voce-sabia", "pergunta": "Que modos de jogo rotativos nunca mais voltaram?", "status": "aberta"},
-    {"id": "ev-041", "serie": "numero-do-patch", "formato": "patch60", "pergunta": "Qual mudança numérica do patch mais altera uma troca de nível 1 a 3?", "status": "aberta"},
-    {"id": "ev-042", "serie": "numero-do-patch", "formato": "patch60", "pergunta": "Qual campeão ganhou mais poder no patch, em uma frase e um número?", "status": "aberta"},
-    {"id": "ev-043", "serie": "numero-do-patch", "formato": "patch60", "pergunta": "Qual nerf do patch parece pequeno mas mata um combo?", "status": "aberta"},
-    {"id": "ev-044", "serie": "numero-do-patch", "formato": "patch60", "pergunta": "Que item mudou e quais três campeões sentem mais?", "status": "aberta"},
-    {"id": "ev-045", "serie": "ganhou-perdeu", "formato": "patch60", "pergunta": "Quem ganhou e quem perdeu o patch em cada rota?", "status": "aberta"},
-    {"id": "ev-046", "serie": "ganhou-perdeu", "formato": "patch60", "pergunta": "Qual mudança do patch mira o competitivo e sobra para a ranqueada?", "status": "aberta"},
-    {"id": "ev-047", "serie": "ganhou-perdeu", "formato": "patch60", "pergunta": "Qual campeão esquecido volta a ser jogável neste patch?", "status": "aberta"},
-    {"id": "ev-048", "serie": "dados-da-semana", "formato": "top5", "pergunta": "Quais são os 3 campeões com maior taxa de vitória por rota nesta semana?", "status": "aberta"},
-    {"id": "ev-049", "serie": "dados-da-semana", "formato": "top5", "pergunta": "Qual é o campeão mais banido e ele merece?", "status": "aberta"},
-    {"id": "ev-050", "serie": "dados-da-semana", "formato": "top5", "pergunta": "Que escolha quase ninguém joga mas vence acima da média?", "status": "aberta"},
-    {"id": "ev-051", "serie": "dados-da-semana", "formato": "top5", "pergunta": "Qual campeão mais caiu de popularidade depois do patch?", "status": "aberta"},
-    {"id": "ev-052", "serie": "noticia", "formato": "noticia", "pergunta": "Que skins foram anunciadas e qual é o destaque?", "status": "aberta"},
-    {"id": "ev-053", "serie": "noticia", "formato": "noticia", "pergunta": "O que a Riot anunciou no último vídeo de desenvolvedores?", "status": "aberta"},
-    {"id": "ev-054", "serie": "noticia", "formato": "noticia", "pergunta": "Que campeão novo ou atualização visual foi revelado, e o que já se sabe do kit?", "status": "aberta"},
-    {"id": "ev-055", "serie": "noticia", "formato": "noticia", "pergunta": "Que mudança de sistema (ranqueada, passe, loja) entra e quando?", "status": "aberta"},
-    {"id": "ev-056", "serie": "noticia", "formato": "noticia", "pergunta": "Qual foi o resultado e o número mais marcante da rodada do campeonato brasileiro?", "status": "aberta"},
-    {"id": "ev-057", "serie": "noticia", "formato": "noticia", "pergunta": "O que esperar do próximo patch segundo a prévia oficial?", "status": "aberta"},
-    {"id": "ev-058", "serie": "recordes", "formato": "voce-sabia", "pergunta": "Qual foi a partida profissional mais longa da história?", "status": "aberta"},
-    {"id": "ev-059", "serie": "recordes", "formato": "voce-sabia", "pergunta": "Qual jogador tem mais títulos mundiais e com quais campeões?", "status": "aberta"},
-    {"id": "ev-060", "serie": "recordes", "formato": "voce-sabia", "pergunta": "Que campeão nunca foi escolhido em um Mundial?", "status": "aberta"},
-    {"id": "ev-061", "serie": "recordes", "formato": "voce-sabia", "pergunta": "Qual foi a maior virada de ouro em uma final?", "status": "aberta"},
-    {"id": "ev-062", "serie": "recordes", "formato": "voce-sabia", "pergunta": "Que time brasileiro foi mais longe em torneio internacional?", "status": "aberta"}
-  ]
+  "fala-escondida": {
+   "formato": "voce-sabia",
+   "descricao": "Falas e interações que só tocam em situações específicas. Perene."
+  },
+  "de-onde-vem": {
+   "formato": "voce-sabia",
+   "descricao": "Origem de gírias que todo jogador usa. Perene."
+  },
+  "o-jogo-nao-te-conta": {
+   "formato": "top5",
+   "descricao": "Mecânicas que o cliente não explica. Perene, revisar a cada temporada."
+  },
+  "itens-e-coisas-removidas": {
+   "formato": "voce-sabia",
+   "descricao": "Coisas que saíram do jogo e deixaram saudade. Perene."
+  },
+  "numero-do-patch": {
+   "formato": "patch60",
+   "descricao": "Um número do patch e o que ele muda na prática. A cada patch."
+  },
+  "ganhou-perdeu": {
+   "formato": "patch60",
+   "descricao": "Veredito do patch com opinião. A cada patch."
+  },
+  "dados-da-semana": {
+   "formato": "top5",
+   "descricao": "Ranking com dados públicos. Semanal."
+  },
+  "noticia": {
+   "formato": "noticia",
+   "descricao": "Novidade do dia. Sob demanda."
+  },
+  "recordes": {
+   "formato": "voce-sabia",
+   "descricao": "Recordes do competitivo contados com dados, sem clipes. Perene."
+  },
+  "jogada-de-pro": {
+   "formato": "voce-sabia",
+   "descricao": "Uma jogada famosa do competitivo, reconstruída com dados, arte e clipe oficial da habilidade. Sem trecho de transmissão."
+  },
+  "agenda-competitiva": {
+   "formato": "noticia",
+   "descricao": "O que vale assistir na semana: CBLOL, LCK, LPL, LEC, LTA, MSI e Mundial. Fonte: lolesports.com."
+  },
+  "build-do-patch": {
+   "formato": "patch60",
+   "descricao": "Uma build ou runa que mudou de valor no patch e por quê. Fonte: notas de patch e wiki oficial."
+  },
+  "lore": {
+   "formato": "voce-sabia",
+   "descricao": "História de um campeão ou região contada como história. Fonte: Universo de LoL e Data Dragon."
+  }
+ },
+ "pautas": [
+  {
+   "id": "ev-001",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Quais campeões têm o nome tirado do apelido de fundadores ou funcionários da Riot?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-002",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "De onde veio o Urf, o peixe-boi, e por que ele virou modo de jogo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-003",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Que campeões foram anunciados ou vazados e nunca lançados?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-004",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "O que era o Instituto da Guerra e por que a Riot apagou essa parte do lore?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-005",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Qual skin foi criada junto com um fã por meio de uma ação beneficente?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-006",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Que mapas já existiram e foram removidos do jogo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-007",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Qual foi o primeiro campeão lançado depois do lançamento oficial do jogo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-008",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Quais campeões têm parentesco ou relação direta no lore que pouca gente conhece?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-009",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "O que mudou entre a história de um campeão em Arcane e a versão do jogo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-010",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Qual campeão ficou mais tempo sem receber skin?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-011",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Como nasceu o meme do 'Mordekaiser es número uno'?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-012",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Quem dubla em português campeões famosos, e que outros personagens essa pessoa faz?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-013",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Qual é a origem da rivalidade entre Demacia e Noxus no lore atual?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-014",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Que campeão teve a história totalmente reescrita em um rework?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-015",
+   "serie": "voce-sabia",
+   "formato": "voce-sabia",
+   "pergunta": "Qual é o significado dos nomes das regiões de Runeterra?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-016",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Que falas especiais um campeão tem ao encontrar um rival do lore?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-017",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Quais campeões têm fala escondida ao comprar um item específico?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-018",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Que provocações mudam quando o alvo é um campeão específico?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-019",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Quais skins trocam todas as falas do campeão?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-020",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Que campeão tem piada interna com outro jogo da Riot?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-021",
+   "serie": "fala-escondida",
+   "formato": "voce-sabia",
+   "pergunta": "Quais falas de morte ou de reviver quase ninguém ouviu?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-022",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "De onde vem a palavra 'gank'?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-023",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "Por que chamamos de 'kitar' o ato de bater e andar?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-024",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "De onde vem 'smurf' para conta secundária?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-025",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "Por que o atirador é chamado de 'ADC' e o que mudou no nome oficial?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-026",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "De onde vem 'feedar' e 'inting'?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-027",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "O que significa 'peel' e por que usamos esse termo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-028",
+   "serie": "de-onde-vem",
+   "formato": "voce-sabia",
+   "pergunta": "Por que a selva tem 'buff azul' e 'buff vermelho' no vocabulário mesmo com nomes oficiais diferentes?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-029",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Como funciona a agressividade das tropas quando você ataca um campeão?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-030",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Quanto tempo dura cada tipo de sentinela e quantas você pode ter no mapa?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-031",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Como a recompensa por abate cresce e quando ela zera?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-032",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "O que define qual jogador recebe o ouro da placa da torre?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-033",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Como funciona a experiência compartilhada na rota?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-034",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Que atributos escondidos mudam entre campeões corpo a corpo e à distância?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-035",
+   "serie": "o-jogo-nao-te-conta",
+   "formato": "top5",
+   "pergunta": "Quais itens têm passiva que não acumula com outro item?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-036",
+   "serie": "itens-e-coisas-removidas",
+   "formato": "voce-sabia",
+   "pergunta": "Que itens lendários foram removidos e por quê?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-037",
+   "serie": "itens-e-coisas-removidas",
+   "formato": "voce-sabia",
+   "pergunta": "Que feitiços de invocador já existiram e sumiram?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-038",
+   "serie": "itens-e-coisas-removidas",
+   "formato": "voce-sabia",
+   "pergunta": "Como eram as runas e talentos antes do sistema atual?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-039",
+   "serie": "itens-e-coisas-removidas",
+   "formato": "voce-sabia",
+   "pergunta": "Que habilidade antiga de um campeão foi removida por ser forte demais?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-040",
+   "serie": "itens-e-coisas-removidas",
+   "formato": "voce-sabia",
+   "pergunta": "Que modos de jogo rotativos nunca mais voltaram?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-041",
+   "serie": "numero-do-patch",
+   "formato": "patch60",
+   "pergunta": "Qual mudança numérica do patch mais altera uma troca de nível 1 a 3?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-042",
+   "serie": "numero-do-patch",
+   "formato": "patch60",
+   "pergunta": "Qual campeão ganhou mais poder no patch, em uma frase e um número?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-043",
+   "serie": "numero-do-patch",
+   "formato": "patch60",
+   "pergunta": "Qual nerf do patch parece pequeno mas mata um combo?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-044",
+   "serie": "numero-do-patch",
+   "formato": "patch60",
+   "pergunta": "Que item mudou e quais três campeões sentem mais?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-045",
+   "serie": "ganhou-perdeu",
+   "formato": "patch60",
+   "pergunta": "Quem ganhou e quem perdeu o patch em cada rota?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-046",
+   "serie": "ganhou-perdeu",
+   "formato": "patch60",
+   "pergunta": "Qual mudança do patch mira o competitivo e sobra para a ranqueada?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-047",
+   "serie": "ganhou-perdeu",
+   "formato": "patch60",
+   "pergunta": "Qual campeão esquecido volta a ser jogável neste patch?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-048",
+   "serie": "dados-da-semana",
+   "formato": "top5",
+   "pergunta": "Quais são os 3 campeões com maior taxa de vitória por rota nesta semana?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-049",
+   "serie": "dados-da-semana",
+   "formato": "top5",
+   "pergunta": "Qual é o campeão mais banido e ele merece?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-050",
+   "serie": "dados-da-semana",
+   "formato": "top5",
+   "pergunta": "Que escolha quase ninguém joga mas vence acima da média?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-051",
+   "serie": "dados-da-semana",
+   "formato": "top5",
+   "pergunta": "Qual campeão mais caiu de popularidade depois do patch?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-052",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "Que skins foram anunciadas e qual é o destaque?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-053",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "O que a Riot anunciou no último vídeo de desenvolvedores?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-054",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "Que campeão novo ou atualização visual foi revelado, e o que já se sabe do kit?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-055",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "Que mudança de sistema (ranqueada, passe, loja) entra e quando?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-056",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "Qual foi o resultado e o número mais marcante da rodada do campeonato brasileiro?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-057",
+   "serie": "noticia",
+   "formato": "noticia",
+   "pergunta": "O que esperar do próximo patch segundo a prévia oficial?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-058",
+   "serie": "recordes",
+   "formato": "voce-sabia",
+   "pergunta": "Qual foi a partida profissional mais longa da história?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-059",
+   "serie": "recordes",
+   "formato": "voce-sabia",
+   "pergunta": "Qual jogador tem mais títulos mundiais e com quais campeões?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-060",
+   "serie": "recordes",
+   "formato": "voce-sabia",
+   "pergunta": "Que campeão nunca foi escolhido em um Mundial?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-061",
+   "serie": "recordes",
+   "formato": "voce-sabia",
+   "pergunta": "Qual foi a maior virada de ouro em uma final?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-062",
+   "serie": "recordes",
+   "formato": "voce-sabia",
+   "pergunta": "Que time brasileiro foi mais longe em torneio internacional?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-063",
+   "serie": "jogada-de-pro",
+   "formato": "voce-sabia",
+   "pergunta": "Qual foi a jogada mais lembrada de uma final de Mundial e o que a tornou possível?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-064",
+   "serie": "jogada-de-pro",
+   "formato": "voce-sabia",
+   "pergunta": "Que roubo de Barão decidiu uma série de playoffs?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-065",
+   "serie": "jogada-de-pro",
+   "formato": "voce-sabia",
+   "pergunta": "Qual pentakill em Mundial entrou para a história e com qual campeão?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-066",
+   "serie": "jogada-de-pro",
+   "formato": "voce-sabia",
+   "pergunta": "Que jogada de um time brasileiro em torneio internacional ficou famosa?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-067",
+   "serie": "agenda-competitiva",
+   "formato": "noticia",
+   "pergunta": "Quais séries das ligas principais valem assistir nesta semana e por quê?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-068",
+   "serie": "agenda-competitiva",
+   "formato": "noticia",
+   "pergunta": "Quando começa o próximo torneio internacional e quem já está classificado?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-069",
+   "serie": "agenda-competitiva",
+   "formato": "noticia",
+   "pergunta": "Como está a tabela do campeonato brasileiro e quem pode cair ou subir?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-070",
+   "serie": "build-do-patch",
+   "formato": "patch60",
+   "pergunta": "Que item mudou neste patch e em qual campeão a build muda por causa disso?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-071",
+   "serie": "build-do-patch",
+   "formato": "patch60",
+   "pergunta": "Que runa ficou melhor ou pior neste patch e quem deve trocar?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-072",
+   "serie": "lore",
+   "formato": "voce-sabia",
+   "pergunta": "Qual é a história de origem de um campeão popular que pouca gente leu?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-073",
+   "serie": "lore",
+   "formato": "voce-sabia",
+   "pergunta": "O que aconteceu com Shurima e quem são os Ascendentes?",
+   "status": "aberta"
+  },
+  {
+   "id": "ev-074",
+   "serie": "lore",
+   "formato": "voce-sabia",
+   "pergunta": "Quem são os Vigias e o que é o Vazio em Runeterra?",
+   "status": "aberta"
+  }
+ ]
 }

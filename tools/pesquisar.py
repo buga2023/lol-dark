@@ -20,10 +20,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from coletar import UA, texto_limpo  # noqa: E402
 
 DOMINIOS = ("leagueoflegends.com", "riotgames.com", "lolesports.com", "wiki.leagueoflegends.com",
-            "ddragon.leagueoflegends.com", "cblol.gg")
+            "ddragon.leagueoflegends.com", "cblol.gg", "lol.fandom.com")  # lol.fandom.com = Leaguepedia (dados do competitivo)
 SISTEMA = ("Você é pesquisador de um canal de League of Legends. Responda a pergunta SOMENTE com o que encontrar em "
            "fontes oficiais da Riot (leagueoflegends.com, universe.leagueoflegends.com, riotgames.com, lolesports.com, "
-           "cblol.gg) ou na wiki da comunidade que a Riot indica (wiki.leagueoflegends.com). Use WebSearch e WebFetch. "
+           "cblol.gg), na Leaguepedia (lol.fandom.com, só para dados do competitivo) ou na wiki da comunidade que a Riot indica (wiki.leagueoflegends.com). Use WebSearch e WebFetch. "
            "Nunca responda de memória. Para cada fonte, copie de 1 a 3 trechos LITERAIS da página (como aparecem nela) "
            "que sustentam a resposta. Se não achar fonte desses domínios, devolva {\"sem_fonte\": true, \"motivo\": \"...\"}. "
            "Formato: {\"resposta\": \"...\", \"fontes\": [{\"url\": \"https://...\", \"trechos\": [\"...\"]}]}")

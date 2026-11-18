@@ -1,12 +1,19 @@
 {
-  "motor": "gemini-tts",
-  "modelo": "Gemini 3.8 Flash TTS (confirmar o identificador na documentacao oficial)",
+  "motor": "voicestudio-omnivoice",
+  "modelo": "ghcr.io/debpalash/voicestudio:0.5.6 (OmniVoice)",
   "idioma": "pt-BR",
-  "voz": "A DEFINIR PELO DONO depois de ouvir no AI Studio",
+  "voz": "female, young adult, moderate pitch",
   "estilo": "Português do Brasil. Voz feminina jovem adulta, suave e próxima, como uma amiga que joga explicando no Discord. Ritmo natural, com pausas curtas e respiração. Sem tom de locutora, de propaganda ou de telejornal. Ênfase leve nos números.",
   "reserva": {
     "motor": "kokoro",
     "voz": "pf_dora",
     "uso": "somente rascunho"
+  },
+  "escolhida_em": "2026-11-18",
+  "escolhida_por": "dono, depois de ouvir voz-teste-1-media.mp4",
+  "observacao": "Voz desenhada por tags (não é clone). Dono pediu para seguir melhorando. Gemini 3.8 Flash TTS fica como candidata quando houver chave de API válida.",
+  "candidata": {
+    "motor": "gemini-tts",
+    "modelo": "gemini-3.8-flash-tts"
   }
 }
