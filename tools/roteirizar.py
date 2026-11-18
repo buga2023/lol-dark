@@ -15,7 +15,8 @@ SKILL = RAIZ / ".claude" / "skills" / "roteiro-short-lol" / "SKILL.md"
 def sistema():
     s = SKILL.read_text().split("---", 2)[-1]
     return (s + "\n\nFOCO: um Short de 25 a 45 s defende UMA ideia. Prefira 1 ou 2 campeões com a consequência prática "
-            "de cada mudança para quem joga a uma lista de 4 campeões só com números. Conte as palavras antes de devolver."
+            "de cada mudança para quem joga a uma lista de 4 campeões só com números. Conte as palavras antes de devolver: "
+            "60 a 110 no total. Em cena com 'antes' e 'depois', o texto_tela tem no máximo 22 caracteres."
             "\n\nCOMO O EDITOR VAI DAR NOTA (soma 100; só publica com 80+):\n"
             + "\n".join(f"- {k} ({p}): {q}" for k, (p, q) in RUBRICA.items())
             + "\nOpinião marcada como opinião ('pra mim') é desejada; só não apresente opinião como fato."
@@ -28,12 +29,17 @@ def sistema():
 
 def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
     if gerar is None:
-        from llm import gerar_json as gerar
+        from llm import gerar_json
+
+        def gerar(si, u, temperatura=0.9):
+            return gerar_json(si, u, temperatura=temperatura, papel="escritor")
     entrada = {"pauta": {k: pauta[k] for k in ("id", "tipo", "formato", "variacao")},
                "campeoes_evitar": pauta.get("campeoes_evitar", []),
                "fontes": [{"id": "f1", "url": fonte["url"], "coletado_em": fonte["coletado_em"], "texto_bruto": fonte["texto_bruto"][:30000]}],
                "historico": historico}
     msg = json.dumps(entrada, ensure_ascii=False)
+    if pauta.get("instrucoes"):
+        msg += f"\n\nINSTRUÇÕES DESTA PAUTA (obrigatórias): {pauta['instrucoes']}"
     if feedback and anterior is None:
         msg += f"\n\nO vídeo anterior desta pauta foi reprovado. Corrija: {json.dumps(feedback, ensure_ascii=False)}"
     elif feedback:

@@ -124,7 +124,7 @@
           },
           "asset": {
             "type": "string",
-            "pattern": "^(ddragon:champion/[A-Za-z]+|nenhum)$"
+            "pattern": "^(ddragon:champion/[A-Za-z]+|ilustracao:champion/[A-Za-z]+|nenhum)$"
           },
           "fonte_id": {
             "type": [

@@ -97,3 +97,13 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:var(--fund
   font-family:"JetBrains Mono"; font-weight:700; font-size:22px; letter-spacing:.1em; text-transform:uppercase; text-shadow:0 2px 6px rgba(0,0,0,.6); }
 #marcadagua svg { width:30px; height:30px; color:var(--ouro); }
 .vidbox .hab { right:64px; top:16px; }
+/* variações da skill video-short-lol: noite-ouro = azul-noite liso, caixas azul-naval;
+   ouro-cheio = só a abertura (cena 1) em faixa dourada chapada com texto azul-noite, depois volta ao azul */
+.v1 { --fundo:#051C33; --fundo2:#0B3D6A; --ouro:#D1A147; --creme:#EDEAE4; --apagado:#4A6584; }
+.v1 .fundo { background:var(--fundo) !important; }
+.v2 { --fundo:#0B3D6A; --fundo2:#051C33; --ouro:#D1A147; --creme:#EDEAE4; --apagado:#6F8FB0; --faixa:#D1A147; --faixa-txt:#051C33; }
+.v2 #c1 .fundo { background:#D1A147 !important; }
+.v2 #c1 .bgart { display:none; }
+.v2 #c1 .manchete, .v2 #c1 .cab, .v2 #c1 .cab span, .v2 #c1 .cab b { color:#051C33; }
+.v2 #c1 .cab { border-color:#051C33; }
+.v2 #c1 .cab .logo { color:#051C33; }

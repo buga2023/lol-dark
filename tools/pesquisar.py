@@ -54,8 +54,9 @@ def conferir(fontes, get=requests.get):
             continue
         texto = texto_limpo(r.text) if "<" in r.text[:500] else r.text
         alvo = _norm(texto)
-        if any(len(_norm(t)) >= 20 and _norm(t) in alvo for t in f.get("trechos", [])):
-            ok.append((url, texto[:30000]))
+        bons = [t for t in f.get("trechos", []) if len(_norm(t)) >= 20 and _norm(t) in alvo]
+        if bons:
+            ok.append((url, texto[:30000], bons))
     return ok
 
 
@@ -70,11 +71,12 @@ def pesquisar(pauta_ev, chamar=None, get=requests.get):
     if not conf:
         return None
     url = conf[0][0]
-    texto = f"PERGUNTA DA PAUTA: {pauta_ev['pergunta']}\n\n" + "\n\n".join(f"[FONTE {u}]\n{t}" for u, t in conf)
+    texto = f"PERGUNTA DA PAUTA: {pauta_ev['pergunta']}\n\n" + "\n\n".join(f"[FONTE {u}]\n{t}" for u, t, _ in conf)
     agora = datetime.now(timezone.utc).isoformat(timespec="seconds")
     return {"id": pauta_ev["id"], "url": url, "fonte": "evergreen", "titulo": pauta_ev["pergunta"], "texto_bruto": texto,
             "coletado_em": agora, "hash": hashlib.sha256(url.encode()).hexdigest()[:16],
-            "urls": [u for u, _ in conf]}
+            "urls": [u for u, _, _ in conf], "fontes": [{"url": u, "trechos": tr} for u, _, tr in conf],
+            "resposta": r.get("resposta", "")}
 
 
 if __name__ == "__main__":

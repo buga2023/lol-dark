@@ -1,6 +1,6 @@
 ---
 name: edicao-wardado
-description: Guia de edição do Wardado Clips. Define layout, tipografia, cor, movimento, cortes, legendas e som para que todo Short tenha a mesma estética. Use sempre que for criar ou ajustar uma composição, decidir como uma cena se move, escolher transição, estilizar legenda ou adicionar som em um vídeo do canal.
+description: "Guia de edição do Wardado Clips: layout, tipografia, cor, movimento, cortes, legendas e som. Use ao criar ou ajustar uma composição, cena, transição, legenda ou som de um vídeo do canal."
 ---
 
 # Edição do Wardado Clips

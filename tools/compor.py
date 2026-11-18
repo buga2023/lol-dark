@@ -101,10 +101,10 @@ def alternar_palco(tl, sid, t0, d, fecho=False):
         tl.append(f'tl.set("#{sid}-vw",{{opacity:0}},0);')
     if not fecho:
         tl.append(f'tl.set("#{sid}-vw",{{opacity:0}},{t0 + d:.3f});')
-    limite = max(0.0, d - 1.2) if fecho else d
+    limite = max(0.0, d - float(os.environ.get("LOL_FECHO_VIDEO", "1.2"))) if fecho else d
     k, tt = 0, 0.0
     while tt < limite - 0.05:
-        fim = min(limite, tt + 1.8)
+        fim = min(limite, tt + float(os.environ.get("LOL_SEGMENTO", "1.8")))
         ir = "" if k == 0 else ",immediateRender:false"
         if k % 2 == 0:
             tl.append(f'tl.set("#{sid}-vw",{{opacity:1}},{t0 + tt:.3f});')
@@ -115,7 +115,7 @@ def alternar_palco(tl, sid, t0, d, fecho=False):
                       f'{{scale:{esc * 1.06:.3f},xPercent:{xp},yPercent:{yp - 2},duration:{fim - tt:.2f},ease:"none"{ir}}},{t0 + tt:.3f});')
         k, tt = k + 1, fim
     if fecho:  # loop: os últimos 1,2 s mostram o gameplay, como o primeiro quadro
-        tl.append(f'tl.set("#{sid}-vw",{{opacity:1}},{t0 + max(0.0, d - 1.2):.3f});')
+        tl.append(f'tl.set("#{sid}-vw",{{opacity:1}},{t0 + max(0.0, d - float(os.environ.get("LOL_FECHO_VIDEO", "1.2"))):.3f});')
 
 
 def caixa_video(sid, t0, d, z, solo=False, hab=None):
@@ -128,7 +128,7 @@ def caixa_video(sid, t0, d, z, solo=False, hab=None):
 
 
 def campeao(asset):
-    return asset.split("/", 1)[1] if asset.startswith("ddragon:champion/") else None
+    return asset.split("/", 1)[1] if asset.startswith(("ddragon:champion/", "ilustracao:champion/")) else None
 
 
 def direcao_de(antes, depois):
@@ -328,7 +328,9 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
             if vid:
                 partes.append(f'<div class="foto"><img id="{sid}-art" src="assets/{ch}.jpg" alt=""></div>')
                 alternar_palco(tl, sid, t0, d)
-                videos.append(caixa_video(sid, t0, d, z + 1, hab=(letra if letra != "P" else "PASSIVA") if citada else None))
+                ilustr = c["asset"].startswith("ilustracao:")
+                videos.append(caixa_video(sid, t0, d, z + 1,
+                                          hab="ILUSTRAÇÃO" if ilustr else ((letra if letra != "P" else "PASSIVA") if citada else None)))
             else:
                 partes.append(f'<div class="foto"><img id="{sid}-img" src="assets/{ch}.jpg" alt=""></div>')
             planos = [(1.0, 0, 0), (1.12, -4, -3), (1.0, 2, 2), (1.15, 3, -4)]  # aberto e salto de zoom (até 115%)

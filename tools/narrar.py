@@ -13,7 +13,7 @@ VOZ = os.environ.get("LOL_VOZ", "pf_dora")  # Kokoro, só reserva
 VELOCIDADE = os.environ.get("LOL_VELOCIDADE", "1.08")
 FOLGA = 0.3
 # Pronúncia: o espeak lê nomes de campeão em português; corrigimos os que soam errado.
-PRONUNCIA = json.loads((RAIZ / "assets" / "pronuncia.json").read_text())
+PRONUNCIA = json.loads((RAIZ / "assets" / "voz" / "pronuncia.json").read_text())
 
 
 # Tratamento para tirar a "secura" de TTS: corta grave inútil, calor leve no grave-médio, sala bem pequena
@@ -73,28 +73,58 @@ def voicemaker(texto, wav):
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mp3), "-ar", "24000", "-ac", "1", str(wav)], check=True)
 
 
-GEMINI_TTS_MODELO = os.environ.get("LOL_GEMINI_TTS", "gemini-2.5-flash-preview-tts")
-GEMINI_VOZ = os.environ.get("LOL_GEMINI_VOZ", "Leda")
-ESTILO = ("Narre em português do Brasil com voz feminina suave, calma e descontraída, como uma amiga que joga LoL "
-          "contando a novidade no Discord. Ritmo natural, sem tom de locutor, sem exagero. Texto: ")
+VOZ_CANAL = json.loads((RAIZ / "assets" / "voz" / "voz.json").read_text())
+GEMINI_TTS_MODELO = os.environ.get("LOL_GEMINI_TTS", "gemini-3.8-flash-tts")  # docs oficiais, 18/11/2026
+
+
+def _achar_audio(no):
+    """Procura o primeiro campo base64 de áudio na resposta (o formato exato da Interactions API não foi testado)."""
+    if isinstance(no, dict):
+        for k in ("data", "audio", "inline_data", "inlineData"):
+            v = no.get(k)
+            if isinstance(v, str) and len(v) > 1000:
+                return v
+        for v in no.values():
+            r = _achar_audio(v)
+            if r:
+                return r
+    if isinstance(no, list):
+        for v in no:
+            r = _achar_audio(v)
+            if r:
+                return r
+    return None
 
 
 def gemini_tts(texto, wav):
+    """Voz do canal (skill video-short-lol): Gemini 3.8 Flash TTS, Interactions API, voz e estilo do voz.json.
+    Saída documentada: WAV 24 kHz mono 16 bits."""
     import base64
     import requests
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_TTS_MODELO}:generateContent"
-    corpo = {"contents": [{"parts": [{"text": ESTILO + texto}]}],
-             "generationConfig": {"responseModalities": ["AUDIO"],
-                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": GEMINI_VOZ}}}}}
-    r = requests.post(url, json=corpo, headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]}, timeout=180)
+    voz = os.environ.get("LOL_GEMINI_VOZ") or VOZ_CANAL.get("voz")
+    if not voz or voz.startswith("A DEFINIR"):
+        raise RuntimeError("voz do canal ainda não definida em assets/voz/voz.json")
+    corpo = {"model": GEMINI_TTS_MODELO,
+             "input": [{"type": "user_input", "content": [{"type": "text", "text": texto,
+                                                            "annotations": [{"type": "speech_metadata",
+                                                                             "style": VOZ_CANAL["estilo"]}]}]}],
+             "response_format": {"type": "audio"},
+             "generation_config": {"speech_config": [{"voice": voz}]}}
+    r = requests.post("https://generativelanguage.googleapis.com/v1beta/interactions", json=corpo,
+                      headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]}, timeout=180)
     if r.status_code != 200:
         raise RuntimeError(f"Gemini TTS HTTP {r.status_code}")
-    dados = r.json()["candidates"][0]["content"]["parts"][0]["inlineData"]["data"]
-    pcm = Path(wav).with_suffix(".pcm")
-    pcm.write_bytes(base64.b64decode(dados))
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", str(pcm),
-                    "-af", "silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
-                           "silenceremove=start_periods=1:start_threshold=-45dB,areverse", str(wav)], check=True)
+    dados = _achar_audio(r.json())
+    if not dados:
+        raise RuntimeError("Gemini TTS: resposta sem áudio reconhecível")
+    bruto = base64.b64decode(dados)
+    tmp = Path(wav).with_suffix(".g.wav" if bruto[:4] == b"RIFF" else ".pcm")
+    tmp.write_bytes(bruto)
+    entrada = ["-i", str(tmp)] if bruto[:4] == b"RIFF" else ["-f", "s16le", "-ar", "24000", "-ac", "1", "-i", str(tmp)]
+    subprocess.run(["ffmpeg", "-v", "error", "-y", *entrada, "-af",
+                    "silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
+                    "silenceremove=start_periods=1:start_threshold=-45dB,areverse", "-ar", "24000", "-ac", "1", str(wav)],
+                   check=True)
 
 
 VS_URL = os.environ.get("LOL_VOICESTUDIO_URL", "")  # ex.: http://127.0.0.1:3900 (container no runner)

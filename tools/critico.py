@@ -52,3 +52,19 @@ def avaliar(roteiro, textos_fonte, juiz=None, historico=(), critica_anterior=Non
     nota = round(nota)
     return {"nota": nota, "aprovado": nota >= NOTA_MINIMA, "problemas": [], "criterios": crit,
             "melhorias": r.get("melhorias", [])}
+
+
+EDITORIAL = ("Você é um jogador Ouro de League of Legends com pressa, rolando o feed. Leia o roteiro e dê nota de 1 a 5 "
+             "(5 = excelente) em: gancho (o primeiro segundo e meio sozinho te faz parar?), angulo (diz o que isso muda "
+             "no SEU jogo, não só o que mudou?), clareza (dá para dizer em uma frase o que você aprendeu?), fecho "
+             "(responde ao gancho e emenda no começo?). Seja rigoroso. Responda só JSON: {\"gancho\": n, \"angulo\": n, "
+             "\"clareza\": n, \"fecho\": n, \"o_que_aprendi\": \"uma frase\", \"comentario\": \"o que melhorar\"}")
+
+
+def nota_editorial(roteiro, juiz=None):
+    if juiz is None:
+        from llm import gerar_json as juiz
+    r = juiz(EDITORIAL, json.dumps({k: roteiro[k] for k in ("titulo", "angulo", "cenas")}, ensure_ascii=False), temperatura=0)
+    notas = {k: int(r.get(k, 0)) for k in ("gancho", "angulo", "clareza", "fecho")}
+    return {"notas": notas, "aprovado": all(v >= 4 for v in notas.values()),
+            "o_que_aprendi": r.get("o_que_aprendi", ""), "comentario": r.get("comentario", "")}

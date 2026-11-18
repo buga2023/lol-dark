@@ -1,11 +1,12 @@
 {
-  "definitiva": null,
+  "motor": "gemini-tts",
+  "modelo": "Gemini 3.8 Flash TTS (confirmar o identificador na documentacao oficial)",
+  "idioma": "pt-BR",
+  "voz": "A DEFINIR PELO DONO depois de ouvir no AI Studio",
+  "estilo": "Português do Brasil. Voz feminina jovem adulta, suave e próxima, como uma amiga que joga explicando no Discord. Ritmo natural, com pausas curtas e respiração. Sem tom de locutora, de propaganda ou de telejornal. Ênfase leve nos números.",
   "reserva": {
-    "provedor": "kokoro",
+    "motor": "kokoro",
     "voz": "pf_dora",
-    "idioma": "pt-br",
-    "velocidade": 1.08,
-    "tratamento": "tools/narrar.py TRATAMENTO (passa-alta 75 Hz, calor em 220 Hz, sala curta, compressão leve)",
-    "motivo": "Sem assets/voz/referencia.wav autorizada. VoiceStudio (Thalia, CC BY 4.0) testado na nuvem, mas sem prova de consentimento de quem gravou e sem espaço em disco local."
+    "uso": "somente rascunho"
   }
 }

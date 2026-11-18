@@ -458,6 +458,29 @@ O Claude opera o canal com quatro skills, e o caminho até a publicação autom�
 
 O prompt da fase 1 está na conversa. Os vídeos de exemplo usam a voz reserva enquanto a voz definitiva não existe.
 
+## Arquitetura revisada: Claude orquestra, Antigravity executa
+
+A esteira passa a rodar na sua máquina, com o Orca coordenando o Claude Code e o Antigravity CLI, e isso substitui o Gemini CLI e o GitHub Actions da primeira versão desta spec.
+
+**Correção da spec original.** O [Gemini CLI foi encerrado para assinantes Pro e Ultra em 18 de junho de 2026](https://dev.to/arindam_1729/antigravity-cli-a-hands-on-guide-to-googles-terminal-coding-agent-5bc7) e substituído pelo Antigravity CLI (`agy`). Onde este documento diz "Gemini CLI", leia `agy`; a pasta `.gemini/skills` precisa ser trocada pela pasta de skills que o Antigravity lê.
+
+| Papel | Agente | O que faz |
+| --- | --- | --- |
+| Orquestrador e fiscal | Claude Code | Pauta, fontes, verificação, nota editorial, `qa.py`, decisão de publicar |
+| Executor de geração | Antigravity (`agy`) com o Ultra | Rascunho de roteiro, composições HyperFrames, imagens de fundo |
+| Coordenação | [Orca](https://github.com/stablyai/orca) | Um worktree por agente, acompanhamento das tarefas, CLI próprio |
+
+**O que isso resolve.** O [modo headless do `agy` usa o login em cache](https://antigravity.google/docs/cli/headless/), então a cota do Ultra vale sem chave de API. E o vídeo passa a ser gerado por um modelo e fiscalizado por outro, o que pega mais erro do que um modelo revisando a si mesmo.
+
+**O que isso custa.** O Orca é um aplicativo local, então a esteira só roda com a sua máquina ligada. Em CI sem login o `agy` sai com erro de autenticação, o que tira o GitHub Actions do caminho principal.
+
+| A validar | Por quê |
+| --- | --- |
+| Permissões no modo headless | Um [teste independente](https://www.testmuai.com/blog/google-antigravity-review/) viu o `agy -p` negar em silêncio o que não estava pré-aprovado e reportar sucesso sem saída |
+| Agentes remotos do Antigravity | A [documentação](https://antigravity.google/docs/features/) descreve sessões em ambiente gerenciado pelo Google para assinantes Pro e Ultra, que seguem rodando com a máquina desligada; pode ser o caminho para rodar 24h |
+| Geração de imagem e vídeo pelo `agy` | Há uma ferramenta de imagem embutida; não confirmei se o Veo é acessível pelo CLI ou só pelo Flow |
+| Limite semanal do Ultra | Não medi quantos vídeos por semana a cota aguenta |
+
 ## Riscos, pendências e ordem de execução
 
 O maior risco é de plataforma, não técnico: a auditoria da API do YouTube e a política de conteúdo inautêntico decidem se o canal publica sozinho e se monetiza.
