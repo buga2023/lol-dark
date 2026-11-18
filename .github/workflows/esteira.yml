@@ -24,9 +24,25 @@ jobs:
       VOICEMAKER_API_KEY: ${{ secrets.VOICEMAKER_API_KEY }}
       LOL_VM_VOZ: ${{ vars.LOL_VM_VOZ }}
       LOL_WORKERS: "2"
+      LOL_VOZ_PROVEDOR: ${{ vars.LOL_VOZ_PROVEDOR }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
+      - name: liberar disco para o VoiceStudio
+        if: vars.LOL_VOICESTUDIO == '1'
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL && df -h / | tail -1
+      - name: cache dos modelos do VoiceStudio
+        if: vars.LOL_VOICESTUDIO == '1'
+        uses: actions/cache@v4
+        with: { path: ~/vsdata, key: voicestudio-0.5.6-omnivoice }
+      - name: subir VoiceStudio (voz local, sem chave)
+        if: vars.LOL_VOICESTUDIO == '1'
+        run: |
+          mkdir -p ~/vsdata
+          docker run -d --name vs -p 127.0.0.1:3900:3900 -e OMNIVOICE_ANALYTICS_DISABLED=1 \
+            -e OMNIVOICE_DATA_DIR=/app/omnivoice_data -v ~/vsdata:/app/omnivoice_data ghcr.io/debpalash/voicestudio:0.5.6
+          for i in $(seq 1 60); do curl -fsS http://127.0.0.1:3900/health >/dev/null && break; sleep 5; done
+          curl -fsS http://127.0.0.1:3900/health >/dev/null && echo "LOL_VOICESTUDIO_URL=http://127.0.0.1:3900" >> "$GITHUB_ENV"
       - uses: ./.github/actions/preparar
         with: { render: "true" }
       - run: python tools/coletar.py

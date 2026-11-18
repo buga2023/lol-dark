@@ -77,11 +77,31 @@ def gemini_tts(texto, wav):
                            "silenceremove=start_periods=1:start_threshold=-45dB,areverse", str(wav)], check=True)
 
 
+VS_URL = os.environ.get("LOL_VOICESTUDIO_URL", "")  # ex.: http://127.0.0.1:3900 (container no runner)
+VS_VOZ = os.environ.get("LOL_VS_VOZ", "female, young adult, moderate pitch")  # tags de design do OmniVoice
+
+
+def voicestudio(texto, wav):
+    """VoiceStudio (OmniVoice) local, API compatível com OpenAI; voz desenhada por tags, sem chave."""
+    import requests
+    corpo = {"model": os.environ.get("LOL_VS_MODELO", "omnivoice"), "input": texto, "voice": "default",
+             "instruct": VS_VOZ, "language": "pt", "response_format": "wav",
+             "speed": float(os.environ.get("LOL_VS_VELOCIDADE", "1.0"))}
+    r = requests.post(f"{VS_URL}/v1/audio/speech", json=corpo, timeout=900)
+    if r.status_code != 200:
+        raise RuntimeError(f"VoiceStudio HTTP {r.status_code}: {r.text[:160]}")
+    bruto = Path(wav).with_suffix(".vs.wav")
+    bruto.write_bytes(r.content)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(bruto), "-ar", "24000", "-ac", "1", str(wav)], check=True)
+
+
 def provedores():
     """Ordem de preferência; o laço de qualidade passa para o próximo se a voz não bater a meta."""
     p = []
     if os.environ.get("VOICEMAKER_API_KEY") and VM_VOZ:
         p.append("voicemaker")
+    if VS_URL:
+        p.append("voicestudio")
     if os.environ.get("GEMINI_API_KEY"):
         p.append("gemini")
     p.append("kokoro")
@@ -106,6 +126,10 @@ def narrar(roteiro, pasta, provedor=None):
         texto = c["narracao"].replace("%", " por cento")
         if provedor == "voicemaker":
             voicemaker(texto, wav)
+            c["duracao"] = round(duracao(wav) + FOLGA, 3)
+            continue
+        if provedor == "voicestudio":
+            voicestudio(texto, wav)
             c["duracao"] = round(duracao(wav) + FOLGA, 3)
             continue
         if provedor == "gemini":
