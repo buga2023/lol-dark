@@ -1,6 +1,6 @@
-name: esteira
+name: produzir
 on:
-  schedule: [{ cron: "0 12,16,22 * * *" }]   # 09h, 13h e 19h em Salvador
+  schedule: [{ cron: "30 */4 * * *" }]   # a cada 4 h: mantém o estoque de vídeos prontos
   workflow_dispatch:
     inputs:
       modo: { description: "auto ou aprovacao", default: auto }
@@ -9,7 +9,7 @@ on:
 permissions: { contents: write }
 concurrency: { group: state, cancel-in-progress: false }
 jobs:
-  esteira:
+  produzir:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -22,6 +22,7 @@ jobs:
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       LOL_MODO: ${{ inputs.modo || vars.LOL_MODO || 'auto' }}
+      LOL_ESTOQUE: ${{ vars.LOL_ESTOQUE || '3' }}
       LOL_YT_PRIVACIDADE: ${{ vars.LOL_YT_PRIVACIDADE || 'private' }}
       VOICEMAKER_API_KEY: ${{ secrets.VOICEMAKER_API_KEY }}
       LOL_VM_VOZ: ${{ vars.LOL_VM_VOZ }}
@@ -50,11 +51,17 @@ jobs:
       - name: Claude Code (roteiro, crítico e juiz de vídeo)
         run: npm i -g @anthropic-ai/claude-code --silent && claude --version
       - run: python tools/coletar.py
-      - run: python tools/run_pipeline.py ${{ inputs.dry_run && '--dry-run' || '' }} ${{ inputs.roteiro && format('--roteiro {0}', inputs.roteiro) || '' }}
+      - id: pipe
+        run: python tools/run_pipeline.py ${{ inputs.dry_run && '--dry-run' || '--produzir --estoque ${LOL_ESTOQUE:-3}' }} ${{ inputs.roteiro && format('--roteiro {0}', inputs.roteiro) || '' }}
+      - name: nome do artefato
+        if: always()
+        run: |
+          mp4=$(ls -t .tmp/20*/20*.mp4 2>/dev/null | grep -v _cru | head -1)
+          echo "ART=video-$( [ -n "$mp4" ] && basename "$(dirname "$mp4")" || echo run-${{ github.run_id }})" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: video-${{ github.run_id }}
+          name: ${{ env.ART }}
           path: |
             .tmp/*/*.mp4
             .tmp/*/roteiro.json
@@ -62,6 +69,7 @@ jobs:
             .tmp/*/laudo.json
           if-no-files-found: ignore
           retention-days: 30
+          overwrite: true
       - uses: ./.github/actions/salvar-estado
         if: always()
       - name: keepalive (o GitHub pausa cron de repo público sem commit no branch padrão por 60 dias)

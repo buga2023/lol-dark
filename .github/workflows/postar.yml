@@ -1,0 +1,32 @@
+name: postar
+on:
+  schedule: [{ cron: "0 12,16,22 * * *" }]   # 09h, 13h e 19h em Salvador
+  workflow_dispatch:
+permissions: { contents: write, actions: read }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  postar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      LOL_YT_PRIVACIDADE: ${{ vars.LOL_YT_PRIVACIDADE || 'private' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/preparar
+      - name: baixar o vídeo pronto mais antigo
+        run: |
+          q=$(python tools/postar.py --qual)
+          echo "$q"
+          id=$(echo "$q" | python -c "import json,sys;print(json.load(sys.stdin).get('id',''))")
+          run=$(echo "$q" | python -c "import json,sys;print(json.load(sys.stdin).get('run_id') or '')")
+          art=$(echo "$q" | python -c "import json,sys;print(json.load(sys.stdin).get('artefato') or '')")
+          [ -n "$id" ] && [ -n "$run" ] && gh run download "$run" -n "$art" -D ".tmp/postar/$id" -R "$GITHUB_REPOSITORY" || true
+      - run: python tools/postar.py
+      - uses: ./.github/actions/salvar-estado
+        if: always()

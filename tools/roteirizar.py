@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from comum import RAIZ, SCHEMA  # noqa: E402
-from critico import NOTA_MINIMA, avaliar  # noqa: E402
+from critico import NOTA_MINIMA, RUBRICA, avaliar  # noqa: E402
 
 RODADAS = int(os.environ.get("LOL_RODADAS", "4"))
 SKILL = RAIZ / ".claude" / "skills" / "roteiro-short-lol" / "SKILL.md"
@@ -16,6 +16,9 @@ def sistema():
     s = SKILL.read_text().split("---", 2)[-1]
     return (s + "\n\nFOCO: um Short de 25 a 45 s defende UMA ideia. Prefira 1 ou 2 campeões com a consequência prática "
             "de cada mudança para quem joga a uma lista de 4 campeões só com números. Conte as palavras antes de devolver."
+            "\n\nCOMO O EDITOR VAI DAR NOTA (soma 100; só publica com 80+):\n"
+            + "\n".join(f"- {k} ({p}): {q}" for k, (p, q) in RUBRICA.items())
+            + "\nOpinião marcada como opinião ('pra mim') é desejada; só não apresente opinião como fato."
             "\n\nSCHEMA (siga exatamente; inclua 'angulo'; 'duracao' sempre null; 'asset' é "
             "'ddragon:champion/<ChaveDataDragon>' ou 'nenhum'; preencha 'gancho_tipo' (numero, contradicao, pergunta, "
             "consequencia ou detalhe) com a estrutura usada na cena 1; nas cenas de mudança de patch preencha 'antes' e 'depois' "
@@ -42,8 +45,9 @@ def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
 
 def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
     """Devolve (roteiro_aprovado | None, lista de rodadas com nota)."""
-    rodadas, anterior = [], None
+    rodadas, anterior, critica_ant = [], None, None
     feedback = pauta.get("comentario") or None  # melhorias do juiz de vídeo ou do botão Refazer
+    acumulado = []
     for i in range(RODADAS):
         rot = escrever(pauta, fonte, historico, gerar, feedback, anterior)
         if rot.get("sem_pauta"):
@@ -54,7 +58,7 @@ def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
         for c in rot.get("cenas", []):
             c["duracao"] = None
         try:
-            av = avaliar(rot, {"f1": fonte["texto_bruto"]}, juiz, historico)
+            av = avaliar(rot, {"f1": fonte["texto_bruto"]}, juiz, historico, critica_ant)
         except Exception as e:
             av = {"nota": 0, "aprovado": False, "problemas": [f"crítico falhou: {e}"], "melhorias": []}
         rodadas.append({"rodada": i + 1, "nota": av["nota"], "problemas": av["problemas"], "melhorias": av.get("melhorias", [])})
@@ -62,7 +66,9 @@ def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
         if av["aprovado"]:
             rot["nota_critico"] = {"nota": av["nota"], "criterios": av.get("criterios", {}), "rodada": i + 1}
             return rot, rodadas
-        feedback = av["problemas"] + av.get("melhorias", [])
+        critica_ant = {"nota": av["nota"], "problemas": av["problemas"], "melhorias": av.get("melhorias", [])}
+        acumulado.append({"rodada": i + 1, "nota": av["nota"], "pontos": av["problemas"] + av.get("melhorias", [])})
+        feedback = acumulado
         anterior = rot
     return None, rodadas
 

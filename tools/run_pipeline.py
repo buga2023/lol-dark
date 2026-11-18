@@ -38,6 +38,11 @@ def historico(pautas):
 def rodar(args):
     t_ini = time.time()
     pautas = ler_jsonl(ESTADO / "pautas.jsonl")
+    if getattr(args, "produzir", False) and args.estoque:
+        prontos = sum(1 for p in pautas if p["estado"] == "pronto")
+        if prontos >= args.estoque:
+            print(f"estoque cheio ({prontos} prontos); nada a produzir")
+            return 0
     itens = {i["id"]: i for i in ler_jsonl(ESTADO / "itens.jsonl")}
     modo = os.environ.get("LOL_MODO", "auto")
 
@@ -177,6 +182,15 @@ def rodar(args):
             print(f"dry-run concluído em {time.time() - t_ini:.0f}s")
             return 0
 
+        if args.produzir:
+            pauta["estado"] = "pronto"
+            pauta["pronto_em"] = time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
+            pauta["run_id"] = os.environ.get("GITHUB_RUN_ID")
+            pauta["artefato"] = f"video-{pauta['id']}"
+            salvar(pautas)
+            print(f"PRONTO no estoque: {pauta['id']} (artefato {pauta['artefato']})")
+            return 0
+
         from entregar import entregar
         if modo == "auto":
             from publicar import publicar
@@ -209,6 +223,8 @@ def main():
     ap.add_argument("--ate", choices=ETAPAS)
     ap.add_argument("--pauta")
     ap.add_argument("--roteiro")
+    ap.add_argument("--produzir", action="store_true", help="faz o vídeo e guarda no estoque (estado 'pronto'), sem postar")
+    ap.add_argument("--estoque", type=int, default=0, help="com --produzir: não faz nada se já houver N prontos")
     sys.exit(rodar(ap.parse_args()))
 
 
