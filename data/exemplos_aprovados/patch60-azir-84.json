@@ -1,0 +1,158 @@
+{
+ "id": "2026-11-18-patch-26-23",
+ "tipo": "noticia",
+ "formato": "patch60",
+ "variacao": 0,
+ "titulo": "Azir bate de 550 no 26.23, mas o alcance novo não vale pros soldados",
+ "angulo": "O alcance novo vale só pro ataque básico do próprio Azir, e o W melhora o soldado: a Riot está ajustando o Azir para a troca por Ritmo Fatal.",
+ "gancho_tipo": "detalhe",
+ "fontes": [
+  {
+   "id": "f1",
+   "url": "https://www.leagueoflegends.com/pt-br/news/game-updates/league-of-legends-patch-26-23-notes/",
+   "coletado_em": "2026-11-18T01:48:15+00:00"
+  }
+ ],
+ "cenas": [
+  {
+   "n": 1,
+   "narracao": "O Azir agora bate de 550. Só que esse alcance não vale pros soldados.",
+   "texto_tela": "Alcance novo: soldados de fora",
+   "antes": null,
+   "depois": null,
+   "rotulo": null,
+   "asset": "nenhum",
+   "fonte_id": "f1",
+   "duracao": 5.226,
+   "direcao": null
+  },
+  {
+   "n": 2,
+   "narracao": "Antes era 525. A nota avisa: só conta quando ele usa o próprio auto.",
+   "texto_tela": "Só no auto do Azir",
+   "antes": "525",
+   "depois": "550",
+   "rotulo": "Alcance de Ataque",
+   "asset": "ddragon:champion/Azir",
+   "fonte_id": "f1",
+   "duracao": 5.248,
+   "direcao": "buff"
+  },
+  {
+   "n": 3,
+   "narracao": "Mas o soldado também ganhou. Ele aproveita mais do seu ataque e dos efeitos ao contato. Foi de 50% pra 67%.",
+   "texto_tela": "W – Surja!: soldado mais forte",
+   "antes": "50%",
+   "depois": "67%",
+   "rotulo": "Multiplicador do W",
+   "asset": "ddragon:champion/Azir",
+   "fonte_id": "f1",
+   "duracao": 8.469,
+   "direcao": "buff"
+  },
+  {
+   "n": 4,
+   "narracao": "Por quê? O Azir tá migrando de Pressione o Ataque pra Ritmo Fatal. E os buffs da 26.21 não bastaram.",
+   "texto_tela": "Pressione o Ataque → Ritmo Fatal",
+   "antes": null,
+   "depois": null,
+   "rotulo": null,
+   "asset": "ddragon:champion/Azir",
+   "fonte_id": "f1",
+   "duracao": 6.464,
+   "direcao": null
+  },
+  {
+   "n": 5,
+   "narracao": "Minha aposta: a Riot quer que o auto do próprio Azir pese mais.",
+   "texto_tela": "Opinião: o auto pesa mais",
+   "antes": null,
+   "depois": null,
+   "rotulo": null,
+   "asset": "ddragon:champion/Azir",
+   "fonte_id": "f1",
+   "duracao": 3.776,
+   "direcao": null
+  },
+  {
+   "n": 6,
+   "narracao": "Pra mim, o ganho aparece com W em recarga e sem soldado perto. Aí quem bate é o Azir. E bate de quanto mesmo?",
+   "texto_tela": "W em recarga? Bate você",
+   "antes": null,
+   "depois": null,
+   "rotulo": null,
+   "asset": "nenhum",
+   "fonte_id": "f1",
+   "duracao": 6.564,
+   "direcao": null
+  }
+ ],
+ "descricao": "Patch 26.23: o Alcance de Ataque do Azir foi de 525 para 550, mas o aumento não afeta o alcance dos soldados, só os ataques básicos dele. O W – Surja! subiu o multiplicador de Dano de Ataque/ao contato de 50% para 67%. Contexto: o Azir está migrando de Pressione o Ataque para Ritmo Fatal.",
+ "tags": [
+  "league of legends",
+  "lol",
+  "patch 26.23",
+  "azir",
+  "mid",
+  "ritmo fatal",
+  "buff"
+ ],
+ "nota_critico": {
+  "nota": 84,
+  "criterios": {
+   "gancho": {
+    "nota": 17,
+    "motivo": "A cena 1 já traz o número (550) e a ressalva sobre os soldados em duas frases curtas, então funciona sozinha e prende. O texto de tela 'soldados de fora' ficou truncado e menos claro que a narração."
+   },
+   "angulo": {
+    "nota": 12,
+    "motivo": "Agora a tese 'alcance pro Azir, dano pro soldado, por causa do Ritmo Fatal' aparece na narração e não se contradiz mais. A consequência pra quem joga só chega na cena 6, e a cena 5 repete a ideia sem acrescentar nada."
+   },
+   "aprendizado": {
+    "nota": 12,
+    "motivo": "Um jogador Ouro aprende que os 550 não valem pros soldados e que o W subiu de 50% pra 67%. A dica prática de quando o alcance pesa (W em recarga) é útil, mas fica rasa."
+   },
+   "fidelidade": {
+    "nota": 14,
+    "motivo": "Os números, a ressalva dos soldados, a migração de Pressione o Ataque pra Ritmo Fatal e a 26.21 estão todos na nota. 'Não bastaram' é uma leitura justa de 'não foram tão satisfatórios', e as opiniões estão marcadas."
+   },
+   "autenticidade": {
+    "nota": 12,
+    "motivo": "Não tem clichê e as opiniões estão marcadas. Mas a cena 5 ('a Riot quer que o auto pese mais') é óbvia depois da cena 2 e serviria a qualquer buff de alcance. Falta um detalhe que só quem joga de Azir notaria."
+   },
+   "voz": {
+    "nota": 8,
+    "motivo": "'Tá', 'pros' e 'bate de quanto mesmo?' soam naturais. Na cena 3, 'aproveita mais do seu ataque e dos efeitos ao contato' ainda soa como texto de nota de atualização."
+   },
+   "ritmo": {
+    "nota": 4,
+    "motivo": "As frases são curtas e cada cena traz um fato. As cenas 5 e 6 dividem a mesma ideia do auto do Azir."
+   },
+   "loop": {
+    "nota": 5,
+    "motivo": "'E bate de quanto mesmo?' leva direto ao 550 da cena 1. É um loop limpo."
+   }
+  },
+  "rodada": 2
+ },
+ "voz": "kokoro",
+ "qualidade": {
+  "narracao": {
+   "aprovado": true,
+   "falhas": [],
+   "medidas": {
+    "ritmo": [
+     2.87,
+     2.85,
+     2.58,
+     3.27,
+     3.78,
+     3.73
+    ],
+    "ritmo_medio": 3.12,
+    "inteligibilidade": 0.896
+   },
+   "provedor": "kokoro"
+  }
+ }
+}
