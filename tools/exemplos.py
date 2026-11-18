@@ -59,19 +59,8 @@ def fontes_patch(roteiro, item):
 
 
 def publicacao(roteiro, fontes, tema):
-    titulo = roteiro["titulo"].strip()
-    if len(titulo) > 60:
-        titulo = titulo[:57].rsplit(" ", 1)[0] + "..."
-    linhas_fontes = "\n".join(f"- {f['url']}" for f in fontes)
-    fato = roteiro.get("angulo", "").strip()
-    descricao = f"{fato}\n\nFontes:\n{linhas_fontes}\n\n{AVISO_RIOT}"
-    tags = ["league of legends", "lol"]
-    for t in [tema] + [c["asset"].split("/")[-1] for c in roteiro["cenas"] if c["asset"].startswith("ddragon:")]:
-        if t and t.lower() not in tags:
-            tags.append(t.lower())
-    tags = (tags + ["curiosidades lol", "shorts lol", "wardado clips"])[:8]
-    return {"titulo": titulo, "descricao": descricao, "tags": tags,
-            "tiktok_instagram": {"legenda": f"{titulo}\n\n#leagueoflegends #lol #{(tema or 'lol').replace(' ', '')}"}}
+    from metadados import gerar
+    return gerar(roteiro, fontes, tema)
 
 
 def produzir(letra, usados):

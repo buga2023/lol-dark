@@ -24,8 +24,9 @@ def token():
 
 
 def publicar(rot, mp4):
-    desc = rot["descricao"] if "Riot Games" in rot["descricao"] else rot["descricao"] + "\n\n" + AVISO
-    meta = {"snippet": {"title": rot["titulo"][:95] + " #shorts", "description": desc[:4900], "tags": rot["tags"][:15],
+    from metadados import gerar
+    yt = gerar(rot, rot.get("fontes", []))["youtube"]
+    meta = {"snippet": {"title": yt["titulo"], "description": yt["descricao"][:4900], "tags": yt["tags"],
                         "categoryId": "20", "defaultLanguage": "pt-BR", "defaultAudioLanguage": "pt-BR"},
             "status": {"privacyStatus": os.environ.get("LOL_YT_PRIVACIDADE", "private"),
                        "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}

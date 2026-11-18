@@ -25,8 +25,11 @@ def entregar(rot, mp4, botoes=True, extra=""):
         dados["reply_markup"] = json.dumps(teclado)
     with open(mp4, "rb") as f:
         msg = telegram("sendVideo", dados, {"video": (Path(mp4).name, f, "video/mp4")})
-    # descrição completa (para colar no Instagram/TikTok) vai em mensagem separada
-    telegram("sendMessage", {"chat_id": chat, "text": rot["descricao"][:4000]})
+    # legendas prontas para colar no TikTok e no Instagram (com hashtags), em mensagens separadas
+    from metadados import gerar
+    m = gerar(rot, rot.get("fontes", []))
+    telegram("sendMessage", {"chat_id": chat, "text": "TikTok:\n\n" + m["tiktok"]["legenda"][:3900]})
+    telegram("sendMessage", {"chat_id": chat, "text": "Instagram:\n\n" + m["instagram"]["legenda"][:3900]})
     return msg["message_id"]
 
 

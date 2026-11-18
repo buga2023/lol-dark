@@ -10,7 +10,8 @@ import webbrowser
 
 import requests
 
-ESCOPO = "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly"
+ESCOPO = ("https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly "
+          "https://www.googleapis.com/auth/yt-analytics.readonly")
 PORTA = 8765
 cid, sec = os.environ["YT_CLIENT_ID"], os.environ["YT_CLIENT_SECRET"]
 redir = f"http://127.0.0.1:{PORTA}/"

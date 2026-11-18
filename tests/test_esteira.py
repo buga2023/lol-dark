@@ -173,3 +173,11 @@ def test_curador_rodizia_series_perenes_e_patch_vem_primeiro():
         pautas.append(p)
     assert pautas[0]["item_id"] == "ev-001"
     assert len({p["serie"] for p in pautas[1:]}) == 2 and pautas[1]["serie"] != pautas[0]["serie"]
+
+
+def test_metadados_por_plataforma():
+    from metadados import AVISO_RIOT, gerar
+    m = gerar(ok(), [{"url": "https://www.leagueoflegends.com/x"}], "patch 26.23")
+    assert len(m["youtube"]["titulo"]) <= 60 and AVISO_RIOT in m["youtube"]["descricao"]
+    assert 5 <= len(m["youtube"]["tags"]) <= 8 and {"league of legends", "lol"} <= set(m["youtube"]["tags"])
+    assert 3 <= m["tiktok"]["legenda"].count("#") <= 5 and "https://www.leagueoflegends.com/x" in m["youtube"]["descricao"]

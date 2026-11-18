@@ -1,0 +1,26 @@
+name: desempenho
+on:
+  schedule: [{ cron: "0 11 * * *" }]   # 08h em Salvador, todo dia
+  workflow_dispatch:
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  desempenho:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/preparar
+      - run: python tools/desempenho.py
+      - name: aprendizado volta para o main (o curador lê data/aprendizado.json)
+        run: |
+          git config user.name "lol-dark-bot"; git config user.email "lol-dark-bot@users.noreply.github.com"
+          git add data/aprendizado.json 2>/dev/null && git commit -qm "aprendizado: retenção por formato e gancho" && git push -q || true
+      - uses: ./.github/actions/salvar-estado
+        if: always()

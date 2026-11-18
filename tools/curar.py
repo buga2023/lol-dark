@@ -57,6 +57,8 @@ def curar(itens=None, pautas=None, agora=None, perenes=True):
         # patch novo primeiro; depois alterna formato; depois o mais recente
         prioridade = (it["fonte"] == "patch", ft[0] != ultimo_formato, it["coletado_em"])
         cands.append((prioridade, it, ft))
+    apr = RAIZ / "data" / "aprendizado.json"
+    retencao = json.loads(apr.read_text()).get("retencao_media", {}).get("formato", {}) if apr.exists() else {}
     # pautas perenes: perguntas que só viram vídeo com fonte oficial (pesquisar.py); séries em rodízio
     series_recentes = [p.get("serie") for p in recentes[-2:]]
     for ev in (evergreen()["pautas"] if perenes else []):
@@ -64,7 +66,8 @@ def curar(itens=None, pautas=None, agora=None, perenes=True):
             continue
         if not (RAIZ / "compositions" / ev["formato"] / "formato.css").exists():
             continue
-        prioridade = (False, ev["serie"] not in series_recentes, f"0{999 - int(ev['id'][3:]):03d}")  # ev-001 primeiro
+        ret = retencao.get(ev["formato"], 0)  # aprendizado: formato que retém mais ganha a vez
+        prioridade = (False, ev["serie"] not in series_recentes, f"{ret:05.1f}{999 - int(ev['id'][3:]):03d}")
         cands.append((prioridade, {"id": ev["id"], "url": ev["id"], "fonte": "evergreen", "serie": ev["serie"]},
                       (ev["formato"], "curiosidade")))
     if not cands:
