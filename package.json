@@ -1,0 +1,15 @@
+{
+  "name": "lol-dark",
+  "version": "1.0.0",
+  "description": "Esteira de Shorts de LoL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hyperframes": "0.9.65"
+  }
+}

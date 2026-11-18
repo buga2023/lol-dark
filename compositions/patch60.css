@@ -1,0 +1,37 @@
+/* patch60 — boletim impresso: papel, tinta e um vermelho de alarme.
+   Duas famílias só (League Gothic + IBM Plex Mono). Área segura da skill video-short-lol:
+   texto entre y 288 e 1440 e x <= 950 (1080x1920). */
+:root { --papel:#ECE4D3; --tinta:#15120F; --alarme:#C8261B; --apagado:#8B8274; --faixa:#15120F; --faixa-txt:#ECE4D3; --sub:rgba(200,38,27,.22); }
+.v1 { --papel:#121212; --tinta:#F2EFE6; --alarme:#E8FF3A; --apagado:#6E6A60; --faixa:#E8FF3A; --faixa-txt:#121212; --sub:rgba(232,255,58,.25); }
+.v2 { --papel:#D9DEE2; --tinta:#0F1A24; --alarme:#FF5A1F; --apagado:#7D8790; --faixa:#0F1A24; --faixa-txt:#D9DEE2; --sub:rgba(255,90,31,.25); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1920px; overflow:hidden; background:var(--papel); }
+#root { position:absolute; inset:0; background:var(--papel); color:var(--tinta); font-family:"League Gothic"; }
+.cena { position:absolute; inset:0; }
+.fundo { position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(0,0,0,.035) 0 2px, transparent 2px 7px), var(--papel); }
+.marca { position:absolute; left:40px; top:1470px; font-size:520px; line-height:.8; color:transparent;
+  -webkit-text-stroke:4px var(--apagado); opacity:.4; white-space:nowrap; }
+.cab { position:absolute; left:60px; width:890px; top:300px; display:flex; justify-content:space-between;
+  font-family:"IBM Plex Mono"; font-weight:700; font-size:28px; letter-spacing:.08em; text-transform:uppercase;
+  border-bottom:4px solid var(--tinta); padding-bottom:10px; }
+.cab b { color:var(--alarme); }
+.foto { position:absolute; left:60px; top:368px; width:890px; height:450px; overflow:hidden; border:6px solid var(--tinta); background:var(--tinta); }
+.foto img { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.tiras { position:absolute; left:60px; top:368px; width:890px; height:560px; display:flex; gap:10px; }
+.tira { flex:1; overflow:hidden; border:6px solid var(--tinta); background:var(--tinta); position:relative; }
+.tira img { position:absolute; left:-70%; top:0; height:100%; width:auto; }
+.manchete { position:absolute; left:60px; width:890px; top:838px; font-size:150px; line-height:.86; text-transform:uppercase; }
+.manchete.grande { top:948px; font-size:146px; }
+.numeros { position:absolute; left:60px; width:890px; top:978px; display:flex; align-items:baseline; gap:26px; }
+.antes { font-size:116px; color:var(--apagado); position:relative; }
+.risco { position:absolute; left:-6px; right:-6px; top:52%; height:10px; background:var(--alarme); transform-origin:left center; }
+.seta { font-family:"IBM Plex Mono"; font-weight:700; font-size:64px; }
+.depois { font-size:200px; color:var(--alarme); line-height:.9; }
+.rotulo { position:absolute; left:60px; top:1172px; font-family:"IBM Plex Mono"; font-weight:700; font-size:30px; text-transform:uppercase;
+  background:var(--faixa); color:var(--faixa-txt); padding:5px 12px; }
+.selo { position:absolute; right:150px; top:392px; font-family:"IBM Plex Mono"; font-weight:700; font-size:28px; color:var(--alarme);
+  border:4px solid var(--alarme); background:var(--papel); padding:8px 14px; text-transform:uppercase; }
+.legendas { position:absolute; left:60px; width:890px; top:1246px; height:0; }
+.leg { position:absolute; left:0; width:890px; top:0; font-size:84px; line-height:.98; text-transform:uppercase; }
+.leg span { display:inline-block; margin-right:16px; color:var(--tinta); }
+.leg span.chave { color:var(--alarme); }

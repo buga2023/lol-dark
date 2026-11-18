@@ -1,0 +1,19 @@
+name: aprovacao
+on:
+  schedule: [{ cron: "*/30 * * * *" }]
+  workflow_dispatch:
+permissions: { contents: write }
+concurrency: { group: state, cancel-in-progress: false }
+jobs:
+  aprovacao:
+    if: vars.LOL_MODO == 'aprovacao'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/preparar
+      - run: python tools/aprovacao.py
+      - uses: ./.github/actions/salvar-estado

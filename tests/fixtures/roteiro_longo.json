@@ -1,0 +1,93 @@
+{
+ "id": "2026-11-17-patch-26-23",
+ "tipo": "noticia",
+ "formato": "patch60",
+ "variacao": 0,
+ "titulo": "A Riot buffou os presos do competitivo (patch 26.23)",
+ "fontes": [
+  {
+   "id": "f1",
+   "url": "https://www.leagueoflegends.com/pt-br/news/game-updates/league-of-legends-patch-26-23-notes/",
+   "coletado_em": "2026-11-17T22:10:00Z"
+  }
+ ],
+ "cenas": [
+  {
+   "n": 1,
+   "narracao": "Ezreal, Gnar e K'Sante eram fortes no competitivo e fracos na sua fila. A Riot buffou os três.",
+   "texto_tela": "BUFF NOS PRESOS DO PRO",
+   "antes": null,
+   "depois": null,
+   "rotulo": "patch 26.23",
+   "asset": "nenhum",
+   "fonte_id": "f1",
+   "duracao": null
+  },
+  {
+   "n": 2,
+   "narracao": "O ultimate do Ezreal agora bate 850 em campeões no nível 3. Era 750.",
+   "texto_tela": "EZREAL · R",
+   "antes": "750",
+   "depois": "850",
+   "rotulo": "dano em campeões, nível 3",
+   "asset": "ddragon:champion/Ezreal",
+   "fonte_id": "f1",
+   "duracao": null
+  },
+  {
+   "n": 3,
+   "narracao": "O W do K'Sante custa só 45 de mana em todos os níveis. E o dano base máximo foi de 165 para 205.",
+   "texto_tela": "K'SANTE · W",
+   "antes": "165",
+   "depois": "205",
+   "rotulo": "dano base, nível 5",
+   "asset": "ddragon:champion/KSante",
+   "fonte_id": "f1",
+   "duracao": null
+  },
+  {
+   "n": 4,
+   "narracao": "Gnar pequeno: o bumerangue agora escala 135% do dano de ataque. Era 125%.",
+   "texto_tela": "GNAR · Q",
+   "antes": "125%",
+   "depois": "135%",
+   "rotulo": "do dano de ataque, Mini",
+   "asset": "ddragon:champion/Gnar",
+   "fonte_id": "f1",
+   "duracao": null
+  },
+  {
+   "n": 5,
+   "narracao": "De brinde, o Q do Bardo escala 100% do poder de habilidade. Antes eram 80.",
+   "texto_tela": "BARDO · Q",
+   "antes": "80%",
+   "depois": "100%",
+   "rotulo": "do poder de habilidade",
+   "asset": "ddragon:champion/Bard",
+   "fonte_id": "f1",
+   "duracao": null
+  },
+  {
+   "n": 6,
+   "narracao": "Pra mim, quem mais ganha é o Ezreal, que já aparece em toda partida. E tudo isso porque E isso vale para a selva também, então teste. E isso vale para a selva também, então teste. E isso vale para a selva também, então teste. E isso vale para a selva também, então teste.",
+   "texto_tela": "QUEM GANHA MAIS: EZREAL",
+   "antes": null,
+   "depois": null,
+   "rotulo": null,
+   "asset": "nenhum",
+   "fonte_id": "f1",
+   "duracao": null
+  }
+ ],
+ "descricao": "Patch 26.23: Ezreal, K'Sante, Bardo e Gnar fortalecidos depois do fim da temporada profissional.\n\nFonte: notas oficiais da atualização 26.23 — https://www.leagueoflegends.com/pt-br/news/game-updates/league-of-legends-patch-26-23-notes/\n\nlol-dark não é endossado pela Riot Games e não reflete as opiniões da Riot Games ou de qualquer pessoa oficialmente envolvida na produção ou gerenciamento de League of Legends. League of Legends e Riot Games são marcas comerciais ou registradas da Riot Games, Inc. League of Legends © Riot Games, Inc.",
+ "tags": [
+  "leagueoflegends",
+  "lol",
+  "patch2623",
+  "ezreal",
+  "ksante",
+  "bardo",
+  "gnar"
+ ],
+ "angulo": "A Riot fortaleceu campeões que eram fortes no competitivo e fracos na fila, e isso muda o que vale testar na ranqueada agora."
+}

@@ -1,0 +1,33 @@
+name: preparar
+description: Python, Node, dependências e o branch state em ./state
+inputs:
+  render:
+    description: instala FFmpeg, espeak-ng e Chrome para narrar e renderizar
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with: { python-version: "3.12", cache: pip }
+    - run: pip install -q -r requirements.txt
+      shell: bash
+    - name: branch state
+      shell: bash
+      run: |
+        if git ls-remote --exit-code --heads origin state >/dev/null; then
+          git fetch -q origin state && git worktree add -q state origin/state
+        else
+          git worktree add -q --detach state && cd state && git checkout -q --orphan state && git rm -rqf . && cd ..
+        fi
+        echo "LOL_ESTADO=$GITHUB_WORKSPACE/state" >> "$GITHUB_ENV"
+    - if: inputs.render == 'true'
+      uses: actions/setup-node@v4
+      with: { node-version: "22", cache: npm }
+    - if: inputs.render == 'true'
+      shell: bash
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg espeak-ng >/dev/null
+        npm ci --silent
+        npx hyperframes browser ensure
+        npx hyperframes doctor || true
+        echo "HYPERFRAMES_PYTHON=$(which python)" >> "$GITHUB_ENV"

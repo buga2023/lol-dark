@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "roteiro",
+  "type": "object",
+  "required": [
+    "id",
+    "tipo",
+    "formato",
+    "variacao",
+    "titulo",
+    "angulo",
+    "fontes",
+    "cenas",
+    "descricao",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9-]+$"
+    },
+    "tipo": {
+      "enum": [
+        "noticia",
+        "curiosidade",
+        "ranking"
+      ]
+    },
+    "formato": {
+      "enum": [
+        "patch60",
+        "voce-sabia",
+        "top5",
+        "noticia"
+      ]
+    },
+    "variacao": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "titulo": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 90
+    },
+    "fontes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "url",
+          "coletado_em"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^f[0-9]+$"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "coletado_em": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cenas": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "n",
+          "narracao",
+          "texto_tela",
+          "asset",
+          "fonte_id",
+          "duracao"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "n": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "narracao": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 260
+          },
+          "texto_tela": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "antes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 14
+          },
+          "depois": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 14
+          },
+          "rotulo": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 28
+          },
+          "asset": {
+            "type": "string",
+            "pattern": "^(ddragon:champion/[A-Za-z]+|nenhum)$"
+          },
+          "fonte_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duracao": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "descricao": {
+      "type": "string",
+      "minLength": 20
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "angulo": {
+      "type": "string",
+      "minLength": 15,
+      "maxLength": 200
+    },
+    "nota_critico": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  }
+}

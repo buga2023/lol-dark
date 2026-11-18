@@ -1,0 +1,252 @@
+ Notas da Atualização 26.23 do League of Legends 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+## Notas da Atualização 26.23 do League of Legends O mapa de inverno está de volta, com várias atualizações de balanceamento e um pouquinho de Desordem Musical. Atualizações do jogo Riot wroadie, Riot Cashmiir, sternest 2026-11-17T19:00:00.000Z Correções nas músicas da DJ Sona, skins deliciosamente deslumbrantes e o retorno do... Rift de Inverno!? O Braum Noel deve gostar muito de vocês (que inveja!). Boas-vindas à Atualização 26.23! O chat de voz em equipe está chegando para testes nas regiões NA e OCE. Quem tiver a oportunidade, experimente e conte pra gente o que achou.  Falando sobre mudanças de mecânica de jogo, trouxemos várias alterações para ajudar alguns Campeões que passaram o ano todo sendo prisioneiros no cenário profissional. Para o Desordem, temos quatro novos Headliners chegando ao palco! Trouxemos também uma proteção experimental para as torres e botas para os tanques, já que eles não estão se dando muito bem no conjunto atual, além dos balanceamentos de sempre. O Arena também está recebendo alguns balanceamentos.  Procurando mais informações sobre tudo que envolve League of Legends? Confira nossa Wiki da comunidade aqui ! Opa! Notas de Atualização erradas? Você pode conferir as Notas de Atualização do TFT aqui ! Austin "Riot wroadie" Wright Erika "Riot Cashmiir" Haas Steven "Riot sternest" Earnest 
+## Destaques da Atualização Neeko Kawaii Café, Zoe Kawaii Café e DJ Sona Remix Supremo estarão disponíveis a partir de 18 de novembro de 2026. 
+## Chat de voz em equipe O chat de voz em equipe do LoL está chegando às regiões América do Norte e Oceania nesta atualização! Ele será habilitado pouco depois que a atualização for implementada. O lançamento para outras regiões acontecerá em atualizações futuras conforme ganharmos mais confiança nas capacidades de moderação e na qualidade geral da experiência. 
+- O chat de voz em equipe fica disponível durante a Seleção de Campeões e dentro do jogo. É possível estar nos canais de voz do grupo e da equipe simultaneamente. 
+- Disponível em todas as filas, exceto no Classic. 
+- O recurso só pode ser usado com a opção "pressionar para falar". O atalho padrão para o chat em equipe é "C", com as informações do personagem movidas para "Z" e a expansão do histórico do chat movida para "Ctrl + Z". Se esses atalhos já estiverem vinculados manualmente, eles não serão substituídos e as configurações precisarão ser ajustadas manualmente. 
+- Cinco skins de voz com tecnologia Voicemod estão inclusas: Markus, Bexter, Tarys, Raghul e Jayra. Skins de voz são modificações opcionais que alteram como as outras pessoas te ouvem. Quando habilitadas, elas podem ser aplicadas apenas à voz da equipe ou à voz do grupo e da equipe. 
+- Ignore as ordens de Raghul por sua conta e risco! 
+- Adicionamos também uma supressão de ruído às opções de voz dentro do LoL (ativada por padrão). 
+- Adicionamos a calibração de ganho de entrada ao menu de opções de voz no cliente. Ao testar a reprodução de áudio local, ajuste a posição física e o ganho do seu microfone até que o anel de calibragem fique dentro da área sombreada e brilhe na cor dourada. Também é possível testar como a voz vai ficar com as skins de voz! 
+- Adicionamos uma opção de denúncia por abuso no chat de voz a todos os menus de denúncia. 
+- Quem estiver abaixo do nível 3 de Honra ou com restrição de voz por penalidade poderá entrar no chat de voz da Equipe para ouvir, mas não poderá falar nada. 
+## Mapa de Inverno Correndo pelo Rift, com a equipe a me apoiar. Sem sentinelas no caminho, essa jogada vai ser de arrasar! � Uhul! O caçador está farmando, peraí, esse canhão é meu! Hora de abrir o chat, "FF aos 15? Porque pra mim já deu! � Aff!".  É primavera no Brasil, mas isso não vai impedir o mapa de inverno de voltar para o fim de ano!  Para comemorar esse retorno, todas as skins Legado de inverno estarão disponíveis para compra na Loja assim que a 26.23 for implementada. Elas ficarão na Loja enquanto o mapa de inverno estiver ativo até o início do ano que vem, então é melhor aproveitar!  Também teremos uma nova leva de skins temáticas de inverno chegando na 26.24 pra quem quer caprichar nas festividades. 
+## Campeões 
+## Annie Já faz um tempinho que Annie não anda com um bom desempenho para a maioria das pessoas, então chegamos para alimentar as chamas e fortalecer a itemização de Tibbers flamejante. 
+## R – Invocar: Tibbers 
+- Vida do Tibbers : 1.150 - 3.500 (escala com o nível da Campeã) (+ 50% do PdH) ⇒ 1.275 - 4.000 (escala com o nível da Campeã) (+ 50% do PdH) (+ 150% da Vida adicional) 
+- Dano por segundo da aura do Tibbers : 8/12/16 (+ 4% do PdH) ⇒ 10/15/20 (+ 4% do PdH) 
+- Dano de Ataque do Tibbers : 30/45/60 (+ 10% do PdH) ⇒ 30/50/70 (+ 10% do PdH) 
+## Azir Oi de novo, fãs de pássaros! Temos acompanhado o desempenho do Azir conforme ele muda de Pressione o Ataque para Ritmo Fatal. Os fortalecimentos na 26.21 não foram tão satisfatórios, então trouxemos mais uma forcinha. Atenção: o aumento no Alcance de Ataque não afeta o alcance dos soldados, apenas quando ele precisa usar os próprios ataques básicos! 
+## Atributos base 
+- Alcance de Ataque : 525 ⇒ 550 
+## W – Surja! 
+- Multiplicador de Dano de Ataque/ao contato : 50% ⇒ 67% 
+## Bardo O Bardo anda bem fraquinho desde os enfraquecimentos focados no cenário profissional implementados no início do ano, e a galera simplesmente parou de fazer PdH. Pensando nisso, trouxemos um pequeno fortalecimento no dano base e no multiplicador do Q. 
+## Q – Prisão Cósmica 
+- Dano : 80/120/160/200/240 (+ 80% do PdH) ⇒ 80/125/170/215/260 (+ 100% do PdH) 
+## Ezreal Durante todo o ano, Ezreal teve desempenho abaixo do esperado na maioria dos ranques, mesmo estando bem forte no cenário profissional. Agora que a temporada profissional acabou, trouxemos alguns fortalecimentos para que ele tenha mais sucesso em nossas partidas. 
+## W – Fluxo Essencial 
+- Dano : 80/135/190/245/300 (+ 100% do DdA adicional) (+ 90% do PdH) ⇒ 80/135/190/245/300 (+ 115% do DdA adicional) (+ 100% do PdH) 
+## R – Barragem Incendiária 
+- Dano a Campeões : 350/550/750 (+ 100% do DdA adicional) (+ 110% do PdH) ⇒ 350/600/850 (+ 110% do DdA adicional) (+ 120% do PdH) 
+## Galio O Galio anda meio fraquinho e queremos aproveitar para fortalecê-lo, principalmente com as itemizações de lutador de PdH mais fracas, em vez de focarmos só na opção atual de PdH explosivo. 
+## W – Escudo de Durand 
+- Quantidade de Escudo (também afeta o R) : 7,5/9/10,5/12/13,5% da Vida máxima dele ⇒ 8/11/14/17/20% da Vida máxima dele 
+## Gnar Assim como o Ezreal, o Gnar está muito popular na rota superior para os profissionais, mas não nos outros níveis de habilidade, então chegamos com um fortalecimento específico para o braço que ele usa para arremessar. 
+## Q – Bumerangue/Pedregulho 
+- Dano (Mini) : 5/45/85/125/165 (+ 125% do DdA) ⇒ 5/45/85/125/165 (+ 135% do DdA) 
+- Dano (Mega) : 45/90/135/180/225 (+ 140% do DdA) ⇒ 45/90/135/180/225 (+ 150% do DdA) 
+## K'Sante O K'Sante é outra figurinha carimbada no cenário profissional do Mundial, mas o desempenho dele não é tão bom para o resto dos jogadores, principalmente no fim de jogo que é quando ele decai absurdamente, diferente da maioria dos tanques. 
+## W – Criador de Caminhos 
+- Mana : 45/50/55/60/65 ⇒ 45 
+- Dano base : 45/75/105/135/165 ⇒ 45/85/125/165/205 
+- Aumento de dano da Forma Irrestrita com base no tempo de carregamento : 10/27,5/45/62,5/80% de dano ⇒ 10/26,25/42,5/58,75/75% de dano 
+## LeBlanc O dano da LeBlanc está alto demais, principalmente no Q, que é bem confiável. Pensando nisso, vamos reduzir o multiplicador de escalamento para que ela não fique tão opressiva, especialmente quando já estiver em vantagem. 
+## Q – Sigilo de Malícia 
+- Multiplicador de Poder de Habilidade (inicial e marca) : 40% do PdH ⇒ 35% do PdH 
+## Master Yi Faz algumas atualizações que estamos de olho no Master Yi, conforme os fortalecimentos, a restituição do Tempo de Recarga do Q, os ajustes de qualidade de vida e as mudanças no meta da selva se estabeleciam. Ele ainda está bem fortinho, então vamos enfraquecê-lo de uma forma que deve impactar principalmente a itemização de Acerto Crítico (estilo de jogo dominante) em vez da itemização de efeitos ao contato. 
+## Q – Ataque Alpha 
+- Dano : 20/40/60/80/100 (+ 70% do DdA) ⇒ 20/40/60/80/100 (+ 60% do DdA) 
+- Dano máximo a alvo único : 35/70/105/140/175 (+ 122,5% do DdA) ⇒ 35/70/105/140/175 (+ 105% do DdA) Lembrete: também pode causar Acerto Crítico e dano adicional. 
+## Mel A reformulação da Mel chegou conforme o esperado: um fortalecimento moderado sem afetar sua taxa de banimento. Ela ainda está um pouco mais fraca do que a média e precisa de mais de poder de fogo, então vamos fortalecer tanto o Q quanto o W. 
+## Q – Barragem Radiante 
+- Dano do raio subsequente : 5/10/15/20/25 (+ 8% do PdH) ⇒ 6/11/16/21/26 (+ 9% do PdH) 
+- Dano máximo : 85/120/165/220/285 (+ 65/73/81/89/97% do PdH) ⇒ 90/126/172/228/294 (+ 70/79/88/97/106% do PdH) 
+## W – Refutação 
+- Escudo : 50/80/110/140/170 (+ 50% do PdH) ⇒ 50/90/130/170/210 (+ 50% do PdH) 
+- Retaliação : 35/40/45/50/55 (+ 10% do PdH) ⇒ 35/45/55/65/75 (+ 10% do PdH) 
+## Syndra O Atordoamento da Syndra está disponível demais, então vamos aumentar o custo e o Tempo de Recarga dele no início de jogo. Pensamos nisso para que ela não dependa ainda mais de itemizações com alta Aceleração de Habilidade e para fazer a habilidade aproveitar melhor o investimento em Mana. 
+## E – Dispersar os Fracos 
+- Custo de Mana : 50 ⇒ 60 
+- Tempo de Recarga : 15 ⇒ 17/16,5/16/15,5/15 
+## Vel'Koz Cometemos um pequeno erro na matemática do Vel'Koz. Ele ficou BEM descontente. Mas nada de pânico! Isso não terá nenhum impacto realista no nível de poder dele. 
+## R – Raio Desintegrador de Formas de Vida 
+- Total de dano : 450/700/925 ⇒ 450/700/950 
+## Vi Agora que a temporada profissional acabou, queremos fortalecer a Vi um pouquinho e melhorar os números dela no restante da escalada ranqueada. 
+## E – Força Implacável 
+- Dano : 10/30/50/70/90 (+ 110% do DdA) (+ 100% do PdH) ⇒ 10/35/60/85/110 (+ 110% do DdA) (+ 100% do PdH) 
+## Itens 
+## Cicloespada Voltaica Aqui temos um item dominante demais como um opção de Letalidade, tanto na hora de ir pra cima com tudo quanto para poke. Ir pra cima com tudo é mais importante para um assassino do que o poke bruto que o item concede, então vamos reduzir seu dano de ativação. 
+## Único – Firmamento 
+- Dano adicional : [9% || 7%] da Vida atual do alvo ⇒ [8% || 6%] da Vida atual do alvo 
+## Classic 
+## Campeões   NOVO    – Talon Esta versão do Talon assassino de dano explosivo muito mais direto existiu de 2011 a 2016. Ele tem um teleporte com alvo, um silenciamento e não fica pulando paredes o tempo todo. Ainda assim, ele causa muito dano. 
+- Passiva – Piedade : os ataques básicos de Talon causam mais dano a inimigos sob Controle de Grupo. 
+- Q – Diplomacia Noxiana : o próximo ataque causará dano adicional. Se o alvo for um Campeão, ele também sofrerá dano adicional ao longo do tempo. 
+- W – Ancinho : Talon arremessa lâminas em uma área cônica e elas causam dano e Lentidão aos inimigos na ida e na volta. 
+- E – Degolar : Talon teleporta-se para trás do alvo. Se for um inimigo, ele o silencia brevemente e causa dano adicional por vários segundos. 
+- R – Ataque das Sombras : Talon fica invisível e lança um anel de lâminas que causam dano a todos os inimigos ao seu redor. Pelos próximos segundos, ele recebe mais Velocidade de Movimento. Reativar o R ou realizar qualquer ação ofensiva remove a invisibilidade e puxa as lâminas de volta, causando dano aos inimigos atingidos.   NOVO    – Udyr De 2009 a 2022, essa versão do Udyr vagou pelo Rift, mas por um curto período de tempo ele fez isso com o Medalhão Enervante. O Medalhão também está de volta, então só comprar um e garantir suas vitórias. Normalmente, é melhor acumular DdA para a Postura do Tigre ou ir para a linha de frente com a Postura da Fênix. 
+- Passiva – Agilidade do Macaco : ao conjurar uma Habilidade, Udyr recebe um acúmulo de Agilidade do Macaco que concede Velocidade de Movimento e Velocidade de Ataque adicionais, até um limite. 
+- Q – Postura do Tigre : Udyr recebe Velocidade de Ataque adicional por um breve período e seu primeiro ataque causa dano adicional ao longo do tempo. Enquanto está na Postura do Tigre, os dele ataques causam dano adicional. 
+- W – Postura da Tartaruga : Udyr recebe um Escudo. Enquanto mantém a Postura da Tartaruga, ele recebe Roubo de Vida adicional. 
+- E – Postura do Urso : Udyr recebe um impulso de Velocidade de Movimento e pode atravessar unidades. Enquanto ele está na Postura do Urso, o primeiro ataque dele contra cada inimigo causará Atordoamento. Ele pode causar Atordoamento novamente após alguns segundos. 
+- R – Postura da Fênix : Udyr se envolve em chamas por alguns segundos, causando dano a inimigos próximos. Enquanto está na Postura da Fênix, o primeiro ataque dele e um a cada três ataques subsequentes, causam dano a todos os inimigos em uma área cônica à frente.   NOVO    – Urgot Esta forma do Urgot existiu inicialmente de 2010 a 2017. Curiosidade: há muito tempo, uma publicação da comunidade em inglês falava sobre a futura atualização do Urgot e mencionava uma forma de "Luz" e "Escuridão", além de "joelhos de escopeta". É por isso que o rework do Urgot de 2017 tem joelhos de escopeta? Jamais saberemos... Ele é um tipo de colosso de DdA. Manamune é muito útil, assim como itens de tanque como Coração Congelado, já que a ultimate o colocará bem no meio da equipe inimiga. Nada de trocar de lugar com o Alistar inimigo, hein? Vai custar uma partida no WCG 2010. 
+- Passiva – Aumentador de Raios Tocado por Zaun : os ataques e o Q do Urgot aplicam um efeito negativo aos inimigos atingidos, reduzindo o dano causado por eles por vários segundos. 
+- Q – Caçador Ácido : Urgot dispara um projétil que causa dano ao primeiro inimigo atingido. Se usada contra um inimigo afetado pelo E dele, a Habilidade se torna teleguiada em vez de um disparo de precisão. 
+- W – Condensador do Terror : Urgot recebe um Escudo. Enquanto o Escudo está ativo, os Ataques e o Q causam Lentidão aos inimigos. 
+- E – Carga Corrosiva Noxiana : Urgot lança uma granada que explode e inflige efeitos negativos aos inimigos na área, causando dano e fragmentando a Armadura deles ao longo de vários segundos. 
+- R – Reversor de Posição Hipercinético : Urgot canaliza em um inimigo, suprimindo-o e recebendo resistências adicionais. Se a canalização for concluída, eles trocam de lugar e o inimigo sofre Lentidão por alguns segundos.   NOVO    – Xerath Esta versão do Xerath não durou muito, existindo apenas de 2011 a 2014, mas tinha um estilo de jogo único de se tornar um tanque de cerco, explodindo os inimigos de longe enquanto se enraizava no lugar. Ele é um mago de artilharia de PdH até a última pedrinha do seu corpo. 
+- Passiva – Forma Ascendente : Xerath recebe uma parte de seu Poder de Habilidade como Armadura adicional. 
+- Q – Pulso Arcano : Xerath dispara um raio de energia, causando dano a todos os inimigos em linha reta. 
+- W – Lócus de Poder : Xerath se imobiliza, recebendo Penetração Mágica e alcance adicionais em suas Habilidades. Se inserir um comando de movimento, ele encerrará Lócus do Poder e receberá um breve impulso de Velocidade de Movimento. 
+- E – Correntes Mágicas : Xerath causa dano e um efeito negativo ao alvo inimigo. Acertar uma Habilidade em um inimigo marcado o Atordoa. 
+- R – Barragem Arcana : Xerath explode inimigos em uma área próxima. Barragem Arcana pode ser conjurada três vezes antes de entrar em Tempo de Recarga. Correção de bugs 
+- A dublagem dos Ataques básicos e das Habilidades do Swain foram restauradas. 
+- Swain não se revela mais na Névoa de Guerra durante Bando Voraz (R). 
+- Swain não fica mais com uma aparência estranha ao sofrer um Arremesso ao Ar. 
+- Os efeitos visuais de Decrepitar (Q) do Swain foram corrigidos. 
+- Rugido Majestoso (E) do Volibear não fica mais visível na Névoa de Guerra. 
+- A dublagem das Habilidades da Elise na Forma Humana foi restaurada. 
+- Elise não fica mais com uma aparência estranha durante efeitos de Atordoamento e Arremesso ao Ar. 
+- Parte dos efeitos sonoros de Ataque Devastador (E) do Hecarim voltaram a ser reproduzidos. 
+- Os efeitos visuais de Presságio da Morte (R) do Yorick foram corrigidos. 
+## ARAM: Desordem Estamos de volta com mais conteúdo e balanceamentos para o ARAM: Desordem! Quatro novos Headliners estão subindo ao palco, trazendo novas formas de jogar. Seja uma segunda chance na vida com Fliperama, proteger a equipe com La Ilusión, enriquecer com Galante ou encontrar o Aprimoramento perfeito com Maestro, mal podemos esperar para vocês aproveitarem esse show!  Também estamos de olho no desempenho do novo conjunto e nos feedbacks de vocês. As torres estavam caindo rápido demais, mal atrasando os inimigos e dando pouquíssimo tempo para as equipes reagirem. Estamos fazendo experimentos com elas e aumentando suas defesas para que as partidas não acabem num piscar de olhos.  Tanques andam tendo dificuldade em acompanhar o caos, então estamos trazendo quatro novos Aprimoramentos especiais para eles a fim de ajudar nossos Campeões mais parrudos a continuarem na luta. Também estamos trazendo mais balanceamentos de Campeões para fortalecer quem está precisando e enfraquecer quem está com um desempenho acima da média. Por fim, vamos enfraquecer Abelhas Ricocheteantes e O Boom e o Grave, já que estavam causando mais dano do que gostaríamos.  Como sempre, agradecemos por jogarem com a gente, e continuem mandando as opiniões de vocês! 
+## Campeões Brand 
+- Dano sofrido : 110% ⇒ 105% Ekko 
+- Tenacidade : 20% ⇒ 10% Gwen 
+- Dano sofrido : 100% ⇒ 105% Jax 
+- Dano sofrido : 97% ⇒ 100% 
+- Dano causado : 105% ⇒ 100% Lux 
+- Modificador de Escudo : 80% ⇒ 100% Sivir 
+- Dano causado : 93% ⇒ 95% 
+- Dano sofrido : 105% ⇒ 100% Yasuo 
+- Aumento de Velocidade de Ataque total : 2,5% ⇒ 0% Yone 
+- Dano sofrido : 97% ⇒ 100% 
+- Dano causado : 105% ⇒ 100% Zaahen 
+- Dano sofrido : 100% ⇒ 105% Ziggs 
+- Dano sofrido : 120% ⇒ 110% 
+## Aprimoramentos   NOVO    Fortalecido Recebe 20 de Armadura, depois recebe 25% de Armadura adicional.   NOVO    Guarda Mística Recebe 20 de Resistência Mágica, depois recebe 25% de Resistência Mágica adicional.   NOVO    Hora da Geleca A cada poucos segundos, conjura automaticamente uma explosão de gosma do seu corpo, causando Dano Mágico a inimigos próximos. Se atingir um Campeão, expelirá uma gosma que te Cura quando você passa por cima dela.   NOVO    Presença Inabalável Recebe Armadura, Resistência Mágica e Tenacidade adicionais. Os valores aumentarão quando você estiver com menos de 40% de Vida Máxima. O Boom e o Grave 
+- Dano : 50 - 200 + 50% do DdA + 30% do PdH ⇒ 50 - 175 + 40% do DdA + 25% do PdH Abelhas Ricocheteantes 
+- Porcentagem de Dano de Ataque Básico : 50 - 100% ⇒ 60% Salvação 
+- Tempo de Recarga : 90s ⇒ 70s 
+## Headliners   NOVO    Fliperama Participe de eliminações para obter Emblemas. Quando abaterem você, use 4 Emblemas para ressuscitar.   NOVO    Galante Aprimoramentos concedem ouro adicional.   NOVO    La Ilusión Aliados deixam cair uma vela ao morrer. Pegue-a para conceder Escudo a si e aos aliados próximos.   NOVO    Maestro Permite que você escolha entre 4 Aprimoramentos. True Damage 
+- Bigorna Prismática : máximo de 1 por equipe e por partida. Superfãs 
+- Experiência adicional : 30% ⇒ 60% 
+## Sistemas Barricada da Torre No Desordem, as torres agora têm 120 de Armadura e 120 de Resistência Mágica, além de não decaírem mais com o decorrer da partida.  Torres externas e do inibidor agora contam com barricadas no Desordem. As barricadas dividem a barra de Vida em terços, e cada barricada destruída concederá 100 de ouro, dividido entre quem estiver por perto. Quando uma barricada é destruída, a torre recebe um efeito de Bastião que concede 60 a 80 de resistências por Campeão inimigo próximo. 
+## Correções de bugs 
+- Pantheon não consegue mais ignorar o efeito de retorno da Dança da Morte. 
+- Axioma Arcano não concede mais restituição do Tempo de Recarga para ultimates que ainda não estavam em Tempo de Recarga. 
+- Bumerangue OK voltou a ser disparado corretamente. 
+- Os Kindred voltaram a receber o Escudo de Forma Final. 
+- Flechatroz de Yun Tal voltou a receber Chance de Acerto Crítico aumentada com Arma do Destino. 
+- Corrigimos um bug visual envolvendo o canhão de Águas de Sentina e certos Campeões. 
+- Kled não recebe mais Aceleração excedente ao avançar. 
+- Nidalee não consegue mais usar Arremessar Lança na Forma de Puma com Projétil Dividido. 
+- As Efígies do Fiddlesticks não ficam mais com o Aprimoramento Canhão de Vidro permanentemente. 
+- Dispersar os Fracos da Syndra voltou a funcionar com Fuzileiro de Elite. 
+- O Q da Anivia não pode mais ser conjurado sem Tempo de Recarga com Fuzileiro de Elite. 
+- Círculo da Morte voltou a causar dano total mesmo se o usuário tiver Vampirismo Universal. 
+- A dica flutuante de ADAPte-se foi corrigida. 
+- Arma do Destino voltou a ser aplicada a itens únicos, como o Chapéu Mágico de Wooglet. 
+- Restauramos os efeitos visuais de alguns Aprimoramentos de alma de dragão. 
+- Raposa de Fogo não exibe mais valores incorretos nas dicas flutuantes. 
+## ARAM 
+## Campeões Kalista 
+- Dano causado : 110% ⇒ 105% 
+- Dano sofrido : 90% ⇒ 100% 
+## Arena Na atualização de hoje, teremos balanceamentos no Arena também, com enfraquecimentos para alguns dos Campeões mais fortes ou dominantes do meta e fortalecimentos para os mais fracos e itemizações alternativas (como Bel'Veth e Tristana de PdH ou a Lulu do Q explosivo)! Também alteramos alguns itens para garantir que quem curte testar itemizações únicas tenha novas opções interessantes para explorar! 
+## Campeões Annie Observação: Annie está recebendo balanceamentos não relacionados ao Arena acima que também serão implementados. A barra de Vida do Tibbers está recebendo Vida por nível e um multiplicador de Vida adicional. Os Ataques básicos do Tibbers já são modificados no Arena, então essa alteração não será transferida para o modo. 
+## R – Invocar: Tibbers 
+- Dano base da aura do Tibbers : 15/20/25 ⇒ 10/15/20 (mesmos valores de SR) Azir Observação: Azir está recebendo balanceamentos não relacionados ao Arena acima que também serão implementados. O Alcance de Ataque base dele aumentará especificamente de 525 para 550. O modificador ao contato do W dele já foi alterado no Arena para 100%, então não será levado para o modo. 
+## W – Surja! 
+- Multiplicador de Dano de Ataque adicional : 0% ⇒ 30% Bel'Veth 
+## R – Banquete Eterno 
+- Multiplicador de Poder de Habilidade por acúmulo : 0% ⇒ 1% Braum 
+## Passiva – Golpes Concussivos 
+- Duração do Atordoamento : 1,25/1,5/1,75s ⇒ 1/1,25/1,5s Cho'Gath 
+## R – Banquete 
+- Vida por acúmulo : 100/150/200 ⇒ 80/120/160 Kayn (Rhaast) 
+## Q – Corte Ceifador 
+- Multiplicador de Dano de Ataque adicional com base na Vida máxima : 2,5 ⇒ 1,5 Lulu 
+## Q – Lança-Purpurina 
+- Dano do segundo acerto : reduzido em 25% ⇒ aumentado em 25% Nami 
+## W – Vazante e Fluxo 
+- Multiplicador de Poder de Habilidade do dano : 65% ⇒ 50% 
+- Dano base : 30 ⇒ 25 
+- Cura base : 40 ⇒ 30 Seraphine 
+## Q – Nota Aguda 
+- Multiplicador de Poder de Habilidade : 40% ⇒ 50% Skarner 
+## W – Bastião Sísmico 
+- Tempo de Recarga : 9/8,75/8,5/8,25/8s ⇒ 9/8/7/6/5s Sona 
+## W – Ária da Perseverança 
+- Multiplicador de Poder de Habilidade da cura : 30% ⇒ 20% Taric 
+## E – Deslumbrar 
+- Tempo de Recarga : 19/17,5/16/14,5/13s ⇒ 16s Tristana 
+## W – Salto-foguete 
+- Multiplicador de Poder de Habilidade : 80% ⇒ 120% Vayne 
+## W – Dardos de Prata 
+- Multiplicador com base na Vida máxima : 4/4,5/5/5,5/6% ⇒ 3/3,5/4/4,5/5% Vladimir 
+## Passiva – Pacto Vermelho 
+- Multiplicador de Poder de Habilidade para Vida : 160 ⇒ 130 
+- Multiplicador de Vida para Poder de Habilidade : 3,33% ⇒ 2% Yorick 
+## P – Pastor de Almas 
+- Multiplicador de Dano de Ataque do Andarilho da Névoa : 15% ⇒ 20% 
+- Redução de Vida do Andarilho da Névoa no modo Arena : 30% ⇒ 20% 
+## Itens Diadema de Canções 
+- Multiplicador de Mana da cura de Consonância : 0,8% ⇒ 1,6% Manopla dos Glacinatas 
+- Multiplicador de Armadura adicional da Lâmina Arcana : 0% ⇒ 25% Dente de Na'Shor 
+- Multiplicador de Potência de Escudo e Cura de Mordida Icathiana : 0% ⇒ 150% Perplexidade 
+- Regeneração de Mana base : 0 ⇒ 500% Criarrunas 
+- Multiplicador de Poder de Habilidade por projétil : 8% ⇒ 7% Quimiotanque Turbo 
+- Cura : 20% da Vida máxima ⇒ 16% da Vida máxima 
+## Sistemas Fortalecimento global do Arena 
+- Aceleração de Habilidade adicional para Campeões de ataque à distância : 20 ⇒ 10 
+## Limite de download de replays O limite de download de replays foi alterado de 10 por hora para 50 por dia. Há algumas atualizações, implementamos esse limite para impedir que infratores abusassem em larga escala dos replays baixados com aplicativos vibecoded para extrair milhares e milhares de replays. Optamos por um limite por tempo para que criadores de conteúdo ainda possam continuar trabalhando, mas sem o risco de downloads massivos e abusivos. Para tornar os replays mais acessíveis para os membros da comunidade que precisam deles e, ao mesmo tempo, reduzir o risco à integridade das nossas partidas, estamos adotando um limite diário. 
+## Música interativa da DJ Sona Estamos atualizando a música interativa da DJ Sona para deixá-la mais parecida com o lançamento original. A implementação da música da versão original de 2015 consumia muitos recursos, não sendo sustentável a longo prazo. É por isso que implementamos uma otimização em 2018.  Porém, desde então, fizemos várias mudanças na forma como implementamos os sistemas de música no LoL e aprimoramos nossos métodos de otimização. Com o lançamento da Variante Mítica, vamos atualizar a DJ Sona já existente que, embora não seja uma recriação 1:1 do lançamento original, captura as intenções do sistema de música original. Isso adicionará as seguintes funcionalidades: 
+- A cada uso de uma habilidade da Sona, a música responderá "habilitando" uma camada adicional, até construir a faixa completa. 
+- Se ela morrer, as camadas serão redefinidas e desaparecerão. Se usar suas habilidades de novo, a faixa vai voltando. 
+- Ao usar o R nos níveis 6, 11 e 16, a música muda de estado para tocar playlists de maior intensidade. 
+- As camadas interativas ainda persistem em todos os níveis. 
+- Também corrigimos o comportamento do botão de silenciar e reativar o som na interface, já que ele não estava funcionando de forma confiável. Assim, ele funcionará de maneira semelhante a quaisquer outros Campeões com músicas que podem ser silenciadas. É com muita alegria que anunciamos nossa mais nova colaboração com underscores, uma renomada produtora de música eletrônica e DJ americana. A parceria veio para trazer a Sona ao palco juntamente com True Damage, K/DA e Heartsteel. 
+## Correções de bugs e mudanças de qualidade de vida 
+- Quando for confirmado que alguém está sabotando a Seleção de Campeões após o início de uma partida, uma votação para encerrá-la será iniciada se a confirmação ocorrer em até 60s, em vez de apenas penalizar a pessoa infratora depois da partida. 
+- Corrigimos um problema que afetava a funcionalidade do W da Illaoi quando um Escudo de Feitiço estava ativo. 
+## Cromas e skins futuros As skins abaixo serão lançadas nesta atualização: 
+## Neeko e Zoe Kawaii Café 
+## DJ Sona Remix Supremo Os cromas abaixo serão lançados nesta atualização: 
+## Neeko Kawaii Café  
+## Zoe Kawaii Café 
+## Artigos relacionados 
+- Atualizações do jogo 2026-11-09T17:00:00.000Z Liberte seu Bando Voraz Swain, Volibear e Elise já estão disponíveis no League Classic. 
+- Atualizações do jogo 2026-11-03T19:00:00.000Z Notas da Atualização 26.22 do League of Legends A Atualização 26.22 está no topo das paradas! K/DA chegando pra botar fogo no parquinho, Mel recebendo uma atualização parcial e várias mudanças para SR, Desordem e Classic. 
+- Atualizações do jogo 2026-10-20T18:00:00.000Z Notas da Atualização 26.21 True Damage chegando no maior estilo! Além de novidades para SR, Desordem, Classic e Arena. 
+- Atualizações do jogo 2026-10-06T18:00:00.000Z Notas da Atualização 26.20 do League of Legends Opa, opa, opa! A atualização do Mundial chegou! Um montão de ajustes para os profissionais, mais Campeões de volta ao Classic – e a galera do HEARTSTEEL curtindo a vida. 
+- Atualizações do jogo 2026-09-22T18:00:00.000Z Notas da Atualização 26.19 O Mundial está chegando, mais Campeões "novos" no Classic e Aprimoramentos novinhos para o Arena! 
+- Atualizações do jogo 2026-09-09T18:00:00.000Z Notas da Atualização 26.18 do League of Legends Está tudo no devido lugar: o Caps entrou para o Hall of Legends, os demacianos voltaram ao Classic e os Aprimoramentos do ARAM: Desordem estão com os Campeões certos! 
+- Atualizações do jogo 2026-08-25T18:00:00.000Z Notas da Atualização 26.17 Mudanças para Arena, Ponte e Summoner's Rift... Tanto o novo quanto o velho! 
+- Atualizações do jogo 2026-08-11T18:00:00.000Z Notas da Atualização 26.16 do League of Legends Atualizações para Campeões e sistema, chegada dos ninjas ao Classic e muito mais! 
+- Atualizações do jogo 2026-08-05T17:00:00.000Z Como fazer a melhor itemização Itens no League Classic dão muito poder. Aqui vão algumas dicas do que comprar. 
