@@ -8,12 +8,28 @@ sys.path.insert(0, str(Path(__file__).parent))
 from comum import RAIZ, SCHEMA  # noqa: E402
 from critico import NOTA_MINIMA, RUBRICA, avaliar  # noqa: E402
 
-RODADAS = int(os.environ.get("LOL_RODADAS", "4"))
+RODADAS = int(os.environ.get("LOL_RODADAS", "5"))
+RODADAS_AGY = int(os.environ.get("LOL_RODADAS_AGY", "2"))  # depois disso, o Claude reescreve a partir das críticas
 SKILL = RAIZ / ".claude" / "skills" / "roteiro-short-lol" / "SKILL.md"
+
+
+def exemplos_ref():
+    pasta = RAIZ / "data" / "exemplos_aprovados"
+    out = []
+    for f in sorted(pasta.glob("*.json"))[:2]:
+        r = json.loads(f.read_text())
+        out.append({"nota_do_critico": (r.get("nota_critico") or {}).get("nota"), "angulo": r.get("angulo"),
+                    "gancho_tipo": r.get("gancho_tipo"),
+                    "cenas": [{k: c.get(k) for k in ("narracao", "texto_tela", "antes", "depois", "rotulo")} for c in r["cenas"]]})
+    return out
 
 
 def sistema():
     s = SKILL.read_text().split("---", 2)[-1]
+    ref = exemplos_ref()
+    if ref:
+        s += ("\n\nEXEMPLO DE ROTEIRO APROVADO PELO EDITOR (referência de padrão e de tom; NÃO copie o tema nem as frases):\n"
+              + json.dumps(ref, ensure_ascii=False))
     return (s + "\n\nFOCO: um Short de 25 a 45 s defende UMA ideia. Prefira 1 ou 2 campeões com a consequência prática "
             "de cada mudança para quem joga a uma lista de 4 campeões só com números. Conte as palavras antes de devolver: "
             "60 a 110 no total. Em cena com 'antes' e 'depois', o texto_tela tem no máximo 22 caracteres."
@@ -27,11 +43,14 @@ def sistema():
             + SCHEMA.read_text())
 
 
-def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
+def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None, rodada=1):
     if gerar is None:
-        from llm import gerar_json
+        from llm import ESCRITOR_REGISTRO, claude, gerar_json
 
         def gerar(si, u, temperatura=0.9):
+            if rodada > RODADAS_AGY and os.environ.get("LOL_LLM_ESCRITOR", "agy") == "agy":
+                ESCRITOR_REGISTRO.append(f"rodada {rodada}: Claude reescreve a partir das críticas")
+                return claude(si, u)
             return gerar_json(si, u, temperatura=temperatura, papel="escritor")
     entrada = {"pauta": {k: pauta[k] for k in ("id", "tipo", "formato", "variacao")},
                "campeoes_evitar": pauta.get("campeoes_evitar", []),
@@ -49,13 +68,52 @@ def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
     return gerar(sistema(), msg, temperatura=0.9)
 
 
+N_RASCUNHOS = int(os.environ.get("LOL_RASCUNHOS", "3"))
+
+
+def _pre_nota(rot, fonte):
+    """Pré-checagem barata, sem LLM: falhas determinísticas pesam muito; perto de 85 palavras é o ponto doce."""
+    from critico import avaliar
+    try:
+        pr = avaliar(dict(rot, **{"fontes": rot.get("fontes") or [{"id": "f1", "url": "https://x", "coletado_em": "x"}]}),
+                     {"f1": fonte["texto_bruto"]}, juiz=lambda *a, **k: {"criterios": {}})["problemas"]
+    except Exception as e:
+        pr = [str(e)]
+    n = sum(len(c.get("narracao", "").split()) for c in rot.get("cenas", []))
+    return len(pr) * 100 + abs(n - 85)
+
+
+def melhor_de(n, pauta, fonte, historico, gerar, feedback, anterior, rodada, log):
+    if n <= 1:
+        return escrever(pauta, fonte, historico, gerar, feedback, anterior, rodada=rodada)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(n) as ex:
+        futs = [ex.submit(escrever, pauta, fonte, historico, None, feedback, anterior, rodada) for _ in range(n)]
+        cands = []
+        for f in futs:
+            try:
+                cands.append(f.result())
+            except Exception as e:
+                log(f"rascunho falhou: {str(e)[:80]}")
+    if not cands:
+        raise RuntimeError("nenhum rascunho gerado")
+    for c in cands:
+        c.setdefault("id", pauta["id"]); c["formato"], c["variacao"] = pauta["formato"], pauta["variacao"]
+        c["fontes"] = [{"id": "f1", "url": fonte["url"], "coletado_em": fonte["coletado_em"]}]
+        for ce in c.get("cenas", []):
+            ce["duracao"] = None
+    cands.sort(key=lambda c: _pre_nota(c, fonte))
+    log(f"rodada {rodada}: {len(cands)} rascunhos, escolhido o de menor falha ({_pre_nota(cands[0], fonte)})")
+    return cands[0]
+
+
 def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
     """Devolve (roteiro_aprovado | None, lista de rodadas com nota)."""
     rodadas, anterior, critica_ant = [], None, None
     feedback = pauta.get("comentario") or None  # melhorias do juiz de vídeo ou do botão Refazer
     acumulado = []
     for i in range(RODADAS):
-        rot = escrever(pauta, fonte, historico, gerar, feedback, anterior)
+        rot = melhor_de(N_RASCUNHOS if gerar is None else 1, pauta, fonte, historico, gerar, feedback, anterior, i + 1, log)
         if rot.get("sem_pauta"):
             rodadas.append({"rodada": i + 1, "sem_pauta": rot.get("motivo")})
             return None, rodadas

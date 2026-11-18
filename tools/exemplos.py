@@ -30,7 +30,7 @@ SPECS = {
                         "aparecem na fonte; se a fonte não citar campeão, use 'ilustracao:champion/<Chave>' de um "
                         "campeão neutro e NÃO afirme nada sobre ele."},
     "C": {"formato": "voce-sabia", "variacao": 2, "gancho_tipo": "detalhe",
-          "series": ["de-onde-vem", "o-jogo-nao-te-conta"],
+          "series": ["o-jogo-nao-te-conta", "de-onde-vem"],
           "instrucoes": "Formato voce-sabia. Gancho na estrutura 'detalhe escondido' (gancho_tipo='detalhe'). "
                         "Use asset 'ddragon:champion/<Chave>' só para campeões citados na fonte; se não houver, use "
                         "'ilustracao:champion/<Chave>' e NÃO afirme nada sobre o campeão da ilustração."},
@@ -63,12 +63,22 @@ def publicacao(roteiro, fontes, tema):
     return gerar(roteiro, fontes, tema)
 
 
-def produzir(letra, usados):
+SEM_FONTE = ENTREGAS / "sem_fonte.json"
+
+
+def produzir(letra, usados, destino_nome=None):
+    sem_fonte = set(json.loads(SEM_FONTE.read_text())) if SEM_FONTE.exists() else set()
+    usados = usados | sem_fonte
     from critico import nota_editorial
     from curar import evergreen
     from roteirizar import roteirizar
-    spec = SPECS[letra]
-    destino = ENTREGAS / f"exemplo-{letra}"
+    spec = dict(SPECS[letra])
+    pontos_arq = ENTREGAS / f"pontos-{letra}.json"
+    if pontos_arq.exists():
+        pts = json.loads(pontos_arq.read_text())
+        spec["instrucoes"] += (" PONTOS DO REVISOR DA TENTATIVA ANTERIOR (corrija): "
+                               + "; ".join(f"[{p.get('area')}] {p.get('mudanca')}" for p in pts[:6]))
+    destino = ENTREGAS / (destino_nome or f"exemplo-{letra}")
     if destino.exists():
         shutil.rmtree(destino)
     destino.mkdir(parents=True)
@@ -83,9 +93,10 @@ def produzir(letra, usados):
         itens.sort(key=lambda i: [int(x) for x in re.findall(r"patch-(\d+)-(\d+)-notes", i["url"])[0]], reverse=True)
         cands = [("patch", itens[0])] if itens else []
     else:
-        for ev in evergreen()["pautas"]:
-            if ev["serie"] in spec["series"] and ev["status"] == "aberta" and ev["id"] not in usados:
-                cands.append(("ev", ev))
+        for serie in spec["series"]:  # a ordem das séries é a prioridade
+            for ev in evergreen()["pautas"]:
+                if ev["serie"] == serie and ev["status"] == "aberta" and ev["id"] not in usados:
+                    cands.append(("ev", ev))
 
     for tipo, alvo in cands[:5]:
         if tipo == "ev":
@@ -100,6 +111,8 @@ def produzir(letra, usados):
                 res["descartadas"].append({"id": alvo["id"], "pergunta": alvo["pergunta"],
                                            "motivo": "sem fonte oficial ou primária com trecho conferido na página"})
                 log(destino, f"  descartada {alvo['id']}: sem fonte conferida")
+                atual = set(json.loads(SEM_FONTE.read_text())) if SEM_FONTE.exists() else set()
+                SEM_FONTE.write_text(json.dumps(sorted(atual | {alvo["id"]})))
                 continue
             tema, fontes = alvo["serie"], item["fontes"]
             pid = f"{time.strftime('%Y-%m-%d')}-{alvo['id']}"
@@ -125,7 +138,10 @@ def produzir(letra, usados):
             if ne["aprovado"]:
                 rot = r
                 break
-            pauta["comentario"] = [ne["comentario"]]
+            fracos = [k for k, v in ne["notas"].items() if v < 4]
+            pauta["comentario"] = [f"O roteiro abaixo passou no crítico, mas o leitor deu nota baixa em {fracos}. "
+                                   f"Mantenha o que funciona e reescreva só isso: {ne['comentario']}",
+                                   {"roteiro_aprovado_para_ajustar": r}]
         if rot is None:
             res["descartadas"].append({"id": alvo["id"], "pergunta": alvo.get("pergunta", item.get("titulo")),
                                        "motivo": "roteiro não passou no crítico (80) ou na nota editorial (4) em 2 voltas"})
@@ -193,12 +209,33 @@ def produzir(letra, usados):
         res["gancho_tipo"] = rot.get("gancho_tipo")
         break
     (destino / "resumo.json").write_text(json.dumps(res, ensure_ascii=False, indent=1))
+    if res["resultado"] != "NÃO SAIU":
+        try:
+            from revisar import revisar
+            rev = revisar(destino)
+            res["revisor"] = {k: rev.get(k) for k in ("veredito", "nota_0_10", "motivo")}
+            log(destino, f"  revisor independente: {rev.get('veredito')} ({rev.get('nota_0_10')}/10) — {rev.get('motivo')}")
+            pontos_arq.write_text(json.dumps(rev.get("pontos", []), ensure_ascii=False))
+            if rev.get("veredito") != "aprovado":
+                res["resultado_final"] = "REPROVADO_REVISOR"
+        except Exception as e:
+            log(destino, f"  revisor falhou: {e}")
+        (destino / "resumo.json").write_text(json.dumps(res, ensure_ascii=False, indent=1))
+        for d in TMP.glob(f"*{res.get('pauta', 'x')}*"):  # disco: só fica o que foi entregue
+            shutil.rmtree(d / "projeto", ignore_errors=True)
+    try:
+        from registrar_vault import registrar
+        registrar(destino)
+    except Exception as e:
+        log(destino, f"  registro no vault falhou: {e}")
     return res
 
 
 if __name__ == "__main__":
-    letras = sys.argv[1:] or ["A", "B", "C"]
+    args = [a for a in sys.argv[1:] if not a.startswith("--destino=")]
+    dest = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--destino=")), None)
+    letras = args or ["A", "B", "C"]
     usados = set()
     for l in letras:
-        r = produzir(l, usados)
+        r = produzir(l, usados, dest)
         print(json.dumps({k: r.get(k) for k in ("letra", "resultado", "pauta", "duracao", "voltas_qa")}, ensure_ascii=False))

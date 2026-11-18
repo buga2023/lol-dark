@@ -11,6 +11,21 @@ import subprocess
 MODELO_CLAUDE = os.environ.get("LOL_CLAUDE_MODELO", "claude-opus-5-5")
 
 
+def rodar(cmd, timeout, entrada=None, cwd=None):
+    """subprocess com teto de tempo que derruba o GRUPO de processos (o agy/claude abrem filhos que seguram a saída;
+    o timeout comum mata só o pai e o Python fica esperando o pipe para sempre)."""
+    import signal
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE if entrada is not None else subprocess.DEVNULL,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=cwd, start_new_session=True)
+    try:
+        out, err = p.communicate(entrada, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        os.killpg(p.pid, signal.SIGKILL)
+        p.communicate()
+        raise RuntimeError(f"{cmd[0]} passou de {timeout}s e foi encerrado")
+    return subprocess.CompletedProcess(cmd, p.returncode, out, err)
+
+
 def provedor():
     escolha = os.environ.get("LOL_LLM")
     if escolha:
@@ -39,7 +54,7 @@ def claude(sistema, usuario, ferramentas="", diretorio=None, timeout=900):
         cmd += ["--allowedTools", ferramentas]
     if diretorio:
         cmd += ["--add-dir", str(diretorio)]
-    r = subprocess.run(cmd, input=usuario, capture_output=True, text=True, timeout=timeout)
+    r = rodar(cmd, timeout, entrada=usuario)
     if r.returncode != 0:
         raise RuntimeError(f"claude -p falhou (código {r.returncode}): {r.stderr[-200:]}")
     saida = json.loads(r.stdout)
@@ -58,9 +73,8 @@ def agy(sistema, usuario, timeout=int(os.environ.get("LOL_AGY_TIMEOUT", "360")))
     import tempfile
     prompt = (sistema + "\n\nResponda SOMENTE com um objeto JSON válido, sem texto antes ou depois.\n\n" + usuario)
     with tempfile.TemporaryDirectory() as vazio:
-        r = subprocess.run(["agy", "-p", prompt, "--output-format", "json", "--model", MODELO_AGY,
-                            "--disable-slash-commands", "--print-timeout", f"{timeout - 30}s"],
-                           capture_output=True, text=True, timeout=timeout, cwd=vazio)
+        r = rodar(["agy", "-p", prompt, "--output-format", "json", "--model", MODELO_AGY,
+                   "--disable-slash-commands", "--print-timeout", f"{timeout - 30}s"], timeout, cwd=vazio)
     if r.returncode != 0:
         raise RuntimeError(f"agy falhou (código {r.returncode}): {r.stderr[-200:]}")
     saida = json.loads(r.stdout.strip().splitlines()[-1])
