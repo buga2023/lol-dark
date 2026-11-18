@@ -137,6 +137,17 @@
               "number",
               "null"
             ]
+          },
+          "direcao": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "buff",
+              "nerf",
+              null
+            ]
           }
         }
       }
@@ -173,6 +184,20 @@
       "type": [
         "object",
         "null"
+      ]
+    },
+    "gancho_tipo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "numero",
+        "contradicao",
+        "pergunta",
+        "consequencia",
+        "detalhe",
+        null
       ]
     }
   }

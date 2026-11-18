@@ -72,9 +72,9 @@ def test_coletor_nao_duplica_e_sobrevive_a_fonte_fora(tmp_path):
 
 def test_curador_so_usa_o_patch_mais_recente():
     itens = [{"id": f"p{k}", "url": f"https://x/patch-26-{k}-notes/", "fonte": "patch", "coletado_em": "2026-11-17"} for k in (18, 23, 20)]
-    p = curar(itens, [], datetime(2026, 11, 18, 12, tzinfo=timezone.utc))
+    p = curar(itens, [], datetime(2026, 11, 18, 12, tzinfo=timezone.utc), perenes=False)
     assert p["tema"] == "patch-26-23"
-    assert curar(itens, [p], datetime(2026, 11, 18, 16, tzinfo=timezone.utc)) is None
+    assert curar(itens, [p], datetime(2026, 11, 18, 16, tzinfo=timezone.utc), perenes=False) is None
 
 
 def test_curador_nao_repete_tema_em_5_dias():
@@ -82,7 +82,7 @@ def test_curador_nao_repete_tema_em_5_dias():
     itens += [{"id": "dup", "url": "https://outro/champion/C3.json", "fonte": "lore", "coletado_em": "2026-11-19"}]
     pautas, temas = [], []
     for dia in range(5):
-        p = curar(itens, pautas, datetime(2026, 11, 20 + dia, 12, tzinfo=timezone.utc))
+        p = curar(itens, pautas, datetime(2026, 11, 20 + dia, 12, tzinfo=timezone.utc), perenes=False)
         assert p is not None
         pautas.append(p)
         temas.append(p["tema"])
@@ -133,9 +133,43 @@ def mp4s(tmp_path_factory):
 
 def test_qa_reprova_sem_audio(mp4s):
     r = laudo(mp4s[0])
-    assert not r["aprovado"] and not r["checks"]["audio_presente"]
+    assert not r["aprovado"] and not r["checks"]["tem_audio"]
 
 
 def test_qa_reprova_tela_preta(mp4s):
     r = laudo(mp4s[1])
-    assert not r["aprovado"] and not r["checks"]["sem_tela_preta"]
+    assert not r["aprovado"] and not r["checks"]["tela_preta"]
+
+
+def test_lint_editorial_barra_copia_e_gancho_repetido():
+    from lint_editorial import lint
+    r = ok()
+    r["cenas"][1]["narracao"] = "Ezreal teve desempenho abaixo do esperado na maioria dos ranques, mesmo estando bem forte."
+    r["gancho_tipo"] = "contradicao"
+    p = lint(r, {"f1": FONTE}, [{"gancho_tipo": "contradicao"}])
+    assert any("copiado" in x for x in p) and any("gancho_tipo" in x for x in p)
+    assert lint(ok(), {"f1": FONTE}, []) == []
+
+
+def test_pesquisa_so_aceita_trecho_que_existe_na_pagina():
+    from pesquisar import pesquisar
+    pagina = Resp("<html><body><p>O Urf foi um campeão anunciado no Dia da Mentira de 2010.</p></body></html>")
+    ev = {"id": "ev-002", "pergunta": "De onde veio o Urf?"}
+    bom = lambda s, u: {"fontes": [{"url": "https://www.leagueoflegends.com/x", "trechos": ["anunciado no Dia da Mentira de 2010"]}]}  # noqa: E731
+    inventado = lambda s, u: {"fontes": [{"url": "https://www.leagueoflegends.com/x", "trechos": ["criado por um estagiário em 2005"]}]}  # noqa: E731
+    fora = lambda s, u: {"fontes": [{"url": "https://blogqualquer.com/x", "trechos": ["anunciado no Dia da Mentira de 2010"]}]}  # noqa: E731
+    assert pesquisar(ev, bom, get=lambda *a, **k: pagina)["fonte"] == "evergreen"
+    assert pesquisar(ev, inventado, get=lambda *a, **k: pagina) is None
+    assert pesquisar(ev, fora, get=lambda *a, **k: pagina) is None
+
+
+def test_curador_rodizia_series_perenes_e_patch_vem_primeiro():
+    agora = datetime(2026, 11, 18, 12, tzinfo=timezone.utc)
+    patch = [{"id": "p", "url": "https://x/patch-26-23-notes/", "fonte": "patch", "coletado_em": "2026-11-17"}]
+    assert curar(patch, [], agora)["tema"] == "patch-26-23"
+    pautas = []
+    for h in range(3):
+        p = curar([], pautas, datetime(2026, 11, 18, 12 + h, tzinfo=timezone.utc))
+        pautas.append(p)
+    assert pautas[0]["item_id"] == "ev-001"
+    assert len({p["serie"] for p in pautas[1:]}) == 2 and pautas[1]["serie"] != pautas[0]["serie"]

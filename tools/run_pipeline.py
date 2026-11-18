@@ -30,7 +30,8 @@ def salvar(pautas):
 
 
 def historico(pautas):
-    return [{"tema": p["tema"], "gancho": p.get("gancho", ""), "formato": p["formato"]} for p in pautas[-14:]
+    return [{"tema": p["tema"], "gancho": p.get("gancho", ""), "gancho_tipo": p.get("gancho_tipo"), "formato": p["formato"]}
+            for p in pautas[-14:]
             if p.get("gancho")]
 
 
@@ -72,7 +73,20 @@ def rodar(args):
         elif ORDEM_ESTADO.index(pauta["estado"] if pauta["estado"] in ORDEM_ESTADO else "pauta") < ORDEM_ESTADO.index("verificado") \
                 or not arq_rot.exists():
             from roteirizar import roteirizar
-            item = itens[pauta["item_id"]]
+            item = itens.get(pauta["item_id"])
+            if item is None and pauta["item_id"].startswith("ev-"):
+                from curar import evergreen
+                from pesquisar import pesquisar
+                ev = next(x for x in evergreen()["pautas"] if x["id"] == pauta["item_id"])
+                item = pesquisar(ev)
+                if item is None:
+                    pauta["estado"] = "sem_fonte"
+                    salvar(pautas)
+                    print(f"pauta {pauta['id']}: sem fonte oficial para '{ev['pergunta']}'; pulando")
+                    args.saltos = getattr(args, "saltos", 0) + 1
+                    return rodar(args) if args.saltos < 3 else 0
+                from comum import anexar_jsonl as _anexar
+                _anexar(ESTADO / "itens.jsonl", [item])
             rot, rodadas = roteirizar(pauta, item, historico(pautas))
             (pasta / "rodadas.json").write_text(json.dumps(rodadas, ensure_ascii=False, indent=1))
             if rot is None:
@@ -86,6 +100,7 @@ def rodar(args):
                 return 0
             arq_rot.write_text(json.dumps(rot, ensure_ascii=False, indent=1))
             pauta["gancho"] = rot["cenas"][0]["narracao"]
+            pauta["gancho_tipo"] = rot.get("gancho_tipo")
             pauta["nota"] = rot["nota_critico"]["nota"]
             pauta["estado"] = "verificado"
             salvar(pautas)
@@ -143,7 +158,7 @@ def rodar(args):
         print(f"qa ok: {mp4} ({lq['duracao']}s, {lq['mb']} MB)")
         # 5. juiz de vídeo: nota >= 80 ou não publica; o roteiro volta com as melhorias na próxima execução
         from qualidade import avaliar_video
-        av = avaliar_video(mp4)
+        av = avaliar_video(mp4, pasta / "projeto")
         rot["qualidade"]["video"] = av
         arq_rot.write_text(json.dumps(rot, ensure_ascii=False, indent=1))
         pauta["nota_video"] = av.get("nota")

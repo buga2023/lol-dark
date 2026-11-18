@@ -95,7 +95,37 @@ CRITERIOS_VIDEO = {
 }
 
 
-def avaliar_video(mp4):
+def avaliar_video_claude(mp4, projeto):
+    """Claude não assiste vídeo: avalia a folha de quadros (gancho em 0-2 s + amostras) e o laudo de áudio."""
+    import subprocess
+    from llm import claude
+    pasta = Path(mp4).parent / "juiz"
+    subprocess.run(["npx", "--no-install", "hyperframes", "snapshot", str(projeto), "--at", "0,0.7,1.5,2.2",
+                    "--no-end", "-o", str(pasta / "gancho")], capture_output=True, timeout=600)
+    subprocess.run(["npx", "--no-install", "hyperframes", "snapshot", str(projeto), "--frames", "9",
+                    "-o", str(pasta / "geral")], capture_output=True, timeout=600)
+    folhas = [str(p) for p in (pasta / "gancho" / "contact-sheet.jpg", pasta / "geral" / "contact-sheet.jpg") if p.exists()]
+    if not folhas:
+        raise RuntimeError("snapshot do vídeo falhou")
+    rub = "\n".join(f"- {k} (0 a {p}): {q}" for k, (p, q) in CRITERIOS_VIDEO.items())
+    j = claude("Você é editor-chefe de um canal de Shorts de LoL. Avalie com rigor; nota alta é rara.",
+               f"Leia as imagens {folhas[0]} (quadros em 0, 0.7, 1.5 e 2.2 s: o gancho) e {folhas[-1]} "
+               f"(9 quadros ao longo do vídeo). Para 'acabamento', considere que o áudio foi masterizado em -14 LUFS "
+               f"com trilha abaixando sob a voz.\n{rub}\nResponda JSON: "
+               "{\"criterios\": {\"<nome>\": {\"nota\": n, \"motivo\": \"...\"}}, \"melhorias\": [\"...\"]}",
+               ferramentas="Read", diretorio=pasta)
+    return j
+
+
+def avaliar_video(mp4, projeto=None):
+    from llm import provedor
+    if provedor() == "claude" and projeto:
+        j = avaliar_video_claude(mp4, projeto)
+        nota = round(sum(max(0, min(p, float(j.get("criterios", {}).get(k, {}).get("nota", 0))))
+                         for k, (p, _) in CRITERIOS_VIDEO.items()))
+        falhas = [] if nota >= METAS["video"] else [f"nota do vídeo {nota} < {METAS['video']}: {j.get('melhorias', [])[:3]}"]
+        return {"aprovado": not falhas, "nota": nota, "falhas": falhas, "criterios": j.get("criterios", {}),
+                "melhorias": j.get("melhorias", []), "juiz": "claude"}
     if not os.environ.get("GEMINI_API_KEY"):
         return {"aprovado": True, "nota": None, "falhas": [], "obs": "sem GEMINI_API_KEY: juiz de vídeo não rodou"}
     arq = _subir_arquivo(mp4)

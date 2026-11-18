@@ -9,7 +9,14 @@ Cada passo termina num `gh secret set`. O valor é digitado no seu terminal e nu
    `curl -s "https://api.telegram.org/bot<TOKEN>/getUpdates" | grep -o '"chat":{"id":[0-9-]*'`
 4. `gh secret set TELEGRAM_CHAT_ID -R buga2023/lol-dark` com esse número.
 
-## 2. Gemini (1 min)
+## 2. Claude (1 min) — escreve, critica e julga os vídeos
+No seu terminal (fora do Claude Code):
+```bash
+claude setup-token                       # abre o login da sua assinatura e imprime um token
+gh secret set CLAUDE_CODE_OAUTH_TOKEN -R buga2023/lol-dark   # cole o token quando pedir
+```
+
+## 2b. Gemini (opcional, reserva de texto e voz)
 1. https://aistudio.google.com/apikey → **Create API key**.
 2. `gh secret set GEMINI_API_KEY -R buga2023/lol-dark`.
 

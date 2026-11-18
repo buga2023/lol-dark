@@ -1,11 +1,14 @@
-/* Wardado Clips — azul-marinho, dourado e creme (identidade do canal). Duas famílias: League Gothic + IBM Plex Mono.
-   Área segura (skill video-short-lol): texto entre y 288 e 1440, x <= 950. */
-:root { --fundo:#0B3A66; --fundo2:#082B4D; --ouro:#D4A84B; --creme:#EFEAE0; --apagado:#5E7FA3; --tinta:#EFEAE0; --sub:rgba(212,168,75,.25); }
-.v1 { --fundo:#0A2540; --fundo2:#061a2e; --ouro:#E3B65A; --creme:#F2EEE6; --apagado:#4F6E92; }
-.v2 { --fundo:#123F6E; --fundo2:#0B2F55; --ouro:#C99A3E; --creme:#EDE7DA; --apagado:#6A8DB3; }
+/* Wardado Clips — identidade da spec: azul-naval #0B3D6A, azul-noite #051C33, ouro #D1A147, papel #EDEAE4.
+   Anton nos títulos, JetBrains Mono em rótulos e números, Archivo nas legendas.
+   Variações: v0 azul-ouro, v1 noite-ouro, v2 ouro-cheio. Área segura: texto entre y 288 e 1440, x <= 950. */
+@font-face { font-family:"Anton"; src:url("assets/fonts/Anton-Regular.woff2") format("woff2"); font-weight:400; }
+@font-face { font-family:"Archivo"; src:url("assets/fonts/Archivo-ExtraBold.woff2") format("woff2"); font-weight:800; }
+:root { --fundo:#0B3D6A; --fundo2:#051C33; --ouro:#D1A147; --creme:#EDEAE4; --apagado:#6F8FB0; --tinta:#EDEAE4; --faixa:#D1A147; --faixa-txt:#051C33; }
+.v1 { --fundo:#051C33; --fundo2:#020d19; --ouro:#D1A147; --creme:#EDEAE4; --apagado:#4A6584; }
+.v2 { --fundo:#D1A147; --fundo2:#a9802f; --ouro:#051C33; --creme:#051C33; --apagado:#7a5c20; --faixa:#051C33; --faixa-txt:#D1A147; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:1080px; height:1920px; overflow:hidden; background:var(--fundo); }
-#root { position:absolute; inset:0; background:var(--fundo); color:var(--creme); font-family:"League Gothic"; }
+#root { position:absolute; inset:0; background:var(--fundo); color:var(--creme); font-family:"Anton"; }
 .cena { position:absolute; inset:0; }
 /* escamas (seigaiha) como no banner, bem sutis, e vinheta para o centro */
 .fundo { position:absolute; inset:0;
@@ -17,29 +20,31 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:var(--fund
 .marca { position:absolute; left:40px; top:1470px; font-size:520px; line-height:.8; color:transparent;
   -webkit-text-stroke:3px var(--apagado); opacity:.35; white-space:nowrap; }
 .cab { position:absolute; left:60px; width:890px; top:296px; display:flex; justify-content:space-between; align-items:center;
-  font-family:"IBM Plex Mono"; font-weight:700; font-size:27px; letter-spacing:.1em; text-transform:uppercase;
+  font-family:"JetBrains Mono"; font-weight:700; font-size:27px; letter-spacing:.1em; text-transform:uppercase;
   border-bottom:3px solid var(--ouro); padding-bottom:10px; color:var(--creme); }
 .cab .logo { display:flex; align-items:center; gap:12px; color:var(--ouro); }
 .cab .logo svg { width:34px; height:34px; }
 .cab b { color:var(--ouro); }
-.foto { position:absolute; left:60px; top:368px; width:890px; height:450px; overflow:hidden; border:4px solid var(--ouro); background:var(--fundo2); }
+.foto { position:absolute; left:60px; top:368px; width:890px; height:460px; overflow:hidden; border:4px solid var(--ouro); background:var(--fundo2); }
 .foto img { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
 .tiras { position:absolute; left:60px; top:368px; width:890px; height:560px; display:flex; gap:10px; }
 .tira { flex:1; overflow:hidden; border:4px solid var(--ouro); background:var(--fundo2); position:relative; }
 .tira img { position:absolute; left:-70%; top:0; height:100%; width:auto; }
-.manchete { position:absolute; left:60px; width:890px; top:838px; font-size:150px; line-height:.86; text-transform:uppercase; color:var(--creme); }
-.manchete.grande { top:948px; font-size:146px; }
+.manchete { position:absolute; left:60px; width:890px; top:838px; font-size:118px; line-height:.95; text-transform:uppercase; color:var(--creme); text-wrap:balance; }
+.manchete.grande { top:948px; font-size:120px; }
 .manchete .ouro { color:var(--ouro); }
 .numeros { position:absolute; left:60px; width:890px; top:978px; display:flex; align-items:baseline; gap:26px; }
-.antes { font-size:116px; color:var(--apagado); position:relative; }
+.antes { font-family:"JetBrains Mono"; font-weight:700; font-size:92px; color:var(--apagado); position:relative; }
 .risco { position:absolute; left:-6px; right:-6px; top:52%; height:9px; background:var(--ouro); transform-origin:left center; }
-.seta { font-family:"IBM Plex Mono"; font-weight:700; font-size:64px; color:var(--creme); }
-.depois { font-size:200px; color:var(--ouro); line-height:.9; }
-.rotulo { position:absolute; left:60px; top:1172px; font-family:"IBM Plex Mono"; font-weight:700; font-size:30px; text-transform:uppercase;
+.seta { font-family:"JetBrains Mono"; font-weight:700; font-size:64px; color:var(--creme); }
+.depois { font-family:"JetBrains Mono"; font-weight:700; font-size:150px; color:var(--ouro); line-height:1; }
+.dir { font-family:"JetBrains Mono"; font-weight:700; font-size:40px; align-self:center; padding:4px 12px; border:3px solid currentColor; }
+.dir.buff { color:var(--ouro); } .dir.nerf { color:var(--creme); }
+.rotulo { position:absolute; left:60px; top:1172px; font-family:"JetBrains Mono"; font-weight:700; font-size:30px; text-transform:uppercase;
   background:var(--ouro); color:var(--fundo2); padding:5px 12px; }
-.selo { position:absolute; right:150px; top:392px; font-family:"IBM Plex Mono"; font-weight:700; font-size:28px; color:var(--ouro);
+.selo { position:absolute; right:150px; top:392px; font-family:"JetBrains Mono"; font-weight:700; font-size:28px; color:var(--ouro);
   border:3px solid var(--ouro); background:var(--fundo2); padding:8px 14px; text-transform:uppercase; }
 .legendas { position:absolute; left:60px; width:890px; top:1240px; height:0; }
-.leg { position:absolute; left:0; width:890px; top:0; font-size:104px; line-height:.95; text-transform:uppercase; }
+.leg { position:absolute; left:0; width:890px; top:0; font-family:"Archivo"; font-weight:800; font-size:84px; line-height:1.02; text-transform:uppercase; letter-spacing:-.01em; }
 .leg span { display:inline-block; margin-right:18px; color:var(--creme); }
 .leg span.chave { color:var(--ouro); }

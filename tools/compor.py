@@ -45,6 +45,11 @@ def campeao(asset):
     return asset.split("/", 1)[1] if asset.startswith("ddragon:champion/") else None
 
 
+def direcao_de(antes, depois):
+    num = lambda x: float(re.sub(r"[^\d.,]", "", x).replace(",", ".") or 0)  # noqa: E731
+    return "buff" if num(depois) >= num(antes) else "nerf"
+
+
 def grupos_legenda(palavras):
     """2 a 3 palavras por vez, quebrando em pontuação."""
     grupos, atual = [], []
@@ -81,8 +86,15 @@ def cena_tiras(sid, c, campeoes, t0, d, variacao, tl):
         tl.append(f'tl.fromTo("#{sid}-man",{{x:-14}},{{x:0,duration:.12,ease:"steps(3)"}},{t0:.3f});')
     else:
         tl.append(f'tl.fromTo("#{sid}-man",{{clipPath:"inset(0 18% 0 0)"}},{{clipPath:"inset(0 0% 0 0)",duration:.45,ease:"steps(6)"}},{t0:.3f});')
-    for i in range(len(campeoes)):
-        tl.append(f'tl.fromTo("#{sid}-t{i}",{{yPercent:{-10 + 4 * (i % 2)},scale:1.25}},{{yPercent:{2 - 4 * (i % 2)},scale:1.12,duration:{d:.2f},ease:"none"}},{t0:.3f});')
+    k, tt = 0, 0.0
+    while tt < d - 0.2:
+        fim = min(d, tt + 1.8)
+        for i in range(len(campeoes)):
+            esc = 1.15 + 0.35 * ((i + k) % 2)
+            tl.append(f'tl.fromTo("#{sid}-t{i}",{{yPercent:{-8 + 6 * ((i + k) % 3)},scale:{esc}}},'
+                      f'{{yPercent:{-4 + 6 * ((i + k) % 3)},scale:{esc * 1.05:.3f},duration:{fim - tt:.2f},ease:"none"'
+                      f'{",immediateRender:false" if k else ""}}},{t0 + tt:.3f});')
+        k, tt = k + 1, fim
     return partes
 
 
@@ -92,7 +104,7 @@ def trilha(seed, dur, destino):
     faixas = sorted([*pasta.glob("*.mp3"), *pasta.glob("*.wav")]) if pasta.exists() else []
     if faixas:
         f = faixas[sum(map(ord, seed)) % len(faixas)]
-        filtro = f"afade=t=in:d=1,afade=t=out:st={max(0, dur - 1.5):.2f}:d=1.5"
+        filtro = "afade=t=in:d=0.3"  # sem fade no fim: o loop do Short fecha
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-stream_loop", "-1", "-i", str(f), "-t", f"{dur:.2f}", "-af", filtro,
                         "-ar", "44100", "-ac", "2", str(destino)], check=True)
         return
@@ -101,8 +113,8 @@ def trilha(seed, dur, destino):
     soma = "+".join(f"{0.16 if i < 2 else 0.1}*sin(2*PI*{f}*t)*(0.75+0.25*sin(2*PI*{0.07 + 0.03 * i}*t))"
                     for i, f in enumerate(notas))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"aevalsrc={soma}:s=44100:d={dur:.2f}",
-                    "-af", f"lowpass=f=1400,aecho=0.8:0.7:120|240:0.25|0.15,afade=t=in:d=1.2,"
-                           f"afade=t=out:st={max(0, dur - 1.5):.2f}:d=1.5,volume=0.8", "-ac", "2", str(destino)], check=True)
+                    "-af", "lowpass=f=1400,aecho=0.8:0.7:120|240:0.25|0.15,afade=t=in:d=0.3,volume=2.5",
+                    "-ac", "2", str(destino)], check=True)
 
 
 def montar(roteiro, pasta_audio, destino, legendas=None):
@@ -111,6 +123,7 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
         shutil.rmtree(destino)
     (destino / "assets").mkdir(parents=True)
     shutil.copy(COMP / "vendor" / "gsap.min.js", destino / "assets" / "gsap.min.js")
+    shutil.copytree(COMP / "fonts", destino / "assets" / "fonts")
     css = (COMP / "wardado.css").read_text() + (COMP / f"{roteiro['formato']}.css").read_text()
     var = int(roteiro["variacao"])
 
@@ -143,13 +156,25 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
             partes += cena_tiras(sid, c, campeoes, t0, d, var, tl)
         else:
             partes.append(f'<div class="foto"><img id="{sid}-img" src="assets/{ch}.jpg" alt=""></div>')
-            tl.append(f'tl.fromTo("#{sid}-img",{{scale:1.2,xPercent:-3}},{{scale:1.05,xPercent:3,duration:{d:.2f},ease:"none"}},{t0:.3f});')
+            planos = [(1.08, 0, 0), (1.55, -12, -6), (1.3, 10, 4), (1.85, 6, -10)]  # aberto, close, médio, detalhe
+            k, tt = 0, 0.0
+            while tt < d - 0.2:
+                esc, xp, yp = planos[(k + n) % len(planos)]
+                fim = min(d, tt + 1.8)
+                tl.append(f'tl.fromTo("#{sid}-img",{{scale:{esc},xPercent:{xp},yPercent:{yp}}},'
+                          f'{{scale:{esc * 1.06:.3f},xPercent:{xp + 3},yPercent:{yp},duration:{fim - tt:.2f},ease:"none"'
+                          f'{",immediateRender:false" if k else ""}}},{t0 + tt:.3f});')
+                k, tt = k + 1, fim
             partes.append(f'<h1 id="{sid}-man" class="manchete">{e(c["texto_tela"])}</h1>')
             tl.append(f'tl.fromTo("#{sid}-man",{{xPercent:-6,opacity:0}},{{xPercent:0,opacity:1,duration:.25,ease:"expo.out"}},{t0:.3f});')
             if c.get("antes") and c.get("depois"):
+                direcao = c.get("direcao") or direcao_de(c["antes"], c["depois"])
+                marca_dir = '<span class="dir buff">▲ BUFF</span>' if direcao == "buff" else '<span class="dir nerf">▼ NERF</span>'
                 partes.append(f'<div class="numeros"><span class="antes" id="{sid}-antes">{e(c["antes"])}'
                               f'<i class="risco" id="{sid}-risco"></i></span><span class="seta" id="{sid}-seta">→</span>'
-                              f'<span class="depois" id="{sid}-dep">{e(c["depois"])}</span></div>')
+                              f'<span class="depois" id="{sid}-dep">{e(c["depois"])}</span>'
+                              f'<span id="{sid}-dir">{marca_dir}</span></div>')
+                tl.append(f'tl.fromTo("#{sid}-dir",{{opacity:0,y:20}},{{opacity:1,y:0,duration:.2}},{t0 + .35:.3f});')
                 # o número novo entra quando é falado (skill: número aparece no momento em que é dito)
                 tb = t0 + 0.6
                 for w in legendas.get(n, []):
@@ -177,7 +202,7 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
                 wid = f"{sid}-g{gi}w{wi}"
                 cls = ' class="chave"' if eh_chave(w["w"], chaves) else ""
                 spans.append(f'<span id="{wid}"{cls}>{e(w["w"])}</span>')
-                tl.append(f'tl.fromTo("#{wid}",{{opacity:.28,y:8}},{{opacity:1,y:0,duration:.08}},{t0 + max(w["s"], gs):.3f});')
+                tl.append(f'tl.fromTo("#{wid}",{{opacity:.5,y:6}},{{opacity:1,y:0,duration:.08}},{t0 + max(w["s"], gs):.3f});')
             legs.append(f'<div id="{sid}-g{gi}" class="leg clip" data-start="{t0 + gs:.3f}" '
                         f'data-duration="{max(0.1, ge - gs):.3f}" data-track-index="4">{"".join(spans)}</div>')
         partes.append(f'<div class="legendas">{"".join(legs)}</div>')
@@ -192,9 +217,7 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
                     str(destino / "assets" / "baque.wav")], check=True)
 
     total = round(t0, 3)
-    trilha(roteiro["id"], total, destino / "assets" / "trilha.wav")
-    audios.append(f'<audio id="trilha" class="clip" src="assets/trilha.wav" data-start="0" data-duration="{total}" '
-                  f'data-track-index="5" data-volume="{os.environ.get("LOL_TRILHA_VOLUME", "0.16")}"></audio>')
+    trilha(roteiro["id"], total, destino / "trilha.wav")  # mixada depois, no masterizar.sh
     doc = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -251,7 +274,13 @@ def compor(roteiro, pasta_audio, saida_mp4, rascunho=False, legendas=None):
         raise RuntimeError("lint com erros: " + json.dumps(erros, ensure_ascii=False)[:1500])
     if rascunho:
         render(projeto, saida_mp4.with_name(saida_mp4.stem + "_rascunho.mp4"), "draft")
-    render(projeto, saida_mp4, "high")
+    cru = saida_mp4.with_name(saida_mp4.stem + "_cru.mp4")
+    render(projeto, cru, "high")
+    r = subprocess.run(["bash", str(RAIZ / "tools" / "masterizar.sh"), str(cru), str(saida_mp4), str(projeto / "trilha.wav")],
+                       capture_output=True, text=True, timeout=900)
+    if r.returncode != 0 or not saida_mp4.exists():
+        raise RuntimeError(f"masterização falhou: {r.stderr[-400:]}")
+    cru.unlink(missing_ok=True)
     return projeto, total
 
 

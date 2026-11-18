@@ -23,17 +23,19 @@ RUBRICA = {
     "ritmo": (5, "Frases curtas, uma ideia por frase, um fato novo por cena?"),
     "loop": (5, "A última cena responde ao gancho e emenda de volta na primeira?"),
 }
-SISTEMA = ("Você é editor-chefe de um canal de Shorts de League of Legends em português. Avalie o roteiro com rigor; "
-           "nota alta é rara. Para cada critério dê uma nota de 0 até o peso indicado e uma frase de justificativa. "
+SISTEMA = ("Você é editor-chefe de um canal de Shorts de League of Legends em português. Avalie o roteiro com rigor. "
+           "Calibração da soma: 80 ou mais = você publicaria hoje sem mudança relevante; 60 a 79 = bom, mas com falhas que "
+           "um editor corrigiria; abaixo de 60 = fraco. Para cada critério dê uma nota de 0 até o peso indicado e uma frase de justificativa. "
            "Responda só JSON: {\"criterios\": {\"<nome>\": {\"nota\": n, \"motivo\": \"...\"}}, \"melhorias\": [\"...\"]}")
 
 
-def avaliar(roteiro, textos_fonte, juiz=None):
-    problemas = verificar(roteiro, textos_fonte)
+def avaliar(roteiro, textos_fonte, juiz=None, historico=()):
+    from lint_editorial import lint
+    problemas = lint(roteiro, textos_fonte, historico) + verificar(roteiro, textos_fonte)
     if problemas:
         return {"nota": 0, "aprovado": False, "problemas": problemas, "criterios": {}, "melhorias": problemas}
     if juiz is None:
-        from gemini import gerar_json
+        from llm import gerar_json
         juiz = gerar_json
     rub = "\n".join(f"- {k} (peso {p}): {q}" for k, (p, q) in RUBRICA.items())
     fontes = "\n\n".join(f"[{k}]\n{v[:12000]}" for k, v in textos_fonte.items())

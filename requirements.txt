@@ -3,3 +3,4 @@ jsonschema>=4.23
 kokoro-onnx>=0.4
 soundfile>=0.12
 pytest>=8
+pillow>=10

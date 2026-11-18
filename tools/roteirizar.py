@@ -8,21 +8,24 @@ sys.path.insert(0, str(Path(__file__).parent))
 from comum import RAIZ, SCHEMA  # noqa: E402
 from critico import NOTA_MINIMA, avaliar  # noqa: E402
 
-RODADAS = int(os.environ.get("LOL_RODADAS", "3"))
+RODADAS = int(os.environ.get("LOL_RODADAS", "4"))
 SKILL = RAIZ / ".claude" / "skills" / "roteiro-short-lol" / "SKILL.md"
 
 
 def sistema():
     s = SKILL.read_text().split("---", 2)[-1]
-    return (s + "\n\nSCHEMA (siga exatamente; inclua 'angulo'; 'duracao' sempre null; 'asset' é "
-            "'ddragon:champion/<ChaveDataDragon>' ou 'nenhum'; nas cenas de mudança de patch preencha 'antes' e 'depois' "
+    return (s + "\n\nFOCO: um Short de 25 a 45 s defende UMA ideia. Prefira 1 ou 2 campeões com a consequência prática "
+            "de cada mudança para quem joga a uma lista de 4 campeões só com números. Conte as palavras antes de devolver."
+            "\n\nSCHEMA (siga exatamente; inclua 'angulo'; 'duracao' sempre null; 'asset' é "
+            "'ddragon:champion/<ChaveDataDragon>' ou 'nenhum'; preencha 'gancho_tipo' (numero, contradicao, pergunta, "
+            "consequencia ou detalhe) com a estrutura usada na cena 1; nas cenas de mudança de patch preencha 'antes' e 'depois' "
             "com o número curto e 'rotulo' com o que ele mede; a cena 1 e a última usam asset 'nenhum'):\n"
             + SCHEMA.read_text())
 
 
 def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
     if gerar is None:
-        from gemini import gerar_json as gerar
+        from llm import gerar_json as gerar
     entrada = {"pauta": {k: pauta[k] for k in ("id", "tipo", "formato", "variacao")},
                "campeoes_evitar": pauta.get("campeoes_evitar", []),
                "fontes": [{"id": "f1", "url": fonte["url"], "coletado_em": fonte["coletado_em"], "texto_bruto": fonte["texto_bruto"][:30000]}],
@@ -32,7 +35,8 @@ def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
         msg += f"\n\nO vídeo anterior desta pauta foi reprovado. Corrija: {json.dumps(feedback, ensure_ascii=False)}"
     elif feedback:
         msg += ("\n\nA versão anterior foi REPROVADA pelo editor. Reescreva corrigindo cada ponto.\n"
-                f"VERSÃO ANTERIOR: {json.dumps(anterior, ensure_ascii=False)}\nPROBLEMAS: {json.dumps(feedback, ensure_ascii=False)}")
+                f"VERSÃO ANTERIOR ({sum(len(c['narracao'].split()) for c in anterior.get('cenas', []))} palavras; "
+                f"o limite é 60 a 110): {json.dumps(anterior, ensure_ascii=False)}\nPROBLEMAS: {json.dumps(feedback, ensure_ascii=False)}")
     return gerar(sistema(), msg, temperatura=0.9)
 
 
@@ -50,7 +54,7 @@ def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
         for c in rot.get("cenas", []):
             c["duracao"] = None
         try:
-            av = avaliar(rot, {"f1": fonte["texto_bruto"]}, juiz)
+            av = avaliar(rot, {"f1": fonte["texto_bruto"]}, juiz, historico)
         except Exception as e:
             av = {"nota": 0, "aprovado": False, "problemas": [f"crítico falhou: {e}"], "melhorias": []}
         rodadas.append({"rodada": i + 1, "nota": av["nota"], "problemas": av["problemas"], "melhorias": av.get("melhorias", [])})
