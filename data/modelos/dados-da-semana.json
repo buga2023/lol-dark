@@ -1,0 +1,51 @@
+{
+ "_modelo": true,
+ "serie": "dados-da-semana",
+ "formato": "top5",
+ "onde_buscar": "fonte de dados com permissão (hoje não há: exige chave da Riot)",
+ "gancho_recomendado": "número na cara",
+ "armadilha": "sem fonte de dados autorizada esta série fica PARADA: devolva sem_pauta",
+ "angulo": "[uma frase: o que isso muda para quem joga, ou por que surpreende]",
+ "cenas": [
+  {
+   "n": 1,
+   "papel": "o dado surpreendente",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 2,
+   "papel": "o ranking (3 itens)",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 3,
+   "papel": "o porquê provável, marcado como hipótese",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 4,
+   "papel": "o que testar",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 5,
+   "papel": "fecho",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  }
+ ]
+}

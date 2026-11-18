@@ -1,0 +1,51 @@
+{
+ "_modelo": true,
+ "serie": "fala-escondida",
+ "formato": "voce-sabia",
+ "onde_buscar": "wiki oficial (página de áudio do campeão), Universo",
+ "gancho_recomendado": "detalhe escondido",
+ "armadilha": "inventar a fala ou traduzir livremente: use a grafia da fonte e diga o idioma",
+ "angulo": "[uma frase: o que isso muda para quem joga, ou por que surpreende]",
+ "cenas": [
+  {
+   "n": 1,
+   "papel": "a situação exata em que a fala toca",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 2,
+   "papel": "a fala (texto literal da fonte)",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 3,
+   "papel": "por que ela existe (relação no lore)",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 4,
+   "papel": "como ouvir na sua partida",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 5,
+   "papel": "fecho",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  }
+ ]
+}

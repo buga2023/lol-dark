@@ -100,6 +100,14 @@ def coletar(arq=None, get=requests.get):
         novos += coletar_lore(conhecidos, get)
     except Exception as e:
         falhas.append(f"lore: {e.__class__.__name__}")
+    try:  # agenda e resultados do competitivo (Leaguepedia, API pública sem chave)
+        import esports
+        for it in esports.itens():
+            if it["hash"] not in conhecidos:
+                novos.append(it)
+                conhecidos.add(it["hash"])
+    except Exception as e:
+        falhas.append(f"esports: {e.__class__.__name__}")
     anexar_jsonl(arq, novos)
     if len(falhas) == len(FONTES):
         alertar("coleta voltou vazia: todas as fontes falharam (" + "; ".join(falhas) + ")")

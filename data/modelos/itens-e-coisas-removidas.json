@@ -1,0 +1,51 @@
+{
+ "_modelo": true,
+ "serie": "itens-e-coisas-removidas",
+ "formato": "voce-sabia",
+ "onde_buscar": "notas de patch da remoção, blog de dev, wiki oficial (histórico)",
+ "gancho_recomendado": "contradição (era amado e saiu)",
+ "armadilha": "dizer 'a Riot tirou porque era forte' sem a frase da Riot",
+ "angulo": "[uma frase: o que isso muda para quem joga, ou por que surpreende]",
+ "cenas": [
+  {
+   "n": 1,
+   "papel": "o que era",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 2,
+   "papel": "o que fazia (número)",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 3,
+   "papel": "por que a Riot tirou (motivo declarado)",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 4,
+   "papel": "o que herdou o efeito",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 5,
+   "papel": "fecho",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  }
+ ]
+}

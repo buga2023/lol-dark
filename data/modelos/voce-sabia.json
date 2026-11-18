@@ -1,0 +1,51 @@
+{
+ "_modelo": true,
+ "serie": "voce-sabia",
+ "formato": "voce-sabia",
+ "onde_buscar": "Universo de LoL, blog de dev da Riot, wiki oficial",
+ "gancho_recomendado": "pergunta com aposta ou detalhe escondido",
+ "armadilha": "contar de memória; lista de 5 curiosidades soltas em vez de uma história",
+ "angulo": "[uma frase: o que isso muda para quem joga, ou por que surpreende]",
+ "cenas": [
+  {
+   "n": 1,
+   "papel": "gancho com metade da resposta",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 2,
+   "papel": "o fato com data ou nome",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 3,
+   "papel": "o porquê",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 4,
+   "papel": "o que sobrou disso no jogo hoje",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 5,
+   "papel": "fecho que devolve a pergunta",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  }
+ ]
+}

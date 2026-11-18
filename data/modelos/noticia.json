@@ -1,0 +1,51 @@
+{
+ "_modelo": true,
+ "serie": "noticia",
+ "formato": "noticia",
+ "onde_buscar": "site oficial (leagueoflegends.com/pt-br/news), vídeo de dev da Riot",
+ "gancho_recomendado": "consequência primeiro",
+ "armadilha": "especular data ou kit; notícia com mais de 48 h vira 'você sabia'",
+ "angulo": "[uma frase: o que isso muda para quem joga, ou por que surpreende]",
+ "cenas": [
+  {
+   "n": 1,
+   "papel": "o que muda e para quem",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 2,
+   "papel": "o fato com data",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 3,
+   "papel": "o detalhe que passou batido",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 4,
+   "papel": "o que ainda não se sabe",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "[ddragon:champion/<Chave> se citado na fonte; senão ilustracao:champion/<Chave>]",
+   "fonte_id": "f1"
+  },
+  {
+   "n": 5,
+   "papel": "fecho",
+   "narracao": "[1 ou 2 frases de até 14 palavras, com o fato da fonte]",
+   "texto_tela": "[até 6 palavras: o número ou o nome]",
+   "asset": "nenhum",
+   "fonte_id": "f1"
+  }
+ ]
+}

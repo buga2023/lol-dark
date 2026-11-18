@@ -53,6 +53,8 @@ class Resp:
 
 
 def falso_get(url, **kw):
+    if "ddragon" in url:
+        raise ConnectionError("fora do ar")
     if url.endswith("/tags/patch-notes/"):
         return Resp((FIX / "html" / "indice_patch.html").read_text())
     if "patch" in url:

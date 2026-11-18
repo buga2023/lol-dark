@@ -39,6 +39,8 @@ def gerar(roteiro, fontes, tema=None):
     titulo = titulo_curto(roteiro["titulo"])
     fato = (roteiro.get("angulo") or "").strip()
     linhas_fontes = "\n".join(f"- {f['url']}" for f in fontes)
+    if any("lol.fandom.com" in f["url"] for f in fontes):
+        linhas_fontes += "\nDados do competitivo: Leaguepedia (lol.fandom.com), CC BY-SA 3.0"
     gancho = roteiro["cenas"][0]["narracao"].strip()
     pergunta = "E você, concorda?" if roteiro.get("tipo") == "noticia" else "Você sabia dessa?"
     return {
