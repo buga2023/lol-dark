@@ -28,7 +28,9 @@ def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
                "fontes": [{"id": "f1", "url": fonte["url"], "coletado_em": fonte["coletado_em"], "texto_bruto": fonte["texto_bruto"][:30000]}],
                "historico": historico}
     msg = json.dumps(entrada, ensure_ascii=False)
-    if feedback:
+    if feedback and anterior is None:
+        msg += f"\n\nO vídeo anterior desta pauta foi reprovado. Corrija: {json.dumps(feedback, ensure_ascii=False)}"
+    elif feedback:
         msg += ("\n\nA versão anterior foi REPROVADA pelo editor. Reescreva corrigindo cada ponto.\n"
                 f"VERSÃO ANTERIOR: {json.dumps(anterior, ensure_ascii=False)}\nPROBLEMAS: {json.dumps(feedback, ensure_ascii=False)}")
     return gerar(sistema(), msg, temperatura=0.9)
@@ -36,7 +38,8 @@ def escrever(pauta, fonte, historico, gerar=None, feedback=None, anterior=None):
 
 def roteirizar(pauta, fonte, historico, gerar=None, juiz=None, log=print):
     """Devolve (roteiro_aprovado | None, lista de rodadas com nota)."""
-    rodadas, feedback, anterior = [], None, None
+    rodadas, anterior = [], None
+    feedback = pauta.get("comentario") or None  # melhorias do juiz de vídeo ou do botão Refazer
     for i in range(RODADAS):
         rot = escrever(pauta, fonte, historico, gerar, feedback, anterior)
         if rot.get("sem_pauta"):

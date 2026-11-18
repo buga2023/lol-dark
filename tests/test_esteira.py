@@ -88,9 +88,8 @@ def test_critico_reprova_abaixo_de_80_e_loop_reescreve():
 
     def juiz(s, u, temperatura=0):
         n = next(notas)
-        return {"criterios": {"gancho": {"nota": n * 0.2}, "angulo": {"nota": n * 0.2}, "aprendizado": {"nota": n * 0.15},
-                              "fidelidade": {"nota": n * 0.15}, "voz": {"nota": n * 0.1}, "ritmo": {"nota": n * 0.1},
-                              "loop": {"nota": n * 0.1}}, "melhorias": ["gancho fraco"]}
+        from critico import RUBRICA
+        return {"criterios": {k: {"nota": n * p / 100} for k, (p, _) in RUBRICA.items()}, "melhorias": ["gancho fraco"]}
 
     chamadas = []
 

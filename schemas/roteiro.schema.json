@@ -162,6 +162,18 @@
         "object",
         "null"
       ]
+    },
+    "voz": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "qualidade": {
+      "type": [
+        "object",
+        "null"
+      ]
     }
   }
 }

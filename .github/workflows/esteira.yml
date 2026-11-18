@@ -1,6 +1,6 @@
 name: esteira
 on:
-  schedule: [{ cron: "0 12 * * *" }]   # 09:00 em Salvador
+  schedule: [{ cron: "0 12,16,22 * * *" }]   # 09h, 13h e 19h em Salvador
   workflow_dispatch:
     inputs:
       modo: { description: "auto ou aprovacao", default: auto }
@@ -21,6 +21,8 @@ jobs:
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       LOL_MODO: ${{ inputs.modo || vars.LOL_MODO || 'auto' }}
       LOL_YT_PRIVACIDADE: ${{ vars.LOL_YT_PRIVACIDADE || 'private' }}
+      VOICEMAKER_API_KEY: ${{ secrets.VOICEMAKER_API_KEY }}
+      LOL_VM_VOZ: ${{ vars.LOL_VM_VOZ }}
       LOL_WORKERS: "2"
     steps:
       - uses: actions/checkout@v4

@@ -49,6 +49,30 @@ def links(indice, fonte):
     return [BASE + u.rstrip("/") + "/" for u in vistos]
 
 
+DD = "https://ddragon.leagueoflegends.com"
+
+
+def coletar_lore(conhecidos, get=requests.get, n=1):
+    """Lore oficial (pt_BR) de campeões ainda não usados: fonte que não acaba para o formato voce-sabia."""
+    versao = get(f"{DD}/api/versions.json", headers=UA, timeout=30).json()[0]
+    campeoes = sorted(get(f"{DD}/cdn/{versao}/data/pt_BR/champion.json", headers=UA, timeout=30).json()["data"])
+    novos = []
+    for ch in sorted(campeoes, key=lambda c: hashlib.sha256(c.encode()).hexdigest()):
+        url = f"{DD}/cdn/{versao.split('.')[0]}/data/pt_BR/champion/{ch}.json"
+        if h(url) in conhecidos:
+            continue
+        d = get(f"{DD}/cdn/{versao}/data/pt_BR/champion/{ch}.json", headers=UA, timeout=30).json()["data"][ch]
+        hab = "\n".join(f"- {sp['name']}: {re.sub('<[^>]+>', '', sp['description'])}" for sp in d["spells"])
+        texto = (f"## {d['name']}, {d['title']}\nChave Data Dragon: {ch}\nFunções: {', '.join(d['tags'])}\n"
+                 f"## História\n{re.sub('<[^>]+>', '', d['lore'])}\n## Passiva: {d['passive']['name']}\n"
+                 f"{re.sub('<[^>]+>', '', d['passive']['description'])}\n## Habilidades\n{hab}")
+        novos.append({"id": h(url), "url": url, "fonte": "lore", "titulo": f"{d['name']}, {d['title']}", "texto_bruto": texto,
+                      "coletado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"), "hash": h(url)})
+        if len(novos) >= n:
+            break
+    return novos
+
+
 def coletar(arq=None, get=requests.get):
     arq = Path(arq or ESTADO / "itens.jsonl")
     conhecidos = {i["hash"] for i in ler_jsonl(arq)}
@@ -72,6 +96,10 @@ def coletar(arq=None, get=requests.get):
                     "coletado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"), "hash": h(u)}
             novos.append(item)
             conhecidos.add(item["hash"])
+    try:
+        novos += coletar_lore(conhecidos, get)
+    except Exception as e:
+        falhas.append(f"lore: {e.__class__.__name__}")
     anexar_jsonl(arq, novos)
     if len(falhas) == len(FONTES):
         alertar("coleta voltou vazia: todas as fontes falharam (" + "; ".join(falhas) + ")")

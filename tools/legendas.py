@@ -89,16 +89,20 @@ def legendar(roteiro, pasta_audio):
         tudo = pasta_audio / "narracao.wav"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lista), str(tudo)], check=True)
         asr = transcrever(tudo, pasta_audio)
+        todas = [norm(w) for c in cenas for w in c["narracao"].split()]
+        ouvidas = [norm(x["text"]) for x in asr]
+        casadas = sum(b.size for b in difflib.SequenceMatcher(None, todas, ouvidas, autojunk=False).get_matching_blocks())
+        inteligibilidade = round(casadas / max(1, len(todas)), 3)
         for c, o in zip(cenas, offs):
             trecho = [x for x in asr if o - 0.15 <= x["start"] < o + c["duracao"] - 0.05]
             trecho = [dict(x, start=max(0, x["start"] - o), end=max(0, x["end"] - o)) for x in trecho]
             out[c["n"]] = alinhar(c["narracao"].split(), trecho)
-        fonte = "whisper"
+        fonte = {"fonte": "whisper", "inteligibilidade": inteligibilidade}
     except Exception as e:  # sem ASR, legenda proporcional
         print(f"transcrição falhou, usando tempo proporcional: {e}")
         for c, w in zip(cenas, wavs):
             out[c["n"]] = proporcional(c["narracao"].split(), duracao(w))
-        fonte = "proporcional"
+        fonte = {"fonte": "proporcional", "inteligibilidade": None}
     return out, fonte
 
 

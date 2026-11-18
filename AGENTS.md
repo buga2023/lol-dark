@@ -1,6 +1,6 @@
 # lol-dark
 
-Esteira que produz um Short de League of Legends por dia (YouTube, Instagram, TikTok) a partir das notas oficiais da Riot.
+Esteira da Wardado Clips: 3 Shorts de League of Legends por dia (YouTube, Instagram, TikTok) a partir das notas oficiais da Riot.
 Contexto e decisões: nota `memory/projects/lol-dark.md` no vault Second-Brain.
 
 - A Lei está em `gemini.md`; leia antes de mudar qualquer script.

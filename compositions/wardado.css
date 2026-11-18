@@ -1,0 +1,45 @@
+/* Wardado Clips — azul-marinho, dourado e creme (identidade do canal). Duas famílias: League Gothic + IBM Plex Mono.
+   Área segura (skill video-short-lol): texto entre y 288 e 1440, x <= 950. */
+:root { --fundo:#0B3A66; --fundo2:#082B4D; --ouro:#D4A84B; --creme:#EFEAE0; --apagado:#5E7FA3; --tinta:#EFEAE0; --sub:rgba(212,168,75,.25); }
+.v1 { --fundo:#0A2540; --fundo2:#061a2e; --ouro:#E3B65A; --creme:#F2EEE6; --apagado:#4F6E92; }
+.v2 { --fundo:#123F6E; --fundo2:#0B2F55; --ouro:#C99A3E; --creme:#EDE7DA; --apagado:#6A8DB3; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1920px; overflow:hidden; background:var(--fundo); }
+#root { position:absolute; inset:0; background:var(--fundo); color:var(--creme); font-family:"League Gothic"; }
+.cena { position:absolute; inset:0; }
+/* escamas (seigaiha) como no banner, bem sutis, e vinheta para o centro */
+.fundo { position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 30%, var(--fundo2) 95%),
+    radial-gradient(circle at 50% 100%, transparent 26px, rgba(255,255,255,.035) 27px 29px, transparent 30px) 0 0/60px 30px,
+    radial-gradient(circle at 0 50%, transparent 26px, rgba(255,255,255,.035) 27px 29px, transparent 30px) 30px 15px/60px 30px,
+    var(--fundo); }
+.marca { position:absolute; left:40px; top:1470px; font-size:520px; line-height:.8; color:transparent;
+  -webkit-text-stroke:3px var(--apagado); opacity:.35; white-space:nowrap; }
+.cab { position:absolute; left:60px; width:890px; top:296px; display:flex; justify-content:space-between; align-items:center;
+  font-family:"IBM Plex Mono"; font-weight:700; font-size:27px; letter-spacing:.1em; text-transform:uppercase;
+  border-bottom:3px solid var(--ouro); padding-bottom:10px; color:var(--creme); }
+.cab .logo { display:flex; align-items:center; gap:12px; color:var(--ouro); }
+.cab .logo svg { width:34px; height:34px; }
+.cab b { color:var(--ouro); }
+.foto { position:absolute; left:60px; top:368px; width:890px; height:450px; overflow:hidden; border:4px solid var(--ouro); background:var(--fundo2); }
+.foto img { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; }
+.tiras { position:absolute; left:60px; top:368px; width:890px; height:560px; display:flex; gap:10px; }
+.tira { flex:1; overflow:hidden; border:4px solid var(--ouro); background:var(--fundo2); position:relative; }
+.tira img { position:absolute; left:-70%; top:0; height:100%; width:auto; }
+.manchete { position:absolute; left:60px; width:890px; top:838px; font-size:150px; line-height:.86; text-transform:uppercase; color:var(--creme); }
+.manchete.grande { top:948px; font-size:146px; }
+.manchete .ouro { color:var(--ouro); }
+.numeros { position:absolute; left:60px; width:890px; top:978px; display:flex; align-items:baseline; gap:26px; }
+.antes { font-size:116px; color:var(--apagado); position:relative; }
+.risco { position:absolute; left:-6px; right:-6px; top:52%; height:9px; background:var(--ouro); transform-origin:left center; }
+.seta { font-family:"IBM Plex Mono"; font-weight:700; font-size:64px; color:var(--creme); }
+.depois { font-size:200px; color:var(--ouro); line-height:.9; }
+.rotulo { position:absolute; left:60px; top:1172px; font-family:"IBM Plex Mono"; font-weight:700; font-size:30px; text-transform:uppercase;
+  background:var(--ouro); color:var(--fundo2); padding:5px 12px; }
+.selo { position:absolute; right:150px; top:392px; font-family:"IBM Plex Mono"; font-weight:700; font-size:28px; color:var(--ouro);
+  border:3px solid var(--ouro); background:var(--fundo2); padding:8px 14px; text-transform:uppercase; }
+.legendas { position:absolute; left:60px; width:890px; top:1240px; height:0; }
+.leg { position:absolute; left:0; width:890px; top:0; font-size:104px; line-height:.95; text-transform:uppercase; }
+.leg span { display:inline-block; margin-right:18px; color:var(--creme); }
+.leg span.chave { color:var(--ouro); }

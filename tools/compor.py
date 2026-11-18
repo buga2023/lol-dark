@@ -22,8 +22,13 @@ from legendas import legendar  # noqa: E402
 COMP = RAIZ / "compositions"
 DDRAGON = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{}_0.jpg"
 ARTE_CACHE = TMP / "assets"
-MAX_PALAVRAS_LEGENDA = 3
+MAX_PALAVRAS_LEGENDA = 2
 e = html.escape
+# olho da marca Wardado (desenhado em SVG, mesma geometria do avatar)
+LOGO = ('<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">'
+        '<path d="M50 6v12M24 14l7 10M76 14l-7 10"/><path d="M8 46Q50 10 92 46Q50 82 8 46Z"/>'
+        '<circle cx="50" cy="46" r="15"/><path d="M50 39l7 7-7 7-7-7z" fill="currentColor" stroke="none"/>'
+        '<path d="M44 68h12L50 98z" fill="currentColor" stroke="none"/></svg>')
 
 
 def baixar_arte(campeao):
@@ -81,13 +86,32 @@ def cena_tiras(sid, c, campeoes, t0, d, variacao, tl):
     return partes
 
 
+def trilha(seed, dur, destino):
+    """Trilha baixa sob a voz. Usa assets/musica/*.mp3|wav (escolha estável por vídeo) ou sintetiza um pad suave."""
+    pasta = RAIZ / "assets" / "musica"
+    faixas = sorted([*pasta.glob("*.mp3"), *pasta.glob("*.wav")]) if pasta.exists() else []
+    if faixas:
+        f = faixas[sum(map(ord, seed)) % len(faixas)]
+        filtro = f"afade=t=in:d=1,afade=t=out:st={max(0, dur - 1.5):.2f}:d=1.5"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-stream_loop", "-1", "-i", str(f), "-t", f"{dur:.2f}", "-af", filtro,
+                        "-ar", "44100", "-ac", "2", str(destino)], check=True)
+        return
+    # pad em lá menor com 9ª: senos lentos com tremolo, filtro passa-baixa e fades
+    notas = [110.0, 164.81, 220.0, 261.63, 329.63, 493.88]
+    soma = "+".join(f"{0.16 if i < 2 else 0.1}*sin(2*PI*{f}*t)*(0.75+0.25*sin(2*PI*{0.07 + 0.03 * i}*t))"
+                    for i, f in enumerate(notas))
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"aevalsrc={soma}:s=44100:d={dur:.2f}",
+                    "-af", f"lowpass=f=1400,aecho=0.8:0.7:120|240:0.25|0.15,afade=t=in:d=1.2,"
+                           f"afade=t=out:st={max(0, dur - 1.5):.2f}:d=1.5,volume=0.8", "-ac", "2", str(destino)], check=True)
+
+
 def montar(roteiro, pasta_audio, destino, legendas=None):
     destino = Path(destino)
     if destino.exists():
         shutil.rmtree(destino)
     (destino / "assets").mkdir(parents=True)
     shutil.copy(COMP / "vendor" / "gsap.min.js", destino / "assets" / "gsap.min.js")
-    css = (COMP / f"{roteiro['formato']}.css").read_text()
+    css = (COMP / "wardado.css").read_text() + (COMP / f"{roteiro['formato']}.css").read_text()
     var = int(roteiro["variacao"])
 
     cenas = roteiro["cenas"]
@@ -100,7 +124,7 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
         legendas, _ = legendar(roteiro, pasta_audio)
 
     rot1 = cenas[0].get("rotulo") or ""
-    cabecalho = f"{rot1} · notas oficiais" if rot1 else "notas oficiais"
+    cabecalho = rot1 or "wardado clips"
     marca = rot1.split()[-1] if rot1 else ""
     corpo, audios, tl = [], [], []
     t0, z = 0.0, 1
@@ -111,7 +135,8 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
         audios.append(f'<audio id="voz{n}" class="clip" src="assets/cena{n}.wav" data-start="{t0:.3f}" '
                       f'data-duration="{d:.3f}" data-track-index="2" data-volume="1"></audio>')
         partes = ['<div class="fundo"></div>', f'<div class="marca" data-layout-ignore>{e(marca)}</div>',
-                  f'<div class="cab"><span>{e(cabecalho)}</span><b>{n:02d}/{len(cenas):02d}</b></div>']
+                  f'<div class="cab"><span class="logo">{LOGO}<span>wardado clips</span></span><span>{e(cabecalho)}</span>'
+                  f'<b>{n:02d}/{len(cenas):02d}</b></div>']
         ch = campeao(c["asset"])
         if not ch:
             # gancho e fecho usam o mesmo quadro de tiras: o loop emenda sem salto
@@ -167,6 +192,9 @@ def montar(roteiro, pasta_audio, destino, legendas=None):
                     str(destino / "assets" / "baque.wav")], check=True)
 
     total = round(t0, 3)
+    trilha(roteiro["id"], total, destino / "assets" / "trilha.wav")
+    audios.append(f'<audio id="trilha" class="clip" src="assets/trilha.wav" data-start="0" data-duration="{total}" '
+                  f'data-track-index="5" data-volume="{os.environ.get("LOL_TRILHA_VOLUME", "0.16")}"></audio>')
     doc = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -215,9 +243,9 @@ def render(projeto, saida, qualidade):
         raise RuntimeError(f"render falhou: {r.stdout[-800:]} {r.stderr[-800:]}")
 
 
-def compor(roteiro, pasta_audio, saida_mp4, rascunho=False):
+def compor(roteiro, pasta_audio, saida_mp4, rascunho=False, legendas=None):
     saida_mp4 = Path(saida_mp4)
-    projeto, total = montar(roteiro, pasta_audio, saida_mp4.parent / "projeto")
+    projeto, total = montar(roteiro, pasta_audio, saida_mp4.parent / "projeto", legendas)
     erros = lint(projeto)
     if erros:
         raise RuntimeError("lint com erros: " + json.dumps(erros, ensure_ascii=False)[:1500])

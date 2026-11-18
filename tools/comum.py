@@ -15,7 +15,10 @@ MAX_PALAVRAS_TELA = 6
 PROIBIDAS = ["você não vai acreditar", "prepare-se", "neste vídeo", "hoje vamos falar", "fala galera",
              "e aí pessoal", "sem mais delongas", "isso muda tudo", "simplesmente insano", "bizarro", "chocante",
              "mergulhar", "desvendar", "universo de", "no mundo de league of legends", "se inscreva",
-             "deixe o like", "comenta aí", "fique até o final"]
+             "deixe o like", "comenta aí", "fique até o final",
+             # cara de texto de IA
+             "vale ressaltar", "é importante notar", "em suma", "sem dúvida", "jornada", "game changer",
+             "nada menos que", "elevar o nível", "não é apenas", "mas sim", "no fim das contas", "épico"]
 
 
 def ler_jsonl(p):

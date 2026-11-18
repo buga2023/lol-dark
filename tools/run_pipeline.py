@@ -93,19 +93,40 @@ def rodar(args):
             return 0
 
         rot = json.loads(arq_rot.read_text())
-        from narrar import narrar
-        total = narrar(rot, pasta / "audio")
-        if not 25 <= total <= 45:
-            raise RuntimeError(f"narração com {total:.1f}s, fora de 25-45 s")
+        # 3. narração com metas: tenta cada provedor de voz até bater ritmo, inteligibilidade e naturalidade
+        from narrar import narrar, provedores
+        from legendas import legendar
+        from qualidade import avaliar_narracao
+        aval_voz, leg = None, None
+        for prov in provedores()[:3]:
+            try:
+                total = narrar(rot, pasta / "audio", prov)
+            except Exception as e:
+                print(f"voz {prov} falhou: {e}")
+                continue
+            if not 25 <= total <= 45:
+                aval_voz = {"aprovado": False, "falhas": [f"{prov}: narração com {total:.1f}s, fora de 25-45 s"]}
+                print(aval_voz["falhas"][0])
+                continue
+            leg, info = legendar(rot, pasta / "audio")
+            aval_voz = avaliar_narracao(rot, pasta / "audio", info.get("inteligibilidade"))
+            aval_voz["provedor"] = prov
+            print(f"voz {prov}: {'APROVADA' if aval_voz['aprovado'] else 'reprovada'} {aval_voz['falhas']}")
+            if aval_voz["aprovado"]:
+                break
+        if not aval_voz or not aval_voz["aprovado"]:
+            raise RuntimeError(f"nenhuma voz bateu as metas: {aval_voz and aval_voz['falhas']}")
+        rot["qualidade"] = {"narracao": aval_voz}
         arq_rot.write_text(json.dumps(rot, ensure_ascii=False, indent=1))
         pauta["estado"] = "narrado"
+        pauta["voz"] = aval_voz["provedor"]
         salvar(pautas)
         if args.ate == "narrar":
             return 0
 
         from compor import compor
         mp4 = pasta / f"{rot['id']}.mp4"
-        compor(rot, pasta / "audio", mp4)
+        compor(rot, pasta / "audio", mp4, legendas=leg)
         pauta["estado"] = "renderizado"
         salvar(pautas)
         if args.ate == "compor":
@@ -120,6 +141,23 @@ def rodar(args):
         pauta["campeoes"] = sorted({c["asset"].split("/")[-1] for c in rot["cenas"] if c["asset"] != "nenhum"})
         salvar(pautas)
         print(f"qa ok: {mp4} ({lq['duracao']}s, {lq['mb']} MB)")
+        # 5. juiz de vídeo: nota >= 80 ou não publica; o roteiro volta com as melhorias na próxima execução
+        from qualidade import avaliar_video
+        av = avaliar_video(mp4)
+        rot["qualidade"]["video"] = av
+        arq_rot.write_text(json.dumps(rot, ensure_ascii=False, indent=1))
+        pauta["nota_video"] = av.get("nota")
+        print(f"juiz de vídeo: {av.get('nota')} {'APROVADO' if av['aprovado'] else 'reprovado'}")
+        if not av["aprovado"]:
+            pauta["comentario"] = av.get("melhorias", [])
+            pauta["estado"] = "pauta"
+            pauta["tentativas"] += 1
+            salvar(pautas)
+            msg = f"vídeo {pauta['id']} reprovado pelo juiz ({av.get('nota')}/100); roteiro volta com as melhorias"
+            print(msg)
+            if not args.dry_run:
+                alertar(msg)
+            return 0
         if args.ate == "qa" or args.dry_run:
             print(f"dry-run concluído em {time.time() - t_ini:.0f}s")
             return 0

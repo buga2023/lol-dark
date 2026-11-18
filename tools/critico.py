@@ -14,12 +14,14 @@ from verificar import verificar  # noqa: E402
 NOTA_MINIMA = 80
 RUBRICA = {
     "gancho": (20, "A cena 1 funciona sozinha, entrega um pedaço do fato (não só promete) e prende em 2 segundos?"),
-    "angulo": (20, "Existe um ângulo próprio (consequência para quem joga ou surpresa) e ele aparece na narração?"),
+    "angulo": (15, "Existe um ângulo próprio (consequência para quem joga ou surpresa) e ele aparece na narração?"),
     "aprendizado": (15, "Um jogador Ouro aprende algo concreto que não sabia?"),
     "fidelidade": (15, "Tudo o que é dito é sustentado pelo texto da fonte, sem exagero nem extrapolação?"),
-    "voz": (10, "Soa como um amigo que joga explicando no Discord, português do Brasil falado, sem cara de texto de IA?"),
-    "ritmo": (10, "Frases curtas, uma ideia por frase, um fato novo por cena, sem enrolação?"),
-    "loop": (10, "A última cena responde ao gancho e emenda de volta na primeira?"),
+    "autenticidade": (15, "Zero cara de 'AI slop': nada de clichê, adjetivo vazio, frase genérica que serviria a qualquer "
+                          "tema ou estrutura de lista previsível. Tem opinião marcada e detalhe que só quem joga notaria?"),
+    "voz": (10, "Soa como uma amiga que joga explicando no Discord, português do Brasil falado e natural?"),
+    "ritmo": (5, "Frases curtas, uma ideia por frase, um fato novo por cena?"),
+    "loop": (5, "A última cena responde ao gancho e emenda de volta na primeira?"),
 }
 SISTEMA = ("Você é editor-chefe de um canal de Shorts de League of Legends em português. Avalie o roteiro com rigor; "
            "nota alta é rara. Para cada critério dê uma nota de 0 até o peso indicado e uma frase de justificativa. "
