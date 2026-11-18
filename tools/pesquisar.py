@@ -40,7 +40,25 @@ def dominio_ok(url):
     return any(host == d or host.endswith("." + d) for d in DOMINIOS)
 
 
-def conferir(fontes, get=requests.get):
+class _R:
+    def __init__(self, text, code):
+        self.text, self.status_code = text, code
+
+    def raise_for_status(self):
+        if self.status_code != 200:
+            raise RuntimeError(f"HTTP {self.status_code}")
+
+
+def baixar(url, headers=None, timeout=30):
+    """Baixa com curl: a wiki oficial devolve 403 ao cliente Python (requests) e 200 ao curl."""
+    import subprocess
+    r = subprocess.run(["curl", "-sL", "--max-time", str(timeout), "-A", "WardadoClips-fontes/1.0", "-w", "\n%{http_code}", url],
+                       capture_output=True, text=True, timeout=timeout + 10)
+    corpo, _, code = r.stdout.rpartition("\n")
+    return _R(corpo, int(code or 0))
+
+
+def conferir(fontes, get=baixar):
     """Baixa cada fonte e mantém só as que contêm de fato algum trecho citado. Devolve [(url, texto)]."""
     ok = []
     for f in fontes:
@@ -60,7 +78,7 @@ def conferir(fontes, get=requests.get):
     return ok
 
 
-def pesquisar(pauta_ev, chamar=None, get=requests.get):
+def pesquisar(pauta_ev, chamar=None, get=baixar):
     if chamar is None:
         from llm import claude
         chamar = lambda s, u: claude(s, u, ferramentas="WebSearch,WebFetch", timeout=1200)  # noqa: E731
